@@ -1,6 +1,7 @@
 import discord
 import config
 import memory_manager
+import facts_manager
 import llm_client
 import logging
 import re
@@ -27,6 +28,27 @@ async def on_ready():
 async def on_message(message: discord.Message):
     if message.author == client.user:
         return
+
+    # Silently observe watched channels
+    if str(message.channel) in config.WATCH_CHANNELS and client.user not in message.mentions:
+        user_text = message.content.strip()
+        if user_text:
+            logger.debug(f"Observing #{message.channel}: {user_text[:80]}")
+            memory_manager.append_exchange(
+                channel_name=str(message.channel),
+                author_name=str(message.author.display_name),
+                user_message=user_text,
+                bot_reply="",
+            )
+            extracted = await llm_client.extract_facts(
+                str(message.author.display_name), user_text, ""
+            )
+            for fact in extracted["user_facts"]:
+                facts_manager.append_user_fact(str(message.author.display_name), fact)
+            for fact in extracted["server_facts"]:
+                facts_manager.append_server_fact(fact)
+        return
+
     if client.user not in message.mentions:
         return
 
@@ -37,12 +59,14 @@ async def on_message(message: discord.Message):
     logger.info(f"Mentioned by {message.author} in #{message.channel}: {user_text[:80]}")
 
     memory_context = memory_manager.load_context()
+    facts_context = facts_manager.load_facts()
 
     async with message.channel.typing():
         reply = await llm_client.generate_reply(
             user_message=user_text,
             memory_context=memory_context,
             channel_name=str(message.channel),
+            facts_context=facts_context,
         )
 
     if len(reply) > 2000:
@@ -57,6 +81,13 @@ async def on_message(message: discord.Message):
             user_message=user_text,
             bot_reply=reply,
         )
+        extracted = await llm_client.extract_facts(
+            str(message.author.display_name), user_text, reply
+        )
+        for fact in extracted["user_facts"]:
+            facts_manager.append_user_fact(str(message.author.display_name), fact)
+        for fact in extracted["server_facts"]:
+            facts_manager.append_server_fact(fact)
         await memory_manager.summarize_if_needed(datetime.date.today())
 
 

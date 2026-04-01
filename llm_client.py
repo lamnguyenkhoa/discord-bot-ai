@@ -1,3 +1,4 @@
+import json
 import logging
 import config
 from openai import AsyncOpenAI
@@ -23,8 +24,10 @@ def load_system_prompt() -> str:
         )
 
 
-async def generate_reply(user_message: str, memory_context: str, channel_name: str) -> str:
+async def generate_reply(user_message: str, memory_context: str, channel_name: str, facts_context: str = "") -> str:
     system_content = load_system_prompt() + "\n\n## Recent Memory\n" + memory_context
+    if facts_context:
+        system_content += "\n\n## Persistent Memory\n" + facts_context
     messages = [
         {"role": "system", "content": system_content},
         {"role": "user", "content": user_message},
@@ -38,6 +41,43 @@ async def generate_reply(user_message: str, memory_context: str, channel_name: s
     except Exception as e:
         logger.error(f"Error generating reply: {e}")
         return FALLBACK_REPLY
+
+
+_EXTRACT_SYSTEM = (
+    "You extract clearly stated facts from a Discord conversation exchange. "
+    "Be conservative: only extract facts explicitly stated, never infer or speculate.\n\n"
+    "Return ONLY valid JSON, no other text:\n"
+    '{"user_facts": ["fact about this user", ...], "server_facts": ["fact about the server", ...]}\n\n'
+    "user_facts: things the user explicitly shared about themselves.\n"
+    "server_facts: general server events, rules, or notable things not specific to one user.\n"
+    'If nothing noteworthy, return {"user_facts": [], "server_facts": []}.'
+)
+
+_EMPTY_FACTS: dict = {"user_facts": [], "server_facts": []}
+
+
+async def extract_facts(user_name: str, user_message: str, bot_reply: str) -> dict:
+    exchange = f"User ({user_name}): {user_message}\nBot: {bot_reply}"
+    try:
+        response = await client.chat.completions.create(
+            model=config.MODEL_NAME,
+            messages=[
+                {"role": "system", "content": _EXTRACT_SYSTEM},
+                {"role": "user", "content": exchange},
+            ],
+        )
+        parsed = json.loads(response.choices[0].message.content)
+        if not isinstance(parsed.get("user_facts"), list):
+            parsed["user_facts"] = []
+        if not isinstance(parsed.get("server_facts"), list):
+            parsed["server_facts"] = []
+        return parsed
+    except json.JSONDecodeError:
+        logger.warning("extract_facts: failed to parse JSON response")
+        return _EMPTY_FACTS
+    except Exception as e:
+        logger.error(f"Error extracting facts: {e}")
+        return _EMPTY_FACTS
 
 
 async def summarize(log_content: str) -> str:

@@ -51,7 +51,9 @@ def append_exchange(
             now = datetime.datetime.now().strftime("%H:%M")
             f.write(f"### [{now}] #{channel_name}\n")
             f.write(f"User ({author_name}): {user_message}\n")
-            f.write(f"Bot: {bot_reply}\n\n")
+            if bot_reply:
+                f.write(f"Bot: {bot_reply}\n")
+            f.write("\n")
     except Exception as e:
         logger.error(f"Error appending exchange to {path}: {e}")
 

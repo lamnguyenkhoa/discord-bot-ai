@@ -17,5 +17,8 @@ MODEL_NAME = os.getenv("MODEL_NAME", "openai/gpt-4o-mini")
 MEMORY_DIR = "memory"
 SUMMARIZE_THRESHOLD = int(os.getenv("SUMMARIZE_THRESHOLD", "50"))
 
+# Channels to silently observe (comma-separated names, e.g. "general,announcements")
+WATCH_CHANNELS = [c.strip() for c in os.getenv("WATCH_CHANNELS", "").split(",") if c.strip()]
+
 # System prompt
 SYSTEM_PROMPT_FILE = "system_prompt.txt"
