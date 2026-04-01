@@ -1,0 +1,86 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1775046191724,
+  "projectRoot": "/home/lam/claude_project/discord-bot-ai",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {},
+  "hotPaths": [
+    {
+      "path": "requirements.txt",
+      "accessCount": 1,
+      "lastAccessed": 1775050439974,
+      "type": "file"
+    },
+    {
+      "path": ".env.example",
+      "accessCount": 1,
+      "lastAccessed": 1775050445945,
+      "type": "file"
+    },
+    {
+      "path": "system_prompt.txt",
+      "accessCount": 1,
+      "lastAccessed": 1775050448223,
+      "type": "file"
+    },
+    {
+      "path": "config.py",
+      "accessCount": 1,
+      "lastAccessed": 1775050450055,
+      "type": "file"
+    },
+    {
+      "path": "llm_client.py",
+      "accessCount": 1,
+      "lastAccessed": 1775050469156,
+      "type": "file"
+    },
+    {
+      "path": "memory_manager.py",
+      "accessCount": 1,
+      "lastAccessed": 1775050480841,
+      "type": "file"
+    },
+    {
+      "path": "bot.py",
+      "accessCount": 1,
+      "lastAccessed": 1775050495326,
+      "type": "file"
+    },
+    {
+      "path": "INSTRUCTIONS.txt",
+      "accessCount": 1,
+      "lastAccessed": 1775051246693,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
