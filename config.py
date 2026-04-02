@@ -25,4 +25,9 @@ SYSTEM_PROMPT_FILE = "system_prompt.txt"
 
 # Kill word - stops the bot process when sent by an allowed user
 KILL_WORD = os.getenv("KILL_WORD", "")
-KILL_WORD_ALLOWED_USER = os.getenv("KILL_WORD_ALLOWED_USER", "")
+KILL_WORD_ALLOWED_USER_ID = os.getenv("KILL_WORD_ALLOWED_USER_ID", "")
+
+# Status messages
+ONLINE_MESSAGE = os.getenv("ONLINE_MESSAGE", "I'm back online!")
+OFFLINE_MESSAGE = os.getenv("OFFLINE_MESSAGE", "Going offline now. Goodbye!")
+STATUS_CHANNEL = os.getenv("STATUS_CHANNEL", "")

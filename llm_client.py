@@ -23,6 +23,8 @@ def load_system_prompt() -> str:
             "Keep responses concise (1-3 paragraphs max)."
         )
 
+# TODO: Add conversation history of a few last message instead of 
+# just today context / summary (for client.chat.completions.create)
 
 async def generate_reply(user_message: str, memory_context: str, channel_name: str, facts_context: str = "") -> str:
     system_content = load_system_prompt() + "\n\n## Recent Memory\n" + memory_context
@@ -47,17 +49,25 @@ _EXTRACT_SYSTEM = (
     "You extract clearly stated facts from a Discord conversation exchange. "
     "Be conservative: only extract facts explicitly stated, never infer or speculate.\n\n"
     "Return ONLY valid JSON, no other text:\n"
-    '{"user_facts": ["fact about this user", ...], "server_facts": ["fact about the server", ...]}\n\n'
+    '{"user_facts": ["fact about this user", ...], "server_facts": ["fact about the server", ...], '
+    '"corrections": [{"user": "username", "old_fact": "exact text of old fact as stored", "new_fact": "corrected version"}, ...]}\n\n'
     "user_facts: things the user explicitly shared about themselves.\n"
     "server_facts: general server events, rules, or notable things not specific to one user.\n"
-    'If nothing noteworthy, return {"user_facts": [], "server_facts": []}.'
+    "corrections: when the user explicitly contradicts or corrects a previously known fact listed in "
+    "Existing Facts. Include the exact old_fact text as it appears there. "
+    "Only flag corrections when the user clearly states the old info is wrong. "
+    "When a fact belongs in corrections, do NOT also include it in user_facts.\n"
+    'If nothing noteworthy, return {"user_facts": [], "server_facts": [], "corrections": []}.'
 )
 
-_EMPTY_FACTS: dict = {"user_facts": [], "server_facts": []}
+def _empty_facts() -> dict:
+    return {"user_facts": [], "server_facts": [], "corrections": []}
 
 
-async def extract_facts(user_name: str, user_message: str, bot_reply: str) -> dict:
+async def extract_facts(user_name: str, user_message: str, bot_reply: str, existing_facts: str = "") -> dict:
     exchange = f"User ({user_name}): {user_message}\nBot: {bot_reply}"
+    if existing_facts:
+        exchange = f"Existing Facts:\n{existing_facts}\n\n{exchange}"
     try:
         response = await client.chat.completions.create(
             model=config.MODEL_NAME,
@@ -71,13 +81,15 @@ async def extract_facts(user_name: str, user_message: str, bot_reply: str) -> di
             parsed["user_facts"] = []
         if not isinstance(parsed.get("server_facts"), list):
             parsed["server_facts"] = []
+        if not isinstance(parsed.get("corrections"), list):
+            parsed["corrections"] = []
         return parsed
     except json.JSONDecodeError:
         logger.warning("extract_facts: failed to parse JSON response")
-        return _EMPTY_FACTS
+        return _empty_facts()
     except Exception as e:
         logger.error(f"Error extracting facts: {e}")
-        return _EMPTY_FACTS
+        return _empty_facts()
 
 
 async def summarize(log_content: str) -> str:

@@ -26,6 +26,8 @@ STOP_WORDS = {
     "a", "an", "the", "and", "or", "but", "in", "on", "at", "to", "for",
     "of", "with", "about", "from", "by", "not", "no", "i", "my", "me",
     "he", "she", "they", "we", "it",
+    "really", "very", "good", "bad", "best", "great", "favorite",
+    "much", "just", "also", "so", "too", "that", "this", "some",
 }
 
 _USER_FACT_RE = re.compile(r"^- \*\*(.+?)\*\*: (.+?)(?:\s+<!-- msg:(\d+) -->)?$")
@@ -124,15 +126,17 @@ def _write_facts(facts: list) -> None:
 
 
 async def upsert_user_fact(user_name: str, new_fact: str, msg_id=None, old_fact=None) -> None:
+    if not new_fact or not new_fact.strip():
+        return
     async with _facts_lock:
         facts = _parse_facts()
         user_facts = [f for f in facts if f["section"] == "user" and f["user"] == user_name]
         replaced = False
 
-        # Correction path: exact substring match on old_fact
+        # Correction path: old_fact must be a substring of stored text
         if old_fact:
             for f in user_facts:
-                if old_fact in f["text"] or f["text"] in old_fact:
+                if old_fact in f["text"]:
                     idx = facts.index(f)
                     logger.info(f"Corrected fact for {user_name}: '{facts[idx]['text']}' -> '{new_fact}'")
                     facts[idx]["text"] = new_fact
@@ -165,6 +169,8 @@ async def upsert_user_fact(user_name: str, new_fact: str, msg_id=None, old_fact=
 
 
 async def upsert_server_fact(new_fact: str, msg_id=None) -> None:
+    if not new_fact or not new_fact.strip():
+        return
     async with _facts_lock:
         facts = _parse_facts()
         server_facts = [f for f in facts if f["section"] == "server"]
