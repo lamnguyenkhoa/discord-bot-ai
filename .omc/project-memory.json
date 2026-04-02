@@ -35,44 +35,44 @@
   "hotPaths": [
     {
       "path": "bot.py",
-      "accessCount": 21,
-      "lastAccessed": 1775058020300,
+      "accessCount": 23,
+      "lastAccessed": 1775094087082,
       "type": "file"
     },
     {
       "path": "llm_client.py",
-      "accessCount": 15,
-      "lastAccessed": 1775058020282,
+      "accessCount": 16,
+      "lastAccessed": 1775092922170,
       "type": "file"
     },
     {
       "path": "system_prompt.txt",
-      "accessCount": 11,
-      "lastAccessed": 1775058025499,
+      "accessCount": 14,
+      "lastAccessed": 1775093025029,
       "type": "file"
     },
     {
       "path": "config.py",
-      "accessCount": 8,
-      "lastAccessed": 1775055353180,
+      "accessCount": 10,
+      "lastAccessed": 1775094080220,
       "type": "file"
     },
     {
       "path": "memory_manager.py",
-      "accessCount": 4,
-      "lastAccessed": 1775055375504,
+      "accessCount": 5,
+      "lastAccessed": 1775092922853,
       "type": "file"
     },
     {
       "path": ".env.example",
-      "accessCount": 4,
-      "lastAccessed": 1775057563563,
+      "accessCount": 5,
+      "lastAccessed": 1775094090476,
       "type": "file"
     },
     {
       "path": "facts_manager.py",
-      "accessCount": 3,
-      "lastAccessed": 1775055051116,
+      "accessCount": 4,
+      "lastAccessed": 1775092917184,
       "type": "file"
     },
     {
@@ -83,8 +83,8 @@
     },
     {
       "path": "INSTRUCTIONS.txt",
-      "accessCount": 2,
-      "lastAccessed": 1775054517397,
+      "accessCount": 3,
+      "lastAccessed": 1775092916949,
       "type": "file"
     },
     {

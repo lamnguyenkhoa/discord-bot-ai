@@ -22,3 +22,6 @@ WATCH_CHANNELS = [c.strip() for c in os.getenv("WATCH_CHANNELS", "").split(",") 
 
 # System prompt
 SYSTEM_PROMPT_FILE = "system_prompt.txt"
+
+# Kill word — if set, saying this word in a mention shuts the bot down
+KILL_WORD = os.getenv("KILL_WORD", "")

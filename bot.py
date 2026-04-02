@@ -56,6 +56,12 @@ async def on_message(message: discord.Message):
     if not user_text:
         user_text = "(empty mention)"
 
+    if config.KILL_WORD and user_text.strip().lower() == config.KILL_WORD.lower():
+        logger.info(f"Kill word received from {message.author} — shutting down.")
+        await message.reply("ciao o7")
+        await client.close()
+        return
+
     logger.info(f"Mentioned by {message.author} in #{message.channel}: {user_text[:80]}")
 
     memory_context = memory_manager.load_context()
