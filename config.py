@@ -22,3 +22,7 @@ WATCH_CHANNELS = [c.strip() for c in os.getenv("WATCH_CHANNELS", "").split(",") 
 
 # System prompt
 SYSTEM_PROMPT_FILE = "system_prompt.txt"
+
+# Kill word - stops the bot process when sent by an allowed user
+KILL_WORD = os.getenv("KILL_WORD", "")
+KILL_WORD_ALLOWED_USER = os.getenv("KILL_WORD_ALLOWED_USER", "")

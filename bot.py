@@ -1,3 +1,6 @@
+import os
+os.environ.pop("SSL_CERT_FILE", None)
+
 import discord
 import config
 import memory_manager
@@ -29,6 +32,15 @@ async def on_message(message: discord.Message):
     if message.author == client.user:
         return
 
+    # Check for kill word - only allowed user can trigger it
+    if config.KILL_WORD and config.KILL_WORD_ALLOWED_USER:
+        user_text = message.content.strip()
+        if user_text == config.KILL_WORD and str(message.author.id) == config.KILL_WORD_ALLOWED_USER:
+            logger.info(f"Kill word '{config.KILL_WORD}' received from allowed user {message.author}. Stopping bot.")
+            await message.reply("Sayonara.")
+            await client.close()
+            exit(0)
+
     # Silently observe watched channels
     if str(message.channel) in config.WATCH_CHANNELS and client.user not in message.mentions:
         user_text = message.content.strip()
@@ -44,9 +56,9 @@ async def on_message(message: discord.Message):
                 str(message.author.display_name), user_text, ""
             )
             for fact in extracted["user_facts"]:
-                facts_manager.append_user_fact(str(message.author.display_name), fact)
+                await facts_manager.upsert_user_fact(str(message.author.display_name), fact)
             for fact in extracted["server_facts"]:
-                facts_manager.append_server_fact(fact)
+                await facts_manager.upsert_server_fact(fact)
         return
 
     if client.user not in message.mentions:
@@ -85,9 +97,9 @@ async def on_message(message: discord.Message):
             str(message.author.display_name), user_text, reply
         )
         for fact in extracted["user_facts"]:
-            facts_manager.append_user_fact(str(message.author.display_name), fact)
+            await facts_manager.upsert_user_fact(str(message.author.display_name), fact)
         for fact in extracted["server_facts"]:
-            facts_manager.append_server_fact(fact)
+            await facts_manager.upsert_server_fact(fact)
         await memory_manager.summarize_if_needed(datetime.date.today())
 
 

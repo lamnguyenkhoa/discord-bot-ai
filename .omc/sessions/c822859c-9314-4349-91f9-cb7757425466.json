@@ -1,0 +1,8 @@
+{
+  "session_id": "c822859c-9314-4349-91f9-cb7757425466",
+  "ended_at": "2026-04-02T03:28:35.939Z",
+  "reason": "prompt_input_exit",
+  "agents_spawned": 8,
+  "agents_completed": 8,
+  "modes_used": []
+}

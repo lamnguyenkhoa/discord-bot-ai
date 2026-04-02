@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import os; print\\(os.environ.get\\('SSL_CERT_FILE', 'NOT SET'\\)\\)\")",
+      "Bash(conda run:*)",
+      "mcp__plugin_oh-my-claudecode_t__state_write"
+    ]
+  }
+}
