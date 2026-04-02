@@ -26,13 +26,19 @@ def load_system_prompt() -> str:
 # TODO: Add conversation history of a few last message instead of 
 # just today context / summary (for client.chat.completions.create)
 
-async def generate_reply(user_message: str, memory_context: str, channel_name: str, facts_context: str = "") -> str:
+async def generate_reply(user_message: str, memory_context: str, channel_name: str, facts_context: str = "", image_urls: list | None = None) -> str:
     system_content = load_system_prompt() + "\n\n## Recent Memory\n" + memory_context
     if facts_context:
         system_content += "\n\n## Persistent Memory\n" + facts_context
+    if image_urls:
+        user_content = [{"type": "text", "text": user_message}]
+        for url in image_urls:
+            user_content.append({"type": "image_url", "image_url": {"url": url}})
+    else:
+        user_content = user_message
     messages = [
         {"role": "system", "content": system_content},
-        {"role": "user", "content": user_message},
+        {"role": "user", "content": user_content},
     ]
     try:
         response = await client.chat.completions.create(

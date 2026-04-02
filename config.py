@@ -14,6 +14,10 @@ OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 MODEL_NAME = os.getenv("MODEL_NAME", "openai/gpt-4o-mini")
 WEB_SEARCH_ENABLED = os.getenv("WEB_SEARCH_ENABLED", "true").lower() == "true"
 
+# Attachments
+ATTACHMENT_MAX_BYTES = int(os.getenv("ATTACHMENT_MAX_BYTES", str(512 * 1024)))  # 512 KB
+ATTACHMENT_MAX_CHARS = int(os.getenv("ATTACHMENT_MAX_CHARS", "8000"))
+
 # Memory
 MEMORY_DIR = "memory"
 SUMMARIZE_THRESHOLD = int(os.getenv("SUMMARIZE_THRESHOLD", "50"))

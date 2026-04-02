@@ -1,6 +1,7 @@
 import os
 os.environ.pop("SSL_CERT_FILE", None)
 
+import aiohttp
 import discord
 import config
 import memory_manager
@@ -50,6 +51,41 @@ async def on_disconnect():
         # Note: We can't send messages when disconnected, so this is logged
         # The message will be sent before disconnecting if using close()
         logger.info(f"Offline message (not sent - bot disconnected): {config.OFFLINE_MESSAGE}")
+
+
+_TEXT_EXTENSIONS = {
+    ".txt", ".md", ".py", ".js", ".ts", ".json", ".yaml", ".yml",
+    ".csv", ".html", ".css", ".xml", ".log", ".sh", ".c", ".cpp",
+    ".h", ".java", ".rb", ".go", ".rs", ".toml", ".ini", ".cfg",
+}
+_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
+
+
+async def process_attachments(attachments):
+    """Returns (extra_text, image_urls) from message attachments."""
+    extra_text = []
+    image_urls = []
+    async with aiohttp.ClientSession() as session:
+        for att in attachments:
+            ext = os.path.splitext(att.filename)[1].lower()
+            if ext in _IMAGE_EXTENSIONS:
+                image_urls.append(att.url)
+            elif ext in _TEXT_EXTENSIONS or (att.content_type and "text" in att.content_type):
+                if att.size > config.ATTACHMENT_MAX_BYTES:
+                    extra_text.append(f"[File: {att.filename} - too large to read ({att.size // 1024} KB)]")
+                else:
+                    try:
+                        async with session.get(att.url) as resp:
+                            content = await resp.text(errors="replace")
+                        if len(content) > config.ATTACHMENT_MAX_CHARS:
+                            content = content[:config.ATTACHMENT_MAX_CHARS] + f"\n... [truncated at {config.ATTACHMENT_MAX_CHARS} chars]"
+                        extra_text.append(f"[File: {att.filename}]\n{content}")
+                    except Exception as e:
+                        logger.warning(f"Failed to fetch attachment {att.filename}: {e}")
+                        extra_text.append(f"[File: {att.filename} - could not read]")
+            else:
+                extra_text.append(f"[File: {att.filename} - unsupported type]")
+    return extra_text, image_urls
 
 
 @client.event
@@ -120,6 +156,10 @@ async def on_message(message: discord.Message):
 
     logger.info(f"Mentioned by {message.author} in #{message.channel}: {user_text[:80]}")
 
+    extra_text, image_urls = await process_attachments(message.attachments)
+    if extra_text:
+        user_text += "\n\n" + "\n\n".join(extra_text)
+
     memory_context = memory_manager.load_context()
     facts_context = facts_manager.load_facts()
 
@@ -129,6 +169,7 @@ async def on_message(message: discord.Message):
             memory_context=memory_context,
             channel_name=str(message.channel),
             facts_context=facts_context,
+            image_urls=image_urls,
         )
 
     if len(reply) > 2000:
