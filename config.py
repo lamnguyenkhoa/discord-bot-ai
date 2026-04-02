@@ -6,9 +6,13 @@ load_dotenv()
 # Discord
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
-# OpenRouter
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+# LLM backend — works with OpenRouter, Ollama, or any OpenAI-compatible API
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://openrouter.ai/api/v1")
+LLM_API_KEY = os.getenv("LLM_API_KEY") or os.getenv("OPENROUTER_API_KEY")
+
+# Backward-compat aliases
+OPENROUTER_API_KEY = LLM_API_KEY
+OPENROUTER_BASE_URL = LLM_BASE_URL
 
 # LLM
 MODEL_NAME = os.getenv("MODEL_NAME", "openai/gpt-4o-mini")

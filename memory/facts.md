@@ -39,7 +39,8 @@
 - **Catatouille**: The goal is to race to 200 points across multiple rounds. <!-- msg:1489269974814949526 -->
 - **rua**: rua was told that bún bò is an safe option and was recommended bún bò as the one dish to choose. <!-- msg:1489272894096932885 -->
 - **rua**: rua says they want to have a slave with cheap price. <!-- msg:1489272894096932885 -->
-- **Tempetus**: Tempetus asked to read the content of an image. <!-- msg:1489284126841372822 -->
+- **Tempetus**: Tempetus asked to look up the USD price. <!-- msg:1489287098363281509 -->
+- **Tempetus**: Tempetus wrote in Vietnamese and used informal slang. <!-- msg:1489287098363281509 -->
 
 ## Server Facts
 - The bot refused to roleplay as Duck or do anything that bypasses limitations. <!-- msg:1489280043892084858 -->

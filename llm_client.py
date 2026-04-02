@@ -8,8 +8,8 @@ logger = logging.getLogger(__name__)
 FALLBACK_REPLY = "Sorry, I'm having trouble thinking right now. Try again in a moment!"
 
 client = AsyncOpenAI(
-    api_key=config.OPENROUTER_API_KEY,
-    base_url=config.OPENROUTER_BASE_URL,
+    api_key=config.LLM_API_KEY or "ollama",
+    base_url=config.LLM_BASE_URL,
 )
 
 
@@ -44,7 +44,7 @@ async def generate_reply(user_message: str, memory_context: str, channel_name: s
         response = await client.chat.completions.create(
             model=config.MODEL_NAME,
             messages=messages,
-            tools=[{"type": "openrouter:web_search"}] if config.WEB_SEARCH_ENABLED else None,
+            tools=[{"type": "openrouter:web_search"}] if config.WEB_SEARCH_ENABLED and "openrouter.ai" in config.LLM_BASE_URL else None,
         )
         return response.choices[0].message.content
     except Exception as e:

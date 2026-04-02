@@ -251,8 +251,9 @@ if __name__ == "__main__":
     if not config.DISCORD_TOKEN:
         logger.error("DISCORD_TOKEN not set in .env")
         exit(1)
-    if not config.OPENROUTER_API_KEY:
-        logger.error("OPENROUTER_API_KEY not set in .env")
+    _is_local = "localhost" in config.LLM_BASE_URL or "127.0.0.1" in config.LLM_BASE_URL
+    if not config.LLM_API_KEY and not _is_local:
+        logger.error("LLM_API_KEY (or OPENROUTER_API_KEY) not set in .env")
         exit(1)
 
     os.makedirs(config.MEMORY_DIR, exist_ok=True)
