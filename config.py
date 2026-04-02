@@ -23,5 +23,11 @@ WATCH_CHANNELS = [c.strip() for c in os.getenv("WATCH_CHANNELS", "").split(",") 
 # System prompt
 SYSTEM_PROMPT_FILE = "system_prompt.txt"
 
-# Kill word — if set, saying this word in a mention shuts the bot down
+# Kill word - stops the bot process when sent by an allowed user
 KILL_WORD = os.getenv("KILL_WORD", "")
+KILL_WORD_ALLOWED_USER_ID = os.getenv("KILL_WORD_ALLOWED_USER_ID", "")
+
+# Status messages
+ONLINE_MESSAGE = os.getenv("ONLINE_MESSAGE", "I'm back online!")
+OFFLINE_MESSAGE = os.getenv("OFFLINE_MESSAGE", "Going offline now. Goodbye!")
+STATUS_CHANNEL = os.getenv("STATUS_CHANNEL", "")

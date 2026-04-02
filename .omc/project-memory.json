@@ -35,68 +35,80 @@
   "hotPaths": [
     {
       "path": "bot.py",
-      "accessCount": 23,
-      "lastAccessed": 1775094087082,
+      "accessCount": 47,
+      "lastAccessed": 1775116408139,
       "type": "file"
     },
     {
       "path": "llm_client.py",
-      "accessCount": 16,
-      "lastAccessed": 1775092922170,
-      "type": "file"
-    },
-    {
-      "path": "system_prompt.txt",
-      "accessCount": 14,
-      "lastAccessed": 1775093025029,
-      "type": "file"
-    },
-    {
-      "path": "config.py",
-      "accessCount": 10,
-      "lastAccessed": 1775094080220,
-      "type": "file"
-    },
-    {
-      "path": "memory_manager.py",
-      "accessCount": 5,
-      "lastAccessed": 1775092922853,
-      "type": "file"
-    },
-    {
-      "path": ".env.example",
-      "accessCount": 5,
-      "lastAccessed": 1775094090476,
+      "accessCount": 33,
+      "lastAccessed": 1775116412342,
       "type": "file"
     },
     {
       "path": "facts_manager.py",
-      "accessCount": 4,
-      "lastAccessed": 1775092917184,
+      "accessCount": 23,
+      "lastAccessed": 1775116412607,
+      "type": "file"
+    },
+    {
+      "path": "config.py",
+      "accessCount": 19,
+      "lastAccessed": 1775116411955,
       "type": "file"
     },
     {
       "path": "",
-      "accessCount": 3,
-      "lastAccessed": 1775057933095,
+      "accessCount": 16,
+      "lastAccessed": 1775112960720,
       "type": "directory"
     },
     {
-      "path": "INSTRUCTIONS.txt",
-      "accessCount": 3,
-      "lastAccessed": 1775092916949,
+      "path": "system_prompt.txt",
+      "accessCount": 15,
+      "lastAccessed": 1775114913891,
+      "type": "file"
+    },
+    {
+      "path": "memory_manager.py",
+      "accessCount": 9,
+      "lastAccessed": 1775115923226,
+      "type": "file"
+    },
+    {
+      "path": ".env.example",
+      "accessCount": 4,
+      "lastAccessed": 1775057563563,
       "type": "file"
     },
     {
       "path": "requirements.txt",
-      "accessCount": 2,
-      "lastAccessed": 1775054517743,
+      "accessCount": 4,
+      "lastAccessed": 1775114514562,
+      "type": "file"
+    },
+    {
+      "path": "memory\\facts.md",
+      "accessCount": 3,
+      "lastAccessed": 1775115923672,
       "type": "file"
     },
     {
       "path": "CLAUDE.md",
+      "accessCount": 3,
+      "lastAccessed": 1775117250747,
+      "type": "file"
+    },
+    {
+      "path": "INSTRUCTIONS.txt",
+      "accessCount": 2,
+      "lastAccessed": 1775054517397,
+      "type": "file"
+    },
+    {
+      "path": "memory\\2026-04-02.md",
       "accessCount": 1,
-      "lastAccessed": 1775054554202,
+      "lastAccessed": 1775115924270,
       "type": "file"
     }
   ],

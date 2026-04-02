@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import os; print\\(os.environ.get\\('SSL_CERT_FILE', 'NOT SET'\\)\\)\")",
+      "Bash(conda run:*)",
+      "mcp__plugin_oh-my-claudecode_t__state_write",
+      "Bash(python -c \"import ast; [ast.parse\\(open\\(f\\).read\\(\\)\\) or print\\(f, 'OK'\\) for f in ['bot.py','llm_client.py','facts_manager.py']]\")",
+      "Bash(python -m py_compile bot.py)",
+      "Bash(python -m py_compile llm_client.py)",
+      "Bash(python -m py_compile facts_manager.py)",
+      "Bash(pip audit:*)",
+      "Bash(pip-audit)",
+      "mcp__plugin_oh-my-claudecode_t__lsp_diagnostics",
+      "mcp__plugin_oh-my-claudecode_t__ast_grep_search"
+    ]
+  }
+}

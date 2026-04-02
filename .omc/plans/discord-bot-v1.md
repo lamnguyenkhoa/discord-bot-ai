@@ -3,7 +3,7 @@
 **Plan ID:** discord-bot-v1
 **Date:** 2026-04-01
 **Source Spec:** `.omc/specs/deep-interview-discord-bot.md`
-**Status:** APPROVED (Critic consensus reached)
+**Status:** COMPLETED
 
 ## Executor Notes (from Critic review)
 
