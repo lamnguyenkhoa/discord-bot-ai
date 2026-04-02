@@ -12,6 +12,7 @@ OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 # LLM
 MODEL_NAME = os.getenv("MODEL_NAME", "openai/gpt-4o-mini")
+WEB_SEARCH_ENABLED = os.getenv("WEB_SEARCH_ENABLED", "true").lower() == "true"
 
 # Memory
 MEMORY_DIR = "memory"

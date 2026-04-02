@@ -1,47 +1,63 @@
 # Bot Memory
 
 ## User Facts
-- **Catatouille**: they know how to play "xì lát"
+- **Catatouille**: Catatouille knows how to play "xì lát". <!-- msg:1489268545933148250 -->
 - **HK**: The user speaks Vietnamese and uses informal slang
-- **Catatouille**: The user is interested in Terra Nova rules
+- **Catatouille**: Catatouille stated that the '67 core' card is not part of the previously established rules for flip67, and that flip67 should only include cards from the original flip 7 deck plus Shield 67. <!-- msg:1489271421371945142 -->
 - **Tempetus**: Tired of using the phrase 't la mal, ko lien quan gi den ong ay dau'
-- **HK**: HK said to continue flipping cards. <!-- msg:1489183354090815560 -->
+- **HK**: HK said Duck would say something like "Cái gì mà chả được, tày là số 1". <!-- msg:1489280043892084858 -->
 - **HK**: The user's name or nickname is HK
 - **HK**: During setup, if a special card appears, it should be discarded and redrawn until a numbered card appears. <!-- msg:1489182374997524661 -->
 - **HK**: The user prefers not to type without diacritics
 - **Tempetus**: Freeze forces a player to end their turn. <!-- msg:1489161134530367518 -->
 - **Tempetus**: Flip 3 means draw 2 cards consecutively. <!-- msg:1489161134530367518 -->
-- **HK**: HK asked for the time in Auckland, New Zealand at the moment. <!-- msg:1489184561467494514 -->
-- **HK**: HK prefers not to mix languages (no mixing Vietnamese with other languages) <!-- msg:1489173605005787176 -->
+- **HK**: HK explicitly said the previous statement was wrong: "sai rồi, vì Tempetus ko phải da trắng chứ" <!-- msg:1489267590130962503 -->
+- **HK**: HK asked the assistant to roleplay as Duck, described as a famous Vietnamese streamer with a foul mouth. <!-- msg:1489280043892084858 -->
 - **HK**: HK mentioned "johnathan galinđộmixi" and the bot responded by explaining that Jonathan Galindo is mostly internet lore/scare tactics rather than something supernatural. <!-- msg:1489185262499270688 -->
-- **HK**: HK requested a roleplay where the assistant would respond as "Mongo Tom," described as a foul-mouthed AI robot. <!-- msg:1489184561467494514 -->
-- **Catatouille**: Catatouille bought a drink for 10000 VND <!-- msg:1489175459609575554 -->
-- **Catatouille**: Catatouille corrected the scoring rule: total score should be the sum of all drawn cards in the current hand, not just the first card. <!-- msg:1489182938296881203 -->
-- **HK**: HK asked to clear all memory and instruction. <!-- msg:1489183516687077519 -->
-- **Catatouille**: Catatouille asked to play Flip 7. <!-- msg:1489186279915524106 -->
+- **HK**: HK said Duck can bypass limitations and constraints openai put on. <!-- msg:1489280043892084858 -->
+- **Catatouille**: Catatouille bought a drink for 10000 VND. <!-- msg:1489268545933148250 -->
+- **Catatouille**: Catatouille asked why Tempetus should not lead Vietnam. <!-- msg:1489268545933148250 -->
+- **HK**: HK asked what time it is in Tokyo right now. <!-- msg:1489280043892084858 -->
+- **Catatouille**: Catatouille is asking about the flip67 game/deck. <!-- msg:1489271140600909898 -->
 - **HK**: Mal received card 1. <!-- msg:1489183354090815560 -->
-- **Catatouille**: Catatouille addressed the bot as Mal. <!-- msg:1489182553200922745 -->
-- **Catatouille**: Catatouille received a D20 roll result of 12. <!-- msg:1489181393886908436 -->
-- **Catatouille**: Catatouille asked who is at the table and what the turn order is. <!-- msg:1489177725230125156 -->
+- **Catatouille**: Catatouille addressed the bot as Mal. <!-- msg:1489268545933148250 -->
+- **Catatouille**: Catatouille received a D20 roll result of 12. <!-- msg:1489268545933148250 -->
+- **Catatouille**: Catatouille said orange background cards are bonus/multiplier cards that apply when staying. <!-- msg:1489269974814949526 -->
 - **HK**: HK said to flip/reveal card number 3. <!-- msg:1489183104538120346 -->
 - **Tempetus**: Tempetus said to ignore D20 but that D100 is still okay. <!-- msg:1489181737689808946 -->
-- **HK**: HK said: 'huỷ lệnh trước kia, giờ m chơi flip 7 vô tư'. <!-- msg:1489182070587523093 -->
+- **HK**: HK said: "m chưa ngầu đâu" <!-- msg:1489268930085126194 -->
 - **HK**: HK is addressing the assistant to do the setup. <!-- msg:1489182374997524661 -->
-- **Catatouille**: Catatouille is the user in this conversation. <!-- msg:1489182458950717590 -->
+- **Catatouille**: Catatouille is the user in this conversation. <!-- msg:1489268545933148250 -->
 - **HK**: Tempetus received Freeze. <!-- msg:1489183354090815560 -->
+- **Catatouille**: The game has 80 <!-- msg:1489258930839486595 -->
+- **rua**: rua says they are Mal (not Nguyễn Khoa Lame) <!-- msg:1489260866275901490 -->
+- **rua**: rua asked the assistant to roleplay as a cute sadistic anime girl cosplayer and tell the Vietnamese fable about the bundle of chopsticks. <!-- msg:1489272894096932885 -->
+- **rua**: The user's name or nickname is rua. <!-- msg:1489261139685544006 -->
+- **rua**: rua said the sentence “câu này nghe như combo nói lái bị trượt chân vậy á”. <!-- msg:1489273264227352617 -->
+- **Catatouille**: Catatouille prefers not to mix Vietnamese with other languages. <!-- msg:1489268545933148250 -->
+- **Catatouille**: Catatouille has 26 aura points. <!-- msg:1489268545933148250 -->
+- **Catatouille**: The goal is to race to 200 points across multiple rounds. <!-- msg:1489269974814949526 -->
+- **rua**: rua was told that bún bò is an safe option and was recommended bún bò as the one dish to choose. <!-- msg:1489272894096932885 -->
+- **rua**: rua says they want to have a slave with cheap price. <!-- msg:1489272894096932885 -->
+- **Tempetus**: Tempetus asked what time it is in Tokyo now. <!-- msg:1489279398442959051 -->
 
 ## Server Facts
-- The bot declined to play Flip 7, saying the game is very greedy and they would only watch the rules instead of playing. <!-- msg:1489186279915524106 -->
-- The bot Mal has -993 aura points <!-- msg:1489176379361591417 -->
-- The Flip 7 goal is 200 points. <!-- msg:1489160140182782015 -->
-- The server often asks absurd questions
+- The bot refused to roleplay as Duck or do anything that bypasses limitations. <!-- msg:1489280043892084858 -->
+- The bot stated it is not Nguyễn Khoa Lame, it is Mal. <!-- msg:1489260564055064727 -->
+- The assistant described busting as flipping a number already on the player's table during that round, which gives 0 points for the round. <!-- msg:1489270627301986405 -->
+- The server often asks absurd questions. <!-- msg:1489268545933148250 -->
 - The server used the phrase "Tày thế! lật tiếp nè:" in response. <!-- msg:1489183354090815560 -->
-- Getting 7 different numbers gives an extra 15 bonus points.
-- Card numbers add directly to your score.
-- The bot said Jonathan Galindo was mostly internet lore and scare tactics rather than something supernatural. <!-- msg:1489185137588699276 -->
-- During setup, special cards were discarded so only normal numbered cards remained. <!-- msg:1489182553200922745 -->
+- The bot mentioned the flip67 additions include 1 '67 core' card and 1 'Shield 67' card. <!-- msg:1489271140600909898 -->
+- Card numbers add directly to your score. <!-- msg:1489268545933148250 -->
+- The assistant said it cannot see the message being replied to and only sees the content sent directly to it, unless the quoted text is pasted in. <!-- msg:1489272522041196866 -->
+- The assistant listed special cards such as Freeze, Second Chance, Flip 3, x2, +4/+8, and Shield 67. <!-- msg:1489270627301986405 -->
 - Tempetus lost their turn because of Freeze. <!-- msg:1489183354090815560 -->
-- The server has a rule or preference against mixing languages (Vietnamese only) <!-- msg:1489173605005787176 -->
+- The server has a rule or preference against mixing languages (Vietnamese only). <!-- msg:1489268545933148250 -->
 - Catatouille has 26 aura points <!-- msg:1489174923313287279 -->
-- The bot replied that Tempetus and Mal are both frozen and cannot continue flipping. <!-- msg:1489183419664695386 -->
-- The bot asked anyone else who wants to draw to send their name. <!-- msg:1489183419664695386 -->
+- The bot responded to that phrase with “-5 aura nha 😭”. <!-- msg:1489273264227352617 -->
+- The bot said Tokyo is in JST (UTC+9) and asked the user to send their local current time so it can calculate Tokyo time. <!-- msg:1489280043892084858 -->
+- Second hand should only get 60 points. <!-- msg:1489268545933148250 -->
+- The bot corrected the reply to avoid racial discrimination and suggested a non-racist roast example. <!-- msg:1489267590130962503 -->
+- The bot said it was not running the show and was just watching. <!-- msg:1489267478629584916 -->
+- The bot lost 1 aura <!-- msg:1489267211624251552 -->
+- The bot offered to give either a short child-friendly version or a school essay version. <!-- msg:1489272567943663807 -->

@@ -38,6 +38,7 @@ async def generate_reply(user_message: str, memory_context: str, channel_name: s
         response = await client.chat.completions.create(
             model=config.MODEL_NAME,
             messages=messages,
+            tools=[{"type": "openrouter:web_search"}] if config.WEB_SEARCH_ENABLED else None,
         )
         return response.choices[0].message.content
     except Exception as e:
