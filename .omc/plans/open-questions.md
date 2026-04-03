@@ -12,3 +12,8 @@
 - [ ] Should the cross-mark reaction handler require the reactor to be the original message author, or allow any user? -- Current plan allows any user to react and trigger deletion. Server admins may want this, but it could also be abused. Decide whether to restrict to the original author only.
 - [ ] What if the bot message being reacted to has no reply reference (e.g., an older message format)? -- The handler logs and exits gracefully, but those facts will be un-removable via reaction. Acceptable for v1 but worth noting.
 - [ ] Should `upsert_user_fact` handle aliases/display name changes? -- If a user changes their Discord display name, old facts under the previous name won't match for dedup. No solution planned for v1.
+
+## Aura System - 2026-04-03
+- [ ] Should aura be tracked in watched channels (silent observation)? — Adds latency to passive mode; recommend skip for v1
+- [ ] Should the LLM see other users' aura (leaderboard context) when replying? — More context vs. prompt token cost; could be v2
+- [ ] Should there be a per-message cap on aura deltas (e.g., max +/-100, max 3 changes per reply)? — Prevents inflation/abuse; recommend adding a simple cap

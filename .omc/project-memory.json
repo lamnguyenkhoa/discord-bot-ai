@@ -1,11 +1,20 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775046191724,
-  "projectRoot": "/home/lam/claude_project/discord-bot-ai",
+  "lastScanned": 1775182873954,
+  "projectRoot": "d:\\discord-bot-ai",
   "techStack": {
-    "languages": [],
+    "languages": [
+      {
+        "name": "Python",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "requirements.txt"
+        ]
+      }
+    ],
     "frameworks": [],
-    "packageManager": null,
+    "packageManager": "pip",
     "runtime": null
   },
   "build": {
@@ -31,30 +40,69 @@
     }
   },
   "customNotes": [],
-  "directoryMap": {},
+  "directoryMap": {
+    "archived": {
+      "path": "archived",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1775182873945,
+      "keyFiles": [
+        "discord_bot_memory_spec.md"
+      ]
+    },
+    "index": {
+      "path": "index",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1775182873948,
+      "keyFiles": [
+        "memory.sqlite"
+      ]
+    },
+    "memory": {
+      "path": "memory",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1775182873948,
+      "keyFiles": []
+    },
+    "__pycache__": {
+      "path": "__pycache__",
+      "purpose": null,
+      "fileCount": 9,
+      "lastAccessed": 1775182873949,
+      "keyFiles": [
+        "bot.cpython-313.pyc",
+        "config.cpython-312.pyc",
+        "facts_manager.cpython-312.pyc",
+        "facts_manager.cpython-313.pyc",
+        "indexer.cpython-312.pyc"
+      ]
+    }
+  },
   "hotPaths": [
     {
       "path": "bot.py",
-      "accessCount": 47,
-      "lastAccessed": 1775116408139,
+      "accessCount": 54,
+      "lastAccessed": 1775185795551,
       "type": "file"
     },
     {
       "path": "llm_client.py",
-      "accessCount": 33,
-      "lastAccessed": 1775116412342,
-      "type": "file"
-    },
-    {
-      "path": "facts_manager.py",
-      "accessCount": 23,
-      "lastAccessed": 1775116412607,
+      "accessCount": 36,
+      "lastAccessed": 1775185795212,
       "type": "file"
     },
     {
       "path": "config.py",
-      "accessCount": 19,
-      "lastAccessed": 1775116411955,
+      "accessCount": 25,
+      "lastAccessed": 1775185795456,
+      "type": "file"
+    },
+    {
+      "path": "facts_manager.py",
+      "accessCount": 25,
+      "lastAccessed": 1775185800750,
       "type": "file"
     },
     {
@@ -65,26 +113,32 @@
     },
     {
       "path": "system_prompt.txt",
-      "accessCount": 15,
-      "lastAccessed": 1775114913891,
+      "accessCount": 16,
+      "lastAccessed": 1775185800340,
       "type": "file"
     },
     {
       "path": "memory_manager.py",
-      "accessCount": 9,
-      "lastAccessed": 1775115923226,
-      "type": "file"
-    },
-    {
-      "path": ".env.example",
-      "accessCount": 4,
-      "lastAccessed": 1775057563563,
+      "accessCount": 10,
+      "lastAccessed": 1775185479377,
       "type": "file"
     },
     {
       "path": "requirements.txt",
-      "accessCount": 4,
-      "lastAccessed": 1775114514562,
+      "accessCount": 8,
+      "lastAccessed": 1775185140043,
+      "type": "file"
+    },
+    {
+      "path": ".env.example",
+      "accessCount": 6,
+      "lastAccessed": 1775185440175,
+      "type": "file"
+    },
+    {
+      "path": "CLAUDE.md",
+      "accessCount": 6,
+      "lastAccessed": 1775185575255,
       "type": "file"
     },
     {
@@ -94,21 +148,33 @@
       "type": "file"
     },
     {
-      "path": "CLAUDE.md",
-      "accessCount": 3,
-      "lastAccessed": 1775117250747,
-      "type": "file"
-    },
-    {
       "path": "INSTRUCTIONS.txt",
       "accessCount": 2,
       "lastAccessed": 1775054517397,
       "type": "file"
     },
     {
+      "path": "search.py",
+      "accessCount": 2,
+      "lastAccessed": 1775185795616,
+      "type": "file"
+    },
+    {
+      "path": "indexer.py",
+      "accessCount": 2,
+      "lastAccessed": 1775185801090,
+      "type": "file"
+    },
+    {
       "path": "memory\\2026-04-02.md",
       "accessCount": 1,
       "lastAccessed": 1775115924270,
+      "type": "file"
+    },
+    {
+      "path": "C:\\Users\\Hi\\.claude\\plans\\reactive-bubbling-rivest.md",
+      "accessCount": 1,
+      "lastAccessed": 1775184396827,
       "type": "file"
     }
   ],

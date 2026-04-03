@@ -21,6 +21,8 @@ WEB_SEARCH_ENABLED = os.getenv("WEB_SEARCH_ENABLED", "true").lower() == "true"
 # Attachments
 ATTACHMENT_MAX_BYTES = int(os.getenv("ATTACHMENT_MAX_BYTES", str(512 * 1024)))  # 512 KB
 ATTACHMENT_MAX_CHARS = int(os.getenv("ATTACHMENT_MAX_CHARS", "8000"))
+PDF_MAX_BYTES = int(os.getenv("PDF_MAX_BYTES", str(5 * 1024 * 1024)))  # 5 MB
+PDF_MAX_PAGES = int(os.getenv("PDF_MAX_PAGES", "20"))
 
 # Memory
 MEMORY_DIR = "memory"

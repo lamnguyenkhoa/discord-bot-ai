@@ -58,6 +58,21 @@ _TEXT_EXTENSIONS = {
     ".h", ".java", ".rb", ".go", ".rs", ".toml", ".ini", ".cfg",
 }
 _IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
+_PDF_EXTENSIONS = {".pdf"}
+
+
+async def _extract_pdf_text(session: aiohttp.ClientSession, att) -> str:
+    import io
+    import pypdf
+    async with session.get(att.url) as resp:
+        pdf_bytes = await resp.read()
+    reader = pypdf.PdfReader(io.BytesIO(pdf_bytes))
+    pages_text = []
+    for page in reader.pages[:config.PDF_MAX_PAGES]:
+        text = page.extract_text() or ""
+        if text.strip():
+            pages_text.append(text)
+    return "\n\n".join(pages_text)
 
 
 async def process_attachments(attachments):
@@ -82,6 +97,21 @@ async def process_attachments(attachments):
                     except Exception as e:
                         logger.warning(f"Failed to fetch attachment {att.filename}: {e}")
                         extra_text.append(f"[File: {att.filename} - could not read]")
+            elif ext in _PDF_EXTENSIONS or (att.content_type and "pdf" in att.content_type):
+                if att.size > config.PDF_MAX_BYTES:
+                    extra_text.append(f"[File: {att.filename} - too large to read ({att.size // (1024 * 1024):.1f} MB)]")
+                else:
+                    try:
+                        content = await _extract_pdf_text(session, att)
+                        if not content.strip():
+                            extra_text.append(f"[File: {att.filename} - PDF contains no extractable text]")
+                        else:
+                            if len(content) > config.ATTACHMENT_MAX_CHARS:
+                                content = content[:config.ATTACHMENT_MAX_CHARS] + f"\n... [truncated at {config.ATTACHMENT_MAX_CHARS} chars]"
+                            extra_text.append(f"[File: {att.filename} (PDF)]\n{content}")
+                    except Exception as e:
+                        logger.warning(f"Failed to extract PDF {att.filename}: {e}")
+                        extra_text.append(f"[File: {att.filename} - could not read PDF]")
             else:
                 extra_text.append(f"[File: {att.filename} - unsupported type]")
     return extra_text, image_urls

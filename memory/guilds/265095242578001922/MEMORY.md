@@ -1,3 +1,3 @@
 # Server Memory
 
-- The server rules include: speak politely, avoid unnecessary toxicity, no spamming or harassment, respect others, no insults or discrimination, do not post inappropriate, scam, or harmful content, and follow moderator instructions. <!-- msg:1489296253761355937 -->
+- The bot described turn order and actions during the Actions phase, including build, terraform, upgrade, power action, and pass. <!-- msg:1489461959652020244 -->
