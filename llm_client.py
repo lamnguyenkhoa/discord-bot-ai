@@ -99,6 +99,30 @@ async def extract_facts(user_name: str, user_message: str, bot_reply: str, exist
         return _empty_facts()
 
 
+_FLUSH_SYSTEM = (
+    "The following is a conversation log. Extract any important facts, preferences, "
+    "or decisions made by the user and write them as concise bullet points. "
+    "Only include things worth remembering long-term. "
+    "Respond ONLY with bullet points. No preamble, no explanation."
+)
+
+
+async def flush_memory(conversation_text: str) -> str:
+    """Silent LLM call: extract long-term facts from conversation as bullet points."""
+    try:
+        response = await client.chat.completions.create(
+            model=config.MODEL_NAME,
+            messages=[
+                {"role": "system", "content": _FLUSH_SYSTEM},
+                {"role": "user", "content": conversation_text},
+            ],
+        )
+        return response.choices[0].message.content or ""
+    except Exception as e:
+        logger.error(f"Error in flush_memory: {e}")
+        return ""
+
+
 async def summarize(log_content: str) -> str:
     messages = [
         {

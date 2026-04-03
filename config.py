@@ -24,7 +24,18 @@ ATTACHMENT_MAX_CHARS = int(os.getenv("ATTACHMENT_MAX_CHARS", "8000"))
 
 # Memory
 MEMORY_DIR = "memory"
+MEMORY_BASE_PATH = os.getenv("MEMORY_BASE_PATH", "./memory")
 SUMMARIZE_THRESHOLD = int(os.getenv("SUMMARIZE_THRESHOLD", "50"))
+MEMORY_FLUSH_THRESHOLD = int(os.getenv("MEMORY_FLUSH_THRESHOLD", "20"))
+MEMORY_SEARCH_TOP_K = int(os.getenv("MEMORY_SEARCH_TOP_K", "5"))
+
+# Search index
+INDEX_PATH = os.getenv("INDEX_PATH", "./index/memory.sqlite")
+
+# Embeddings (optional — falls back to FTS5-only if unavailable)
+EMBEDDING_API_KEY = os.getenv("EMBEDDING_API_KEY") or LLM_API_KEY
+EMBEDDING_BASE_URL = os.getenv("EMBEDDING_BASE_URL", "https://api.openai.com/v1")
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 
 # Channels to silently observe (comma-separated names, e.g. "general,announcements")
 WATCH_CHANNELS = [c.strip() for c in os.getenv("WATCH_CHANNELS", "").split(",") if c.strip()]
