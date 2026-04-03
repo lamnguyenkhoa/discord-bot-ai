@@ -11,7 +11,8 @@
       "Bash(pip audit:*)",
       "Bash(pip-audit)",
       "mcp__plugin_oh-my-claudecode_t__lsp_diagnostics",
-      "mcp__plugin_oh-my-claudecode_t__ast_grep_search"
+      "mcp__plugin_oh-my-claudecode_t__ast_grep_search",
+      "Bash(python -m py_compile bot.py aura_manager.py llm_client.py)"
     ]
   }
 }

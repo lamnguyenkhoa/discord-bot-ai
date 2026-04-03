@@ -83,20 +83,20 @@
   "hotPaths": [
     {
       "path": "bot.py",
-      "accessCount": 54,
-      "lastAccessed": 1775185795551,
+      "accessCount": 66,
+      "lastAccessed": 1775187849622,
       "type": "file"
     },
     {
       "path": "llm_client.py",
-      "accessCount": 36,
-      "lastAccessed": 1775185795212,
+      "accessCount": 39,
+      "lastAccessed": 1775187107081,
       "type": "file"
     },
     {
       "path": "config.py",
-      "accessCount": 25,
-      "lastAccessed": 1775185795456,
+      "accessCount": 26,
+      "lastAccessed": 1775187040982,
       "type": "file"
     },
     {
@@ -106,16 +106,16 @@
       "type": "file"
     },
     {
+      "path": "system_prompt.txt",
+      "accessCount": 18,
+      "lastAccessed": 1775187113117,
+      "type": "file"
+    },
+    {
       "path": "",
       "accessCount": 16,
       "lastAccessed": 1775112960720,
       "type": "directory"
-    },
-    {
-      "path": "system_prompt.txt",
-      "accessCount": 16,
-      "lastAccessed": 1775185800340,
-      "type": "file"
     },
     {
       "path": "memory_manager.py",
@@ -175,6 +175,12 @@
       "path": "C:\\Users\\Hi\\.claude\\plans\\reactive-bubbling-rivest.md",
       "accessCount": 1,
       "lastAccessed": 1775184396827,
+      "type": "file"
+    },
+    {
+      "path": "aura_manager.py",
+      "accessCount": 1,
+      "lastAccessed": 1775187098418,
       "type": "file"
     }
   ],

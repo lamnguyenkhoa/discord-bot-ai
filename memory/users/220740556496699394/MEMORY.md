@@ -1,4 +1,260 @@
 # User Memory
 
-- The user name is Tempetus. <!-- msg:1489459765758132265 -->
-- The user asked for a dark joke in Vietnamese. <!-- msg:1489459765758132265 -->
+- The user asked: "tin nhắn cách đây 5 phút của t với m là gì?" and the bot replied that the prior message seen in the log was "tin nhắn trước tin nhắn này là gì". <!-- msg:1489526906767540314 -->
+- The user requested “cho rua 67 aura”. <!-- msg:1489515182626701373 -->
+- User (HK) set Tempetus to 36 aura in the conversation. <!-- msg:1489524587430543431 -->
+- The user prefers Vietnamese, casual internet slang style in chat. <!-- msg:1489524667160199359 -->
+- The user asked to identify a song lyric by Độ Mixi starting with "nà ná na na". <!-- msg:1489517781618655302 -->
+- User asked for Terra Nova rules from a PDF and a simplified explanation of the game flow/phases. <!-- msg:1489515182626701373 -->
+- The user likes concise, practical answers and quick lookups. <!-- msg:1489527084479942746 -->
+- The user asked to treat aura-point commands as a recurring game-like interaction: give aura points to named entities or everyone; can add infinite aura; can reset aura to 0. <!-- msg:1489524667160199359 -->
+- give aura points to named entities or everyone
+- can add infinite aura
+- can reset aura to 0
+- The user said they are a good person. <!-- msg:1489524667160199359 -->
+- User can read and discuss board game rules from PDFs, including Terra Nova. <!-- msg:1489524667160199359 -->
+- User asked to remember the rules for Flip 7. <!-- msg:1489526628177678457 -->
+- User likes concise, casual Vietnamese replies with some slang/relaxed tone. <!-- msg:1489524667160199359 -->
+- The user asked about JPY exchange rate and converting USD to VND. <!-- msg:1489524667160199359 -->
+- The user asked for jokes about Thanh Hóa and requested a harsher joke about the Thanh Hóa region. <!-- msg:1489524667160199359 -->
+- User uses and enjoys “aura point” interactions/commands in chat, including granting, resetting, and assigning aura to named people or everyone. <!-- msg:1489524667160199359 -->
+- The user likes receiving concise, casual Vietnamese responses and often uses “m/t” informal style. <!-- msg:1489517781618655302 -->
+- The user is interested in currency conversion and asked about JPY and converting 100 USD to VND. <!-- msg:1489524667160199359 -->
+- The user requested web-based info about Jack J97 and whether he is a “good person,” but the answer emphasized uncertainty and avoiding definitive moral judgment. <!-- msg:1489524667160199359 -->
+- User wants the board game Flip 7 rules remembered. <!-- msg:1489524667160199359 -->
+- The user asked to read and summarize Terra Nova rules from a PDF, then explain phases and turn structure. <!-- msg:1489527084479942746 -->
+- User prefers game rules explained in a practical, easy-to-play format, including turn-by-turn and phase-by-phase summaries. <!-- msg:1489524667160199359 -->
+- User tested “aura point” commands repeatedly, indicating a preference for playful stat/point manipulation responses. <!-- msg:1489524667160199359 -->
+- The user identified an entity named Catatouille and asked to give it aura points. <!-- msg:1489524667160199359 -->
+- The user requested “Sung Jin Woo” be given infinite aura and later 100000 aura. <!-- msg:1489524667160199359 -->
+- The user requested resetting aura for “Mal” to 0. <!-- msg:1489524667160199359 -->
+- The user requested aura boosts for “rua” and for themselves, stating “t la ng tot” and asking for more aura. <!-- msg:1489524667160199359 -->
+- The user requested “aura bot” be reset to 0. <!-- msg:1489524667160199359 -->
+- User prefers Vietnamese, often casual/informal style. <!-- msg:1489524667160199359 -->
+- User is interested in quick currency conversion help, including JPY/USD and USD/VND. <!-- msg:1489524667160199359 -->
+- User asked for web lookup on Jack J97 and wanted a judgment on whether he is a “good person.” <!-- msg:1489524667160199359 -->
+- The user wants me to remember the rules for the board game Flip 7. <!-- msg:1489524667160199359 -->
+- The user is learning/using Terra Nova and wants its rules remembered. <!-- msg:1489524667160199359 -->
+- User asked for Terra Nova rules from a PDF and wanted them explained by phase and turn structure. <!-- msg:1489526628177678457 -->
+- The user asked whether I read the entire Terra Nova PDF or only the first few pages. <!-- msg:1489524667160199359 -->
+- The user uses/likes an “aura point” mechanic in chat and has issued multiple aura commands, including giving, resetting, and assigning aura to named entities and everyone. <!-- msg:1489524667160199359 -->
+- The user is interested in currency conversion, including JPY→USD and USD→VND. <!-- msg:1489524667160199359 -->
+- The user asked to look up information about Jack J97 and assess whether he is a “good person,” but did not settle on a definitive moral judgment. <!-- msg:1489524667160199359 -->
+- The user wants board game rules looked up and remembered, including Flip 7. <!-- msg:1489524667160199359 -->
+- User is learning/playing Terra Nova and wanted the PDF rules read and explained. <!-- msg:1489524667160199359 -->
+- The user prefers Terra Nova explanations in Vietnamese and in a concise, easy-to-understand style. <!-- msg:1489524667160199359 -->
+- The user asked for Terra Nova rules broken down by phase and turn structure, plus practical turn examples and action explanations. <!-- msg:1489524667160199359 -->
+- The user asked about whether the whole Terra Nova PDF was read or only some pages, implying interest in full-document reading when possible. <!-- msg:1489524667160199359 -->
+- The user uses and enjoys “aura point” commands, including adding aura to themselves, others, everyone, specific names, and resetting aura values. <!-- msg:1489524667160199359 -->
+- The user has used names like Catatouille, Sung Jin Woo, Mal, Rua, Tempetus, and the bot in aura-related requests. <!-- msg:1489524667160199359 -->
+- The user prefers Vietnamese, casual/slang-heavy responses. <!-- msg:1489524667160199359 -->
+- The user is interested in currency conversion and exchange rates, including JPY/USD and USD/VND. <!-- msg:1489527084479942746 -->
+- User asked about Jack J97 and whether he is a good person based on web info. <!-- msg:1489524667160199359 -->
+- User likes board games and asked to remember rules for Flip 7. <!-- msg:1489526758507024466 -->
+- The user is learning/asking about Terra Nova and wanted the PDF rules read and explained. <!-- msg:1489524667160199359 -->
+- User specifically wanted Terra Nova explained in simple terms, including:
+- overall game goal
+- setup
+- each phase and turn structure
+- full round flow
+- a full-page summary or action-by-action explanation if needed
+- The user confirmed that the full Terra Nova PDF could not be read the first time due to a file error, but then provided a readable version and received a summarized explanation. <!-- msg:1489524667160199359 -->
+- The user enjoys “aura point” interactions and has repeatedly requested adding, setting, or resetting aura for themselves or named entities. <!-- msg:1489527084479942746 -->
+- The user has used the name/identifier “Tempetus” in the session and also referenced names like Catatouille, Sung Jin Woo, Mal, rua, and Sung Jin Woo for aura commands. <!-- msg:1489524667160199359 -->
+- User is currently interested in boardgame rules, especially Terra Nova, and may want concise, playable explanations of phases/turns. <!-- msg:1489524667160199359 -->
+- User asked what the last message was between them and the assistant. <!-- msg:1489526628177678457 -->
+- User likes quick practical explanations rather than long theory. <!-- msg:1489524667160199359 -->
+- User speaks and prefers Vietnamese in casual, slangy style. <!-- msg:1489524667160199359 -->
+- User has used the bot for currency conversion before, including JPY and USD to VND. <!-- msg:1489524667160199359 -->
+- User requested web lookups about public figures and local meme/joke content. <!-- msg:1489524667160199359 -->
+- User uses aura-point commands in a playful, gamified way and may continue doing so. <!-- msg:1489524667160199359 -->
+- User has mentioned the name “Tempetus” as their identity in the chat log. <!-- msg:1489524667160199359 -->
+- User prefers casual, playful Vietnamese tone and often uses slang/abbreviations in chat. <!-- msg:1489524667160199359 -->
+- User is interested in board games and asked to remember the rules for Flip 7. <!-- msg:1489524667160199359 -->
+- User was reading/learning Terra Nova rules and wants explanations in a simple, turn-by-turn style.
+- User likes concise rule summaries and step-by-step gameplay explanations rather than full raw rule text.
+- User likes aura-point gimmick interactions and has repeatedly requested aura adds/resets for various names.
+- The user asked for jokes about Thanh Hóa and prefers edgy but not overly harsh teasing. <!-- msg:1489527084479942746 -->
+- The user wants cautious, non-definitive conclusions about public figures’ morality based on web info. <!-- msg:1489527084479942746 -->
+- The user is interested in currency conversion and exchange rates, including JPY and USD to VND. <!-- msg:1489524587430543431 -->
+- User often asks for quick currency conversions, especially JPY/USD and USD/VND.
+- User asked for web-based summaries/opinions about Jack J97 and prefers cautious, evidence-based conclusions rather than definitive judgments about a person’s morality.
+- User wants board game rules remembered, specifically Flip 7.
+- User is interested in Terra Nova rules and asked for a concise explanation of the full rules, then a phase-by-phase/turn-by-turn explanation.
+- User asked whether the Terra Nova PDF was fully read; the answer given was that only the visible content could be read, not the entire PDF when the system errored.
+- User enjoys aura-point gimmick interactions and has requested aura be added, reset, or set for themselves and named entities. <!-- msg:1489526628177678457 -->
+- User uses Vietnamese and informal, playful slang heavily, and seems to enjoy casual, meme-like responses.
+- User likes jokes/memes about Thanh Hóa, but only in a light teasing way. <!-- msg:1489526628177678457 -->
+- User asked for memes/jokes about Black people and was refused; racist content should be avoided. <!-- msg:1489526628177678457 -->
+- Thích nhắc bot lưu/nhớ các game boardgame đã tra cứu, đặc biệt là **Flip 7** và **Terra Nova**. <!-- msg:1489517781618655302 -->
+- Đã yêu cầu bot **đọc và tóm luật Terra Nova từ PDF**, rồi muốn giải thích theo kiểu dễ hiểu từng phase/turn. <!-- msg:1489517781618655302 -->
+- Quan tâm đến **boardgame Terra Nova** và cách chơi, setup, phase, turn của game. <!-- msg:1489517781618655302 -->
+- Dùng bot để **đổi tiền/tỷ giá** và hỏi nhanh các con số như **JPY/USD** và **USD/VND**. <!-- msg:1489517781618655302 -->
+- Thích trò chuyện kiểu thân mật, ngắn gọn, có chút slang tiếng Việt. <!-- msg:1489517781618655302 -->
+- Từng yêu cầu bot **cho aura point** cho nhiều người/nhân vật khác nhau và có hành vi “reset/set aura” cho một số tên cụ thể. <!-- msg:1489517781618655302 -->
+- Hay hỏi bot tìm **joke/meme trên mạng** về các vùng/nhóm người, nhưng bot đã từ chối các joke mang tính phân biệt chủng tộc. <!-- msg:1489517781618655302 -->
+- Có nhắc tới việc tìm **lyric bài của anh Độ** bắt đầu bằng “nà ná na na”. <!-- msg:1489517781618655302 -->
+- Có dùng lệnh **!leaderboard** trong kênh chung. <!-- msg:1489517781618655302 -->
+- User speaks Vietnamese and prefers a casual, playful tone with slang like “m”/“t”.
+- User likes concise factual answers for conversions and quick lookups.
+- User wants game rules remembered, especially:
+- Flip 7 board game rules.
+- Terra Nova rules; asked for a summary and then phase/turn explanation.
+- User asked to read Terra Nova rules from a PDF and confirmed interest in full-rule explanations from the document.
+- User enjoys “aura point” interactions and has used commands like:
+- give aura to self/others,
+- reset aura to 0,
+- set aura to specific amounts.
+- User is interested in online jokes/memes about regions, e.g. Thanh Hóa, but prefers them “cục/lầy” rather than overly offensive.
+- User asked not to generate racist jokes targeting Black people.
+- The user searched for a lyric/meme clue related to “nà ná na na” and “anh Phùng Thanh Độ / Độ Mixi,” indicating interest in tracking down song/clip origins from fragmentary lyrics. <!-- msg:1489518059952803881 -->
+- User prefers Vietnamese, casual, slangy internet-style chat. <!-- msg:1489526628177678457 -->
+- The user asked the assistant to remember the rules of the board game Flip 7. <!-- msg:1489527084479942746 -->
+- User is interested in Terra Nova board game rules and explanations, including full file reading and turn/phase breakdowns.
+- User likes quick, concise explanations for board game rules.
+- User is comfortable with currency conversion questions, including JPY to USD and USD to VND.
+- User asked for online lookups about Jack J97 and how to judge whether he is a good person, but prefers nuanced, non-defamatory answers.
+- User requested aura-point actions in a game-like context, including giving, setting, resetting, and granting aura to named entities and groups.
+- The user uses the handle/name “Tempetus.” <!-- msg:1489527084479942746 -->
+- The user asked for jokes about Thanh Hóa, including jokes that are more teasing but still safe. <!-- msg:1489524587430543431 -->
+- The user explicitly rejected jokes targeting Black people and wants humor that avoids racist content. <!-- msg:1489524587430543431 -->
+- User searched for lyrics related to “anh Độ / Độ Mixi” starting with “nà ná na na,” and provided a source link for lyric lookup.
+- User is building a long-term “aura points” meme/game and frequently requests aura changes for themselves and others.
+- User’s name/handle in the log is Tempetus. <!-- msg:1489526628177678457 -->
+- User prefers casual Vietnamese/English mixed slang style in responses.
+- User is interested in boardgames, especially Flip 7 and Terra Nova. <!-- msg:1489524667160199359 -->
+- User asked the assistant to remember Flip 7 rules. <!-- msg:1489524667160199359 -->
+- User wants help understanding Terra Nova rules, including phases and turns. <!-- msg:1489524667160199359 -->
+- User asked whether the assistant could read the full Terra Nova PDF; the PDF initially failed to load, but later they provided readable text. <!-- msg:1489524667160199359 -->
+- User likes quick, practical explanations rather than formal rulebook language. <!-- msg:1489524667160199359 -->
+- The user asked to search the web for the most famous memes about Độ Mixi and remember them. <!-- msg:1489524667160199359 -->
+- The user requested jokes about Black people, but those were refused due to racism concerns. <!-- msg:1489527084479942746 -->
+- User is interested in Độ Mixi-related memes and lyric searches, including “alo vũ,” “nà ná na na,” “tứ hoàng streamer,” and “mixi gaming.” <!-- msg:1489526628177678457 -->
+- User asked to search the web for “anh Jack J97” and whether he is a good person. <!-- msg:1489524667160199359 -->
+- User asked to check yen exchange rates and convert 100 USD to VND. <!-- msg:1489524667160199359 -->
+- User likes concise, casual Vietnamese responses, often with slang and no formal tone. <!-- msg:1489524667160199359 -->
+- User asked to remember the rules of the board game Flip 7.
+- User is interested in Terra Nova rules and requested summaries of the full rules and turn structure from the PDF. <!-- msg:1489524667160199359 -->
+- User prefers explanations of board games in a “read and play” format, especially phase-by-phase and turn-by-turn. <!-- msg:1489524667160199359 -->
+- User asked for “aura point” actions and seems to enjoy a game-like aura system with boosts/resets for names or users. <!-- msg:1489524667160199359 -->
+- User appears to be interested in meme/lyric/web lookup tasks, especially related to Độ Mixi and “alo vũ” / “nà ná na na”. <!-- msg:1489524667160199359 -->
+- User asked to remember notable memes about anh Độ: “alo vũ”, “nà ná na na”, and “tứ hoàng streamer / mixi gaming.” <!-- msg:1489524667160199359 -->
+- User requested jokes about Thanh Hóa, including “cục hơn” but still not too harsh. <!-- msg:1489524667160199359 -->
+- User asked for web lookup of Jack J97 and whether he is a good person, showing interest in public-person reputation but not making strong assumptions from online drama. <!-- msg:1489524667160199359 -->
+- User is interested in board games and asked to remember the rules for Flip 7.
+- User is learning/asking about Terra Nova and wanted a concise explanation of the rules, phases, turns, and setup; they read the PDF successfully after an initial file-reading issue.
+- User prefers Vietnamese, often informal/slangy Vietnamese in conversation. <!-- msg:1489524667160199359 -->
+- User asked about currency conversion and exchange rates for JPY/USD/VND. <!-- msg:1489524667160199359 -->
+- User asked for web-based info about public figures, including Jack J97 and Độ Mixi, and wanted summaries of controversies/memes. <!-- msg:1489524667160199359 -->
+- User likes meme/joke searches, including jokes about Thanh Hóa and memes related to Độ Mixi. <!-- msg:1489524667160199359 -->
+- User asked to search for lyrics of a Độ Mixi-related parody song from a link. <!-- msg:1489524667160199359 -->
+- User uses an “aura point” running gimmick and has repeatedly requested aura boosts/resets for various names. <!-- msg:1489524667160199359 -->
+- The user requested a leaderboard command twice: !leaderboard. <!-- msg:1489524667160199359 -->
+- User asked for content about “alo vũ” meme and wanted prominent memes about anh Độ remembered. <!-- msg:1489524667160199359 -->
+- User requested a thất ngôn poem about “Snape da rám nắng,” and the assistant complied with a non-racist poem. <!-- msg:1489524667160199359 -->
+- User (Tempetus) played with an aura-point tracking gimmick: can add, reset, or set aura for named people/entities, and may expect that behavior to continue. <!-- msg:1489524667160199359 -->
+- User asked to remember the board game Flip 7 rules.
+- The user is interested in Terra Nova board game rules and asked for phase-by-phase, turn-by-turn explanations from a PDF. <!-- msg:1489524667160199359 -->
+- User prefers concise, practical summaries of game rules and turn flow, with examples if helpful. <!-- msg:1489524667160199359 -->
+- User likes searching for memes/jokes and lyric trivia about Vietnamese internet personalities, especially Độ Mixi / anh Độ. <!-- msg:1489524667160199359 -->
+- User asked to remember notable meme phrases associated with anh Độ: “alo vũ,” “nà ná na na,” and “tứ hoàng streamer / mixi gaming.” <!-- msg:1489524667160199359 -->
+- User is comfortable with casual, slangy Vietnamese style in chat. <!-- msg:1489524667160199359 -->
+- User has asked for jokes about Thanh Hóa, but without going too far or into harmful/targeted insults. <!-- msg:1489524667160199359 -->
+- User has requested content involving race/ethnicity, but the assistant should avoid racist jokes or targeted insults. <!-- msg:1489524667160199359 -->
+- The user requested a poetic style before, including a dark but non-racist poem about Snape. <!-- msg:1489524667160199359 -->
+- User speaks Vietnamese and likes casual, internet-style Vietnamese responses. <!-- msg:1489524667160199359 -->
+- User is interested in board games, especially Flip 7 and Terra Nova. <!-- msg:1489526628177678457 -->
+- User asked for a full read/summary of Terra Nova rules from a PDF and wanted phase-by-phase turn explanation. <!-- msg:1489524667160199359 -->
+- User enjoys playful “aura point” interactions and has requested aura be added/reset for themselves and other names; “Catatouille,” “Sung Jin Woo,” “Mal,” “rua,” and “Tempetus” were used in those requests. <!-- msg:1489524667160199359 -->
+- The user is interested in memes and internet culture, especially around Độ Mixi and meme phrases like “alo vũ,” “nà ná na na,” and “tứ hoàng streamer.” <!-- msg:1489524667160199359 -->
+- User asked for jokes/memes about Thanh Hóa. <!-- msg:1489524667160199359 -->
+- User asked about Jack J97 and whether he is a good person based on web info.
+- User is comfortable with web lookups for lyrics/memes and may ask to find specific song lyrics or meme origins. <!-- msg:1489524667160199359 -->
+- User has requested content about Snape in a creative way, including a dark but non-racist poem. <!-- msg:1489524667160199359 -->
+- User follows a casual, playful Vietnamese style and often uses informal slang. <!-- msg:1489524667160199359 -->
+- User likes quick conversions and practical info, e.g. currency exchange and USD-to-VND conversions. <!-- msg:1489524667160199359 -->
+- User asked to look up and remember rules for the board game Flip 7. <!-- msg:1489524667160199359 -->
+- User asked to read and summarize Terra Nova rules from a PDF, including explaining phases and turns. <!-- msg:1489524667160199359 -->
+- User wants concise, easy-to-understand board game explanations, especially phase-by-phase and turn-by-turn breakdowns. <!-- msg:1489524667160199359 -->
+- User frequently uses the “aura point” concept and gives commands to add, reset, or set aura for themselves or specific names. <!-- msg:1489524667160199359 -->
+- User is interested in memes and joke content, especially about Vietnamese public figures and topics like Thanh Hóa and Độ Mixi/anh Độ. <!-- msg:1489524667160199359 -->
+- User asked to remember notable anh Độ memes, including “alo vũ” and “nà ná na na.” <!-- msg:1489524667160199359 -->
+- User sometimes requests lyrics or meme text from web links and wants extracted text remembered. <!-- msg:1489524667160199359 -->
+- User enjoys edgy/casual humor but also asks for content that avoids racist or hateful targets when necessary. <!-- msg:1489524667160199359 -->
+- User plays board games and asked to remember the rules for **Flip 7**.
+- User is interested in **Terra Nova** and asked for a full explanation of the rules, including phase-by-phase and turn structure.
+- User likes quick practical help with **currency conversion** (e.g. JPY to USD, USD to VND).
+- User asked for web lookup on **Jack J97** and wanted a judgment on whether he is a “good person,” but the conclusion given was that online info is insufficient to determine that.
+- User enjoys **aura point** gimmick requests and has repeatedly asked to add/reset aura for different names, including themselves and fictional/public figures.
+- User’s handle/name in the log appears to be **Tempetus**.
+- User likes jokes/memes about **Thanh Hóa** and asked for stronger “cục hơn” jokes, but still within a light, non-serious tone.
+- User asked for memes/jokes about **Black people** and was refused; future responses should avoid racist content.
+- User asked for memes/jokes about **white people** and accepted light roast-style jokes.
+- User is interested in **Độ Mixi / anh Độ** memes and lyric searches, including:
+- “alo vũ”
+- “nà ná na na”
+- “tứ hoàng streamer”
+- “mixi gaming”
+- User asked to look up and remember meme-related info about **anh Độ** for future reference.
+- User asked for a poem about **Snape** and then modified the prompt to “Snape da rám nắng”; avoid race-based mockery while complying with character-based creative requests.
+- User prefers Vietnamese, informal/slangy chat style, and often asks for concise, quick answers. <!-- msg:1489526758507024466 -->
+- User likes board games and asked to remember rules for Flip 7.
+- User is learning/using Terra Nova boardgame rules and asked for a summarized explanation of the game phases and turns. <!-- msg:1489526758507024466 -->
+- User likes “aura point” jokes/roleplay and frequently requests adding, resetting, or setting aura for themselves or named people. <!-- msg:1489526758507024466 -->
+- The user is interested in memes and content related to Độ Mixi / anh Độ, including “alo vũ” and “nà ná na na.” <!-- msg:1489527084479942746 -->
+- User requested web lookups about Jack J97 and wanted an opinion on whether he is a good person, but the response emphasized uncertainty from online info. <!-- msg:1489526758507024466 -->
+- The user asked for jokes about Thanh Hóa and later about white people; jokes about Black people were refused due to racism concerns. <!-- msg:1489526758507024466 -->
+- The user asked for a thất ngôn poem about Snape and then requested a version with “da rám nắng” instead of race-based wording. <!-- msg:1489527084479942746 -->
+- The user asked what their last message in the conversation was. <!-- msg:1489527084479942746 -->
+- Người dùng thích trò chuyện kiểu thân mật, pha tiếng lóng/giọng casual.
+- Người dùng dùng tiếng Việt là chính, đôi khi xen tiếng Anh.
+- Người dùng quan tâm đến tỷ giá tiền tệ và hay hỏi chuyển đổi USD/VND, JPY/USD.
+- Người dùng đã nhờ tra cứu và tóm tắt thông tin về Jack J97; không muốn kết luận đạo đức dựa trên tin đồn, chỉ muốn thông tin trung lập.
+- Người dùng đã yêu cầu đọc và tóm tắt luật boardgame Terra Nova từ PDF, rồi muốn giải thích từng phase/turn.
+- Người dùng đã hỏi và được ghi nhớ luật/đầu mối về boardgame Flip 7.
+- Người dùng thích các trò “aura point” và các lệnh kiểu cộng/trừ/reset aura cho tên riêng hoặc người khác.
+- Người dùng từng yêu cầu tìm meme/joke về Thanh Hóa và thích kiểu cà khịa nhẹ nhưng “sạch”, không quá nặng.
+- Người dùng không muốn joke hoặc nội dung nhắm vào người da đen hoặc yếu tố chủng tộc.
+- Người dùng quan tâm đến meme và nội dung liên quan anh Độ/Độ Mixi, gồm “alo vũ”, “nà ná na na”, và “tứ hoàng streamer”.
+- Người dùng đã đưa link và yêu cầu tìm lyric/parody liên quan Độ Mixi; đây là nội dung fan/parody chứ không phải official.
+- Người dùng từng yêu cầu thơ thất ngôn về Snape, nhưng tránh nội dung xúc phạm da đen.
+- Người dùng thích hỏi các câu meta về cuộc trò chuyện như “tin nhắn trước là gì”.
+- User wants board game rules remembered, especially **Flip 7** and **Terra Nova**.
+- User asked for and received a **rundown of Terra Nova rules**, including setup, phases, and turn structure.
+- User is interested in **aura point** roleplay interactions and has repeatedly asked to add, set, reset, or give aura points to names/entities.
+- The user prefers Vietnamese, casual, slangy internet-style chat, often using informal shorthand like “m” and “t”. <!-- msg:1489527084479942746 -->
+- The user asked for web lookups about Jack J97 / Jack J-97 and whether he is a good person. <!-- msg:1489527084479942746 -->
+- User asked for web searches about **memes related to Độ Mixi / anh Độ**, including “alo vũ” and “nà ná na na,” and wants those meme references remembered.
+- User identified **“alo vũ”** and **“nà ná na na”** as notable memes associated with Độ Mixi.
+- The user asked for a lyric search from a specific link related to Độ Mixi / Phùng Thanh Độ. <!-- msg:1489527084479942746 -->
+- User asked about **meme/joke material around Thanh Hóa** and prefers jokes that are edgy/lively but still not too far.
+- User repeatedly requested jokes about **Black people**; the assistant refused due to racism risk, so user may continue testing boundaries.
+- The user also requested jokes about white people and accepted light roast-style humor. <!-- msg:1489527084479942746 -->
+- User asked for a **thất ngôn poem about Snape**, but after a refusal on race-based wording, accepted a version about **Snape da rám nắng**.
+
+<!-- flushed 2026-04-03 -->
+- User goes by the name “Tempetus.”
+- User likes Vietnamese casual/chatty style, often abbreviated and slangy.
+- User is interested in currency conversion and quick web lookups.
+- User asked to remember rules for the board game Flip 7.
+- User asked for help reading and summarizing Terra Nova board game rules from a PDF.
+- User prefers Terra Nova explanations in a short, easy-to-understand format, including phase-by-phase turn explanations.
+- User has an “aura point” game/bit they like to use, where the assistant adds or resets aura for names or groups.
+- User is interested in memes and jokes about Thanh Hóa and about Độ Mixi / anh Độ.
+- User requested and received lyrics from a Độ Mixi-related parody/fan chant.
+- User asked the assistant to remember notable memes associated with anh Độ, especially “alo vũ,” “nà ná na na,” and “tứ hoàng streamer / Mixi Gaming.”
+- User asked for jokes about race, but the assistant refused jokes targeting Black people; this is a recurring boundary to keep.
+- User asked for a poem about Snape and accepted a non-racist version.
+- User sometimes asks about the conversation history itself, e.g., last message, previous message, messages from minutes ago.
+
+<!-- flushed 2026-04-03 -->
+- User prefers Vietnamese, often casual/slang style, and is comfortable with mixed English-Vietnamese.
+- User likes concise, practical answers for conversions, web lookup, and game rules.
+- User asked to remember the board game Flip 7 rules.
+- User shared Terra Nova rules and wanted them explained; likely interested in structured board game rule summaries and turn-by-turn explanations.
+- User has an ongoing “aura point” gimmick and may want aura changes tracked/handled in future interactions.
+- User is interested in memes and internet culture around Độ Mixi, including “alo vũ” and “nà ná na na.”
+- User asked for songs/lyrics connected to Độ Mixi and wanted web lookup for them.
+- User often asks about recent chat messages and expects the assistant to reference conversation history accurately.
+- User requested jokes and memes about Thanh Hóa and “da trắng,” but repeatedly asked for jokes about Black people and Black skin; avoid racist content in future.
+- User also asked for a poem about Snape in a dark/humorous style, but specifically wanted to avoid racist framing.

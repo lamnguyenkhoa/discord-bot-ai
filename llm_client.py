@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 import config
 from openai import AsyncOpenAI
 
@@ -121,6 +122,19 @@ async def flush_memory(conversation_text: str) -> str:
     except Exception as e:
         logger.error(f"Error in flush_memory: {e}")
         return ""
+
+
+_AURA_MARKER = re.compile(r'\[AURA:@(\w+)\s+([+-]?\d+)\]', re.IGNORECASE)
+
+
+def parse_aura_markers(reply: str) -> tuple[str, list[dict]]:
+    """Extract [AURA:@username +/-N] markers. Returns (cleaned_reply, list of {username, delta})."""
+    changes = [
+        {"username": m.group(1), "delta": int(m.group(2))}
+        for m in _AURA_MARKER.finditer(reply)
+    ]
+    cleaned = _AURA_MARKER.sub("", reply).strip()
+    return cleaned, changes
 
 
 async def summarize(log_content: str) -> str:

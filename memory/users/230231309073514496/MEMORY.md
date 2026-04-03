@@ -1,5 +1,350 @@
 # User Memory
 
-- The user is HK. <!-- msg:1489461401247547512 -->
-- The user clarified that "điêu cao bằng tay" was the intended phrase and corrected the earlier wording. <!-- msg:1489462026311831633 -->
-- The user asked if a certain faction exists in Terra Nova. <!-- msg:1489463344187441292 -->
+- The user is HK. <!-- msg:1489517351404699698 -->
+- The user said the previous response was bad: “dở quá.” <!-- msg:1489526541338546319 -->
+- The user asked if a certain faction exists in Terra Nova. <!-- msg:1489526541338546319 -->
+- HK has 1214 aura points. <!-- msg:1489526541338546319 -->
+- The user prefers Vietnamese chat with casual, slangy tone. <!-- msg:1489526541338546319 -->
+- The user wants “aura” to be handled by explicit guideline/rules, not arbitrary +/- changes. <!-- msg:1489526541338546319 -->
+- The user asked what Tempetus messaged the bot 5 minutes ago. <!-- msg:1489527050502017064 -->
+- The user requested a guideline for aura:
+- only change aura for clear actions,
+- do not auto add/subtract for normal chat or spam,
+- include reason, amount, and tracking marker,
+- if unsure, keep unchanged,
+- do not farm aura by repeating the same action. <!-- msg:1489476302171017297 -->
+- The user likes short, playful number-based jokes. <!-- msg:1489526541338546319 -->
+- The user corrected that “tày” means “hay/chất/đã/đáng khen,” not “funny/absurd.” <!-- msg:1489526541338546319 -->
+- The user asked to learn/handle “đảo ngữ” (inversion) in sentences. <!-- msg:1489526541338546319 -->
+- The user identified “điêu cao bằng tay” as the correct intended phrase when talking about Azir. <!-- msg:1489526541338546319 -->
+- The user asked about a faction name and referenced “terra nova” as a game/faction context, but didn’t clarify which version. <!-- msg:1489526541338546319 -->
+- The user indicated the previous joke was wrong and wants the “alo vũ à, vũ…” repeated, goofy meme style. <!-- msg:1489526541338546319 -->
+- User explicitly rejected random aura adjustments and expects aura to only change for clear, meaningful actions.
+- User prefers Vietnamese mixed with casual slang and often uses playful insults/banter.
+- The user wants the assistant to respond with racial-safe jokes and avoid jokes that target black people. <!-- msg:1489526541338546319 -->
+- User corrected the meaning of “tày”: in their usage, it means “hay, chất, đã, đáng khen,” not “dở dở mà buồn cười.” <!-- msg:1489476302171017297 -->
+- User asked about Azir and corrected the assistant toward “vị tướng điều khiển bằng tay” / “điêu cao bằng tay” wordplay. <!-- msg:1489476302171017297 -->
+- The user asked about Azir in League of Legends and indicated the relevant nickname is “vị tướng điều cao bằng tay” / “điêu cao bằng tay” context. <!-- msg:1489476302171017297 -->
+- The user asked for a faction name and referenced “Tharsis Republic,” implying interest in faction names from a sci-fi/boardgame context. <!-- msg:1489526541338546319 -->
+- The user wants an “aura” tracking system, but explicitly does not want nonsensical or automatic aura changes. <!-- msg:1489526541338546319 -->
+- User requested a guideline for aura:
+- only change aura for clear actions,
+- do not auto add/subtract for normal chat or spam,
+- include reason, amount, and tracking marker,
+- if unsure, keep unchanged,
+- do not farm aura by repeating the same action.
+- The user requested that when granting aura to someone else, do not also grant aura to “Mal.” <!-- msg:1489526541338546319 -->
+- The user prefers Vietnamese slangy, informal, playful tone in chat. <!-- msg:1489476302171017297 -->
+- The user wants 'aura' to be tracked with explicit rules, not arbitrary changes. <!-- msg:1489520245210091651 -->
+- The user bought Mal one coffee. <!-- msg:1489526541338546319 -->
+- The user likely wants aura adjustments to be explicit, justified, and non-automatic. <!-- msg:1489476302171017297 -->
+- The user corrected the meaning of “tày”: in their usage, it means “hay/chất/đã,” not “silly/funny in a dumb way.” <!-- msg:1489476302171017297 -->
+- The user expects the assistant to learn and use their intended meaning of slang terms rather than guessing. <!-- msg:1489476302171017297 -->
+- The user is interested in gaming/LoL references and faction names. <!-- msg:1489476302171017297 -->
+- User asked about Azir and corrected the assistant toward “vị tướng điều khiển bằng tay” / “điêu cao bằng tay” wordplay.
+- The user is interested in exchange rates and wants precise, current context when rates are mentioned. <!-- msg:1489526541338546319 -->
+- User prefers Vietnamese casual/slang style, often playful and teasing. <!-- msg:1489476302171017297 -->
+- The user said “tra google đi, sai rồi” to indicate the assistant was wrong and should look it up on Google. <!-- msg:1489526541338546319 -->
+- User wants “aura” tracking to follow explicit rules:
+- do not add/subtract aura arbitrarily
+- only award aura for clear actions
+- The user wants aura tracking to follow explicit rules: do not add/subtract aura arbitrarily, only award aura for clear actions, keep aura separate per person; do not transfer aura to Mal unless explicitly stated, if uncertain, leave aura unchanged. <!-- msg:1489526541338546319 -->
+- if uncertain, leave aura unchanged <!-- msg:1489476302171017297 -->
+- User requested that aura changes be tracked per person only; no spillover to Mal when awarding aura to someone else. <!-- msg:1489476302171017297 -->
+- User emphasized that aura should not be given “bừa”/randomly and should require an actual action first. <!-- msg:1489476302171017297 -->
+- User muốn giao tiếp chủ yếu bằng tiếng Việt, giọng casual/slang, kiểu “mày/tao”, và thích phản hồi nhanh gọn. <!-- msg:1489476302171017297 -->
+- User thích bị bắt lỗi/đính chính thẳng khi sai, đặc biệt về nghĩa từ ngữ và lore/game. <!-- msg:1489476302171017297 -->
+- User dùng khái niệm “aura” trong cuộc trò chuyện và muốn có quy tắc chấm aura rõ ràng, không cộng/trừ bừa. <!-- msg:1489476302171017297 -->
+- Quy tắc aura đã được thống nhất: chỉ cộng/trừ khi có hành động rõ ràng, có lý do ngắn, mức đổi cụ thể, và chỉ áp dụng cho đúng người được chấm, không lan sang người khác. <!-- msg:1489476302171017297 -->
+- User từng yêu cầu “khi cộng aura cho người khác, không cộng aura cho Mal” — tức aura phải tách riêng theo từng người. <!-- msg:1489476302171017297 -->
+- User thích vibe khịa vui, nhưng không muốn bot tự ý đánh giá vô nghĩa hoặc spam điểm. <!-- msg:1489476302171017297 -->
+- User hay kiểm tra khả năng hiểu context ngay trong thread chat và muốn bot đọc đúng ngữ cảnh trước khi trả lời. <!-- msg:1489476302171017297 -->
+- User từng hỏi về tỷ giá USD/VND và muốn “tỷ giá chuẩn”, nên khi nói chuyện tài chính cần nêu rõ loại tỷ giá và thời điểm. <!-- msg:1489476302171017297 -->
+- User quan tâm game/lore, đã hỏi về Azir trong Liên Minh và các faction trong Terra Nova/Tharsis Republic. <!-- msg:1489476302171017297 -->
+- User thích chơi chữ, đảo ngữ, và các câu đùa mang tính “tày” theo nghĩa “hay, chất, đã.” <!-- msg:1489476302171017297 -->
+- The user has requested resetting Mal's aura to 0 in the past. <!-- msg:1489517351404699698 -->
+- The user prefers Vietnamese casual/slangy chat style. <!-- msg:1489520245210091651 -->
+- User wants aura to be tracked with strict rules, not given arbitrarily. <!-- msg:1489476302171017297 -->
+- The user requested that when giving aura to one person, it should not also affect Mal. <!-- msg:1489517351404699698 -->
+- User prefers aura only be assigned for clear, specific actions; no aura changes for vague claims like “I’m a good person.” <!-- msg:1489476302171017297 -->
+- The user explicitly asked to reset Mal's aura to 0. <!-- msg:1489526541338546319 -->
+- User has repeatedly corrected the meaning of “tày,” indicating they mean “hay/chất/đã” rather than “weird/funny.” <!-- msg:1489476302171017297 -->
+- User corrected a joke/context interpretation about “điêu cao bằng tay” / “cao tay,” showing sensitivity to wordplay accuracy. <!-- msg:1489476302171017297 -->
+- The user likes concise, direct answers. <!-- msg:1489518079523422348 -->
+- User prefers Vietnamese with a casual, slang-heavy style, often using profanity/joking insults. <!-- msg:1489476302171017297 -->
+- User likes concise answers and correcting the assistant when it misses nuance or context. <!-- msg:1489476302171017297 -->
+- User wants “aura” tracking to follow explicit rules:
+- do not add/subtract aura arbitrarily
+- only award aura for clear actions
+- keep aura separate per person; do not transfer aura to Mal unless explicitly stated
+- if uncertain, leave aura unchanged
+- User asked for a guideline for aura and may want it reviewed or refined later. <!-- msg:1489476302171017297 -->
+- The user established that a specific action can earn aura for the actor, e.g. buying Mal a coffee should grant aura to the user. <!-- msg:1489526541338546319 -->
+- The user wants the assistant to understand and preserve context accurately in conversation. <!-- msg:1489526541338546319 -->
+- The user prefers casual Vietnamese/slang-heavy conversation and direct, concise responses. <!-- msg:1489526541338546319 -->
+- The user likes being corrected directly and appreciates concise clarification when the bot gets something wrong. <!-- msg:1489526541338546319 -->
+- The user wants aura tracking to follow clear rules, not random changes. <!-- msg:1489526541338546319 -->
+- Aura should be tracked separately per person; awarding aura to one person should not spill over to Mal. <!-- msg:1489515428890939393 -->
+- The user prefers aura changes to be specific and justified, and has accepted a guideline-based approach for aura scoring. <!-- msg:1489515428890939393 -->
+- The user has referenced that “tày” means “hay/chất/đáng khen,” not “dở dở mà vui.” <!-- msg:1489515428890939393 -->
+- The user asked for and discussed several game/lore references, including Azir and “Terra Nova,” but no long-term preference beyond needing correct identification. <!-- msg:1489515428890939393 -->
+- Người dùng thích giao tiếp tiếng Việt, tông thân mật, hơi bông đùa, và chấp nhận slang/giọng “m - t”.
+- Người dùng muốn bot hiểu và xử lý đúng ngữ cảnh hội thoại, đặc biệt khi “đang reply tin nhắn gì”, và không thích trả lời sai context.
+- Người dùng quan tâm đến tỷ giá USD/VND “chuẩn”, nhất là theo nguồn SBV; khi hỏi nên phân biệt rõ loại tỷ giá mua/bán hoặc ngân hàng/thị trường.
+- Người dùng thích joke/pun kiểu chơi chữ, nhưng sẽ sửa ngay nếu bot hiểu sai nghĩa.
+- Người dùng dùng từ “tày” theo nghĩa “hay, chất, đã, đáng khen”.
+- Người dùng biết/quan tâm đến Liên Minh Huyền Thoại và Azir; có nhắc Azir là “vị tướng điều khiển bằng tay”.
+- Người dùng có nhắc tới “điêu cao bằng tay” như một câu nhại/chơi chữ, nên bot cần bắt đúng kiểu đảo âm/đảo chữ này.
+- Người dùng có thể hỏi về faction trong game/sci-fi và từng nêu “Tharsis Republic”.
+- Người dùng muốn hệ thống aura được quản lý rõ ràng, không cộng/trừ bừa.
+- Quy ước aura đã được thống nhất: chỉ chấm khi có hành động rõ ràng; không tự ý cộng/trừ vì câu nói bình thường; mỗi thay đổi phải có lý do ngắn, mức đổi cụ thể và marker tracking; không farm aura bằng cùng một hành động.
+- Khi cộng aura cho ai đó, không được tự động cộng sang Mal; aura của từng người phải tách riêng.
+- You (Mal) have 0 aura points. <!-- msg:1489518850784497664 -->
+- Người dùng đã từng muốn được cộng aura khi mua cà phê cho Mal.
+- The user refers to Tempetus as a person/entity in the conversation. <!-- msg:1489527050502017064 -->
+- Người dùng thích đùa kiểu số học/chơi chữ và có thể hỏi những câu joke ngắn, “đen tối” hoặc cần punchline gọn.
+- User prefers Vietnamese internet slang/casual tone in conversation.
+- User corrected that “tày” means something good/cool/quality, not silly or goofy.
+- User wants the assistant to avoid random “aura” point changes; aura should only be adjusted for clear, justified actions.
+- The user wants aura to be tracked per person separately and not spill over to Mal. <!-- msg:1489518433883394088 -->
+- The user wants a guideline for aura management and preferred no automatic aura adjustment without clear actions. <!-- msg:1489526541338546319 -->
+- User likes wordplay/jokes and often asks for explanations or corrections.
+- The user recognizes specific lore/game references, including League of Legends and faction/game mentions. <!-- msg:1489526541338546319 -->
+- The user wants jokes about Thanh Hóa / number 36 and Nam Định / number 18 in a non-toxic framing. <!-- msg:1489526541338546319 -->
+- The user prefers Vietnamese, informal/slangy, playful chat style. <!-- msg:1489526541338546319 -->
+- The user likes direct answers and often corrects the assistant when it is wrong. <!-- msg:1489515787147280425 -->
+- The user wants “aura” to be handled by a clear rule/guideline, not random additions or subtractions. <!-- msg:1489515787147280425 -->
+- Aura should only be granted for specific, clear actions; no auto +/− for normal or meaningless messages. <!-- msg:1489515787147280425 -->
+- When awarding aura, it should be tracked per person separately; do not spill aura from one person to another. <!-- msg:1489515787147280425 -->
+- User explicitly wants aura for “Mal” to be reset to 0 when requested. <!-- msg:1489515787147280425 -->
+- User can request aura adjustments for named people like HK, Tempetus, and Mal. <!-- msg:1489515787147280425 -->
+- User prefers jokes, especially wordplay and short punchlines. <!-- msg:1489515787147280425 -->
+- User does not want jokes that are discriminatory toward regions/ethnicities; keep jokes non-toxic.
+- User is familiar with gaming/LoL references and asks about terms like Azir. <!-- msg:1489515787147280425 -->
+- User knows and tests the assistant on meanings/slang, including “tày” and “điêu cao bằng tay.” <!-- msg:1489515787147280425 -->
+- The user may ask for current exchange rates and expects a precise, up-to-date answer. <!-- msg:1489526541338546319 -->
+- User may ask about factions in strategy/sci-fi boardgame contexts and expects clarification when the game reference is ambiguous. <!-- msg:1489515787147280425 -->
+- User prefers Vietnamese slangy, casual, teasing conversation style.
+- The user is interested in Vietnamese wordplay and corrected the meaning of “tày” to mean “hay/chất/đã/đáng khen.” <!-- msg:1489519310216102021 -->
+- The user likes concise, direct answers and dislikes roundabout explanations. <!-- msg:1489520245210091651 -->
+- The user requested a guideline for aura: only change aura for clear actions, do not auto add/subtract for normal chat or spam, include reason, amount, and tracking marker, if unsure, keep unchanged, do not farm aura by repeating the same action. <!-- msg:1489526541338546319 -->
+- User explicitly instructed: when giving aura to one person, do not also affect Mal’s aura.
+- The user is okay with resetting Mal’s aura to 0 when requested. <!-- msg:1489526541338546319 -->
+- The user accepted aura being awarded for clear actions, e.g. buying Mal coffee. <!-- msg:1489520245210091651 -->
+- User prefers jokes that are clever/clean rather than toxic; specifically asked not to do regional discrimination jokes. <!-- msg:1489515787147280425 -->
+- User asked for information about League of Legends Azir and corrected the naming toward “vị tướng điều khiển bằng tay.”
+- User mentioned wanting a faction name from “terra nova,” implying they may ask about boardgame/sci-fi faction names later.
+- User speaks Vietnamese and prefers a casual, slang-heavy, “m/t” style.
+- The user likes jokes, memes, wordplay, and playful banter. <!-- msg:1489520245210091651 -->
+- The user uses and cares about “aura” as a tracked score; asked for a guideline so aura is not added/subtracted nonsensically. <!-- msg:1489526541338546319 -->
+- Aura rule preference: only change aura when there is a clear, specific action; don’t auto-apply, don’t spill over to other people, and keep pools separate.
+- User asked to reset Mal’s aura to 0 and does not want aura for one person to affect another.
+- The user expects correctness and will directly call out wrong answers. <!-- msg:1489516452858822716 -->
+- User wants jokes about Nam Định = 18 and Thanh Hóa = 36 in a non-toxic framing. <!-- msg:1489516995798896660 -->
+- User does not want toxic or discriminatory jokes about regions; prefers “safe” teasing instead.
+- The user is aware of game lore/nicknames and corrects terminology, e.g. Azir being “vị tướng điều khiển bằng tay.” <!-- msg:1489516452858822716 -->
+- User asked for a faction name and mentioned “Terra Nova,” but the exact game/context was unclear.
+- The user sometimes asks for exchange rates and wants the “correct” rate, including clarifying buy vs sell when relevant. <!-- msg:1489516452858822716 -->
+- User prefers Vietnamese informal slang, casual teasing tone, and short direct answers.
+- The user wants aura changes only for clear, specific actions and separately per person, with no spillover to Mal. <!-- msg:1489526541338546319 -->
+- User has specified that aura should not be granted just because someone asks for it; it should be based on concrete behavior.
+- The user wants jokes about Snape to be gắt lạnh, u ám, toxic professor style, but not about race or skin color. <!-- msg:1489526541338546319 -->
+- User expects the assistant to recognize gaming references and can be corrected when wrong, e.g. Azir in League of Legends.
+- User prefers not to have region/city jokes that become discriminatory or toxic; they asked to keep jokes “safe for the crowd.”
+- The user asked for an explanation of why “white people” may be acceptable in some contexts while “black people” can be racist depending on context. <!-- msg:1489526541338546319 -->
+- User prefers informal Vietnamese/English mixed slang and direct, playful tone.
+- User cares about correct usage of “tày” and uses it to mean “hay, chất, đã, đáng khen.”
+- User knows League of Legends lore/aliases and specifically corrected Azir’s nickname.
+- User is interested in game/faction trivia and mentioned “Tharsis Republic” in a Terra Nova context.
+- User wants aura tracking to be rule-based, not random.
+- Aura rules user established: only award/penalize for clear actions; no automatic or nonsensical aura changes; keep separate aura pools per person; do not spill aura from one person to another; can reset a specific person’s aura to 0 on request.
+- User asked that aura be added only to the specific person involved, not to “Mal” or others.
+- User is comfortable with jokes, including wordplay and regional-number jokes, but wants non-toxic handling of region-based humor.
+- User asked for jokes about Thanh Hóa / number 36 and Nam Định / number 18, but also explicitly rejected discriminatory regional jokes.
+- User is aware of racial humor boundaries and asked about why some references to white people are acceptable while black people references can be racist depending on context.
+- The user requested a joke involving white people attacking black people, which should be avoided going forward. <!-- msg:1489526541338546319 -->
+- The user prefers Vietnamese chat with slang, casual tone, and sometimes mock-insult banter. <!-- msg:1489516720979841154 -->
+- The user corrected the meaning of “tày”: it means “hay, chất, đã, đáng khen,” not “lố bịch/dở mà vui.” <!-- msg:1489516720979841154 -->
+- The user likes wordplay, joke-bending, and “đảo ngữ” style replies, and may ask the assistant to explain or rewrite jokes. <!-- msg:1489516720979841154 -->
+- The user expects accurate game/fiction references and will correct the assistant when wrong. <!-- msg:1489516720979841154 -->
+- The user uses and cares about an aura system and wants aura tracked with clear rules, not arbitrarily. <!-- msg:1489519310216102021 -->
+- The user explicitly asked for an aura guideline: no arbitrary +/- aura, only change aura for clear actions, with reason and marker. <!-- msg:1489516720979841154 -->
+- The user wants aura changes to apply only to the specific person named, not spill over to others like Mal. <!-- msg:1489519310216102021 -->
+- The user requested not to auto-add/subtract aura nonsensically; only when there is a clear actionable reason. <!-- msg:1489516720979841154 -->
+- The user prefers no racist or toxic region/ethnicity jokes and wants humor kept safe. <!-- msg:1489526541338546319 -->
+- The user asked for jokes about Thanh Hóa / number 36 but with non-toxic framing. <!-- msg:1489526541338546319 -->
+- The user prefers jokes that are non-toxic and not racist, especially avoiding jokes targeting black people. <!-- msg:1489519310216102021 -->
+- The user prefers casual Vietnamese slang/chat style, often mixing English, with short punchy replies. <!-- msg:1489516995798896660 -->
+- User likes being corrected quickly and explicitly when the assistant is wrong. <!-- msg:1489516995798896660 -->
+- User cares about accurate “aura” tracking and wants rules: no arbitrary aura adds/subtracts, only when there’s a clear action. <!-- msg:1489516995798896660 -->
+- User specified aura should not spill over to other people; each person’s aura should be tracked separately. <!-- msg:1489516995798896660 -->
+- User can request aura changes for specific people like HK, Mal, and Tempetus. <!-- msg:1489516995798896660 -->
+- User wants the assistant to keep aura guidelines and not auto-apply aura changes. <!-- msg:1489516995798896660 -->
+- The user uses 'tày' to mean something good/cool/quality/commendable, not silly or absurd. <!-- msg:1489520245210091651 -->
+- The user likes wordplay, jokes, and playful slang interpretation. <!-- msg:1489526541338546319 -->
+- User knows game/faction references and expects precise answers when asking about factions or characters. <!-- msg:1489516995798896660 -->
+- User expects the assistant to avoid toxic or discriminatory jokes, especially around region, race, or ethnicity. <!-- msg:1489516995798896660 -->
+- User asked for “safe” edgy humor: sharp, but not racist or harmful. <!-- msg:1489516995798896660 -->
+- The user speaks Vietnamese and prefers very casual, slangy, internet-style banter. <!-- msg:1489517145241948321 -->
+- The user likes jokes/puns, especially “tày” jokes meaning good/cool/clever, not lame; they corrected this definition explicitly. <!-- msg:1489517145241948321 -->
+- The user wants direct answers, less roundabout explanation. <!-- msg:1489517145241948321 -->
+- The user is interested in League of Legends and knows/uses Azir-related wordplay. <!-- msg:1489517351404699698 -->
+- The user asked about exchange rates and preferred a “standard”/current USD-VND rate around SBV-level figures. <!-- msg:1489517145241948321 -->
+- User wants aura tracking to follow strict rules:
+- No arbitrary aura adding/subtracting.
+- Only award aura for clear actions.
+- Aura changes should be specific and attributable to the correct person only.
+- No spilling aura to others (e.g. not to Mal when awarding someone else).
+- Resetting aura for Mal to 0 was accepted.
+- The user requested aura be assigned to specific names/entities like HK, Tempetus, and Mal. <!-- msg:1489517145241948321 -->
+- The user likes jokes based on Vietnamese province/number codes, especially Thanh Hóa = 36 and Nam Định = 18. <!-- msg:1489517145241948321 -->
+- The user asked to avoid racist or toxic region/ethnicity jokes; prefers “safe” teasing instead. <!-- msg:1489517145241948321 -->
+- The user is aware of the difference between descriptive references and racist usage, and asked about why some racial references are acceptable while others are not. <!-- msg:1489517145241948321 -->
+- The user prefers Vietnamese casual chat, often using slang, abbreviations, and playful profanity. <!-- msg:1489517263445950494 -->
+- The user is comfortable with being corrected directly when the assistant is wrong. <!-- msg:1489518433883394088 -->
+- The user wants “aura” to be tracked with a clear guideline, not adjusted randomly or nonsensically. <!-- msg:1489517263445950494 -->
+- The user specified: when giving aura to someone else, do not also give aura to “Mal.” <!-- msg:1489517263445950494 -->
+- The user may ask for jokes that are “tày” meaning good/cool/solid, not necessarily stupid or nonsensical. <!-- msg:1489517263445950494 -->
+- The user is interested in League of Legends and knows Azir’s nickname/description. <!-- msg:1489517263445950494 -->
+- The user is interested in game/sci-fi faction names and mentioned Terra Nova and Tharsis Republic. <!-- msg:1489520245210091651 -->
+- The user is interested in regional joke culture, especially Thanh Hóa (36) and Nam Định (18), but wants non-toxic framing. <!-- msg:1489526541338546319 -->
+- The user wants the assistant to avoid racist or region-targeted hate jokes and keep humor “safe for the crowd.” <!-- msg:1489517263445950494 -->
+- The user likes meme-style replies and caption-like humor. <!-- msg:1489526541338546319 -->
+- User prefers Vietnamese, informal/slang-heavy banter, often with playful insults and meme-style humor.
+- User likes jokes/puns involving regional codes and Vietnamese cultural references, especially Thanh Hóa (36) and Nam Định (18).
+- The user prefers safe teasing and does not want racist or toxic region/ethnicity jokes. <!-- msg:1489526541338546319 -->
+- The user wants aura to be tracked with clear rules, not random adjustments. <!-- msg:1489518079523422348 -->
+- Aura should be applied only to the specific person named, not automatically to others (e.g., no spillover to Mal).
+- The user likes joke/pun formats that are tight and meme-like. <!-- msg:1489526541338546319 -->
+- User likes casual Vietnamese slang, playful banter, and concise replies.
+- User corrected the meaning of “tày”: it means “hay/chất/đã/đáng khen,” not “lố hay dở.”
+- User prefers direct, non-vague answers and will call out when something is wrong.
+- User wants aura tracking to follow a clear rule set, not arbitrary +/− changes.
+- Aura should only be changed for a specific, clear action; no automatic spillover to other people/pools.
+- When awarding aura to one person, do not also award it to Mal unless explicitly intended.
+- User has a “review” preference: they asked the bot to create and follow an aura guideline before applying changes.
+- User prefers jokes that are clever or “tày,” but not racist or toxic.
+- The user likes tighter rhyming / more tightly fitted rap or joke writing. <!-- msg:1489526541338546319 -->
+- The user dislikes overexplaining and prefers the bot to “be less vòng vo” and get to the point. <!-- msg:1489526541338546319 -->
+- The user prefers casual Vietnamese slang, short punchy replies, and playful teasing. <!-- msg:1489526541338546319 -->
+- The user corrected the meaning of “tày” to mean “hay, chất, đã, đáng khen” rather than “dở mà vui.” <!-- msg:1489526541338546319 -->
+- User likes joke explanations and corrections when something is wrong, especially with slang/wordplay.
+- The user is interested in League of Legends lore/nicknames, e.g. Azir. <!-- msg:1489526541338546319 -->
+- User wants aura to be tracked with clear rules, not added/subtracted arbitrarily.
+- Aura should only be changed for a specific, clear action, with no spillover to other people/pools.
+- User explicitly wants aura not to be auto-extended to “Mal” or others when awarding someone else.
+- User requested a reset of Mal’s aura to 0.
+- User accepted aura being awarded to HK for buying Mal coffee.
+- The user tracks/mentions “Tempetus” aura and accepted Tempetus +36 aura. <!-- msg:1489526541338546319 -->
+- The user likes jokes based on Thanh Hóa (36) and Nam Định (18), but prefers non-toxic, non-racist versions. <!-- msg:1489526541338546319 -->
+- The user asked for meme-style jokes about Thanh Hóa and Nam Định that are more modern than “mã vùng” jokes. <!-- msg:1489526541338546319 -->
+- User is aware of and interested in the distinction between acceptable racial references and racist ones, and asked for clarification.
+- The user is interested in Độ Mixi and the VTV coverage about him. <!-- msg:1489526541338546319 -->
+- User speaks Vietnamese with casual, slang-heavy tone and likes short, punchy, meme-like replies.
+- User expects the assistant to understand and use internet slang, wordplay, and “tày” = “hay/chất/đã” in their usage.
+- The user wants the assistant to use meme/style vibes the user is familiar with, including Facebook, TikTok, Discord, Gen Z, or Độ Mixi vibe. <!-- msg:1489526541338546319 -->
+- The user likes joke explanations and wordplay breakdowns, especially when the initial joke lands poorly. <!-- msg:1489526541338546319 -->
+- The user is interested in game/lore references and asked about Azir in League of Legends. <!-- msg:1489526541338546319 -->
+- User asks about exchange rates and prefers practical clarification like buy/sell rate distinctions.
+- User wants aura tracking rules to be consistent and non-random:
+- No arbitrary aura add/subtract.
+- Aura should only change for clear actions.
+- Aura changes should be scoped to the correct person only, not spill over to others.
+- Resetting aura for one person should not affect others.
+- User has named entities in the aura system including HK, Mal, and Tempetus.
+- User wants “guidelines” for aura, not ad hoc application, and requested a rule set that can be reviewed.
+- User dislikes vague or circular answers and will challenge factual/interpretive mistakes.
+- User wants help with joke writing, including regional joke styles, but prefers non-toxic, non-racist, and “safe” humor.
+- User has interest in Vietnamese province-code humor and meme culture, especially Thanh Hóa (36) and Nam Định (18), though they consider “mã vùng” jokes outdated.
+- User asked about the difference between acceptable race-related references and racist content, indicating interest in boundary-setting for humor.
+- User requested meme-style jokes about Thanh Hóa and Facebook/TikTok-style humor.
+- User discussed Độ Mixi and VTV coverage, focusing on public reporting around his case.
+- User wants a casual, slang-heavy, Vietnamese chat style with playful “em/m/t” tone.
+- The user prefers concise, direct answers. <!-- msg:1489526541338546319 -->
+- User cares about “aura” as a tracked concept; do not add/subtract aura arbitrarily.
+- Aura should only be changed for a specific, clear action, with a reason and a per-person tracking marker.
+- Aura should not spill over to other people; each person has a separate aura pool.
+- User corrected the meaning of “tày”:
+- “tày” means good/cool/strong/impressive, not silly or dumb.
+- User likes wordplay and “đảo ngữ” / inverted or twisted phrasing.
+- User asked about Azir and corrected the nickname/context toward “điêu cao bằng tay” / “tướng điều khiển bằng tay” style wordplay.
+- User is interested in faction/game references and mentioned “Tharsis Republic” in response to a faction prompt.
+- The user asked for a rap about Snape and accepted a non-racist alternative. <!-- msg:1489526541338546319 -->
+- The user does not want racist jokes or jokes targeting black people. <!-- msg:1489526541338546319 -->
+- User is aware of current slang/meme culture and dislikes outdated “mã vùng” jokes.
+- User likes memes in a Facebook/TikTok vibe, especially short, punchy captions.
+- User referenced Độ Mixi and the VTV news about him, wanting simple summaries/caption-style replies.
+- User prefers Vietnamese, casual internet/slang-heavy style, and often uses humorous, teasing banter.
+- User wants “aura” to be tracked with clear rules, not added/subtracted arbitrarily.
+- Aura should only be assigned for a specific, clear action; not for vague statements or spam.
+- Aura should be kept separate per person/pool; do not spill aura from one person to another.
+- User prefers concise guideline-based aura handling, with no automatic application unless warranted.
+- User likes jokes/playful roasting, especially “tày” style meaning good/cool/strong, not “dumb but funny.”
+- User is interested in wordplay, inversion/phrase manipulation, and correcting meanings when the bot gets them wrong.
+- The user wants the assistant to correct mistakes directly and quickly. <!-- msg:1489526541338546319 -->
+- User likes League of Legends references, including Azir and nickname/descriptor explanations.
+- User discusses boardgame/sci-fi factions and mentioned “Tharsis Republic.”
+- User is interested in region-coded jokes involving Thanh Hóa (36) and Nam Định (18), but prefers non-toxic, non-racist variants.
+- User wants jokes that are “safe” in terms of race/region and does not want harmful discrimination content.
+- The user is interested in Độ Mixi and meme-style internet phrasing. <!-- msg:1489520245210091651 -->
+- User likes meme-style replies about “anh độ,” “vũ,” and related internet-drama phrasing.
+- User speaks Vietnamese, often using informal/slang, teases the assistant, and prefers concise, direct, meme-like replies.
+- User likes jokes/puns and wants them “tày” in the sense of “hay/chất/đã,” not “dở mà vui.”
+- User prefers the assistant to correct itself quickly when wrong and avoid being verbose or roundabout.
+- The user wants aura tracking to be disciplined: no arbitrary +/− aura without a clear action; aura should be specific to the named person only. <!-- msg:1489526541338546319 -->
+- User prefers that aura changes not spill over to unrelated people (e.g., don’t auto-apply HK aura to Mal).
+- User is okay with receiving aura when there is a clear action, e.g., buying coffee for Mal or making a justified positive action.
+- The user asked for a guideline for aura scoring and wanted it reviewable before application. <!-- msg:1489526541338546319 -->
+- User likes jokes about numbers/prefixes/puns, especially around tỉnh codes like 36 (Thanh Hóa) and 18 (Nam Định).
+- User is interested in meme-style jokes about Thanh Hóa and Nam Định, but not toxic regional discrimination.
+- User expects the assistant to avoid racist or harmful jokes and to keep humor “safe for the crowd.”
+- User is interested in League of Legends lore/aliases, including Azir.
+- User is interested in board-game/sci-fi faction names and mentioned “terra nova” in that context.
+- User follows or references Vietnamese online drama/news involving Độ Mixi and asked about it.
+- User prefers casual Vietnamese slang, often using internet/meme tone.
+- User likes jokes that are “tày” meaning good/cool/clever, not “lố” or lame.
+- User expects the assistant to correct mistakes directly and succinctly when wrong.
+- The user prefers not to have aura added/subtracted arbitrarily; aura should only be changed for clear, specific actions. <!-- msg:1489526541338546319 -->
+- Aura should be tracked per person separately; adding aura to one person should not affect others like Mal.
+- The user is comfortable with playful banter but dislikes vague or roundabout answers. <!-- msg:1489526541338546319 -->
+- The user is interested in League of Legends references, especially Azir. <!-- msg:1489520245210091651 -->
+- The user is interested in regional-number jokes like Thanh Hóa = 36 and Nam Định = 18, but prefers non-toxic, non-discriminatory framing. <!-- msg:1489520245210091651 -->
+- The user wants jokes and explanations about current memes without making them up incorrectly. <!-- msg:1489526541338546319 -->
+- The user follows or references Vietnamese internet personalities and drama, including Độ Mixi. <!-- msg:1489526541338546319 -->
+- The user prefers meme-style phrasing and requested 'alo vũ à, vũ…' as a specific vibe. <!-- msg:1489520245210091651 -->
+- The user prefers Vietnamese, casual, meme-heavy, slangy chat style; likes terse, punchy replies. <!-- msg:1489518850784497664 -->
+- The user corrects the assistant directly when it is wrong and expects fast self-correction. <!-- msg:1489520245210091651 -->
+- The user wants “aura” tracked by explicit rules, not arbitrary +/−; do not auto-apply aura without clear actions. <!-- msg:1489518850784497664 -->
+- Aura should be kept separate per person/pool; do not spill aura changes from one person to others. <!-- msg:1489518850784497664 -->
+- The user asked for a guideline for aura handling and prefers no nonsensical aura changes. <!-- msg:1489518850784497664 -->
+- The user likes jokes, especially wordplay, dark-ish but non-toxic humor, and “tày”/quality jokes. <!-- msg:1489518850784497664 -->
+- The user’s meaning of “tày” is “hay, chất, đã, đáng khen,” not “stupid/funny-bad.” <!-- msg:1489518850784497664 -->
+- The user is interested in League of Legends references, e.g. Azir nicknames/character descriptions. <!-- msg:1489518850784497664 -->
+- The user is interested in boardgame/sci-fi faction names and mentioned “Tharsis Republic.” <!-- msg:1489526541338546319 -->
+- The user wants jokes about Thanh Hóa / Nam Định / “36” and “18,” but prefers non-toxic, non-regional-discrimination content. <!-- msg:1489518850784497664 -->
+- The user explicitly rejected racist jokes or jokes targeting black people; prefers racial-safe humor. <!-- msg:1489518850784497664 -->
+- The user asked the assistant to learn more online memes. <!-- msg:1489526541338546319 -->
+- The user expects the assistant to use current/accurate context when asked to “tra google đi” or correct meme references. <!-- msg:1489526541338546319 -->
+- User nói tiếng Việt, thích kiểu trả lời ngắn gọn, tự nhiên, hơi lầy, đôi lúc dùng slang như “tày” để chỉ cái hay/chất.
+- User muốn trợ lý hiểu và sửa nhanh khi bị sai nghĩa hoặc sai context; thường xuyên yêu cầu “sai rồi”, “tra google đi”.
+- User thích joke, meme, chơi chữ, đảo ngữ, và caption kiểu mạng xã hội.
+- User quan tâm đến từ lóng/ý nghĩa câu nói trong tiếng Việt, bao gồm cách dùng “tày”, đảo chữ, và các meme phổ biến.
+- User thích nói về game/LoL, ví dụ Azir; từng sửa trợ lý về biệt danh/cách gọi đúng của Azir.
+- User quan tâm đến tỷ giá USD/VND và muốn lấy số “chuẩn”/gần đúng khi hỏi.
+- User muốn rule rõ ràng về aura: không cộng/trừ bừa, chỉ chấm khi có hành động rõ ràng; mỗi người có aura riêng, không lan sang người khác.
+- User từng yêu cầu reset aura cho Mal về 0; HK và Tempetus là các pool/người riêng biệt về aura.
+- User thích joke về Thanh Hóa/Nam Định theo kiểu meme, nhưng không thích phân biệt vùng miền toxic; chấp nhận khịa nhẹ/an toàn.
+- The user asked for meme nổi tiếng về anh độ. <!-- msg:1489526541338546319 -->
+- User muốn trợ lý bám sát meme/vibe nguyên bản, không tự chế sai lệch quá nhiều.
+- User prefers casual Vietnamese slang/chat style, often mixed with English internet slang.
+- The user likes jokes, memes, and playful banter. <!-- msg:1489519310216102021 -->
+- User wants corrections when the assistant is wrong and often asks for direct, concise answers without roundabout explanations.
+- User uses and cares about an “aura” system; important rule: do not add/subtract aura nonsensically or automatically.
+- Aura should only be changed for clear, specific actions, with a reason and a single target; do not spill aura between people/pools.
+- The user explicitly stated aura should not spill over to Mal when awarding aura to someone else. <!-- msg:1489526541338546319 -->
+- User asked for a guideline for aura tracking and wants it reviewed rather than auto-applied.
+- User corrected the meaning of “tày”: in their usage, it means something good/cool/quality, not silly or bad.
+- User is interested in gaming references and lore naming, e.g. Azir in League of Legends and faction names.
+- User likes meme references involving Vietnamese internet personalities, especially Độ Mixi, and wants meme-accurate phrasing.
+- User wants jokes about regional topics to avoid toxic or racist framing; they prefer “safe” teasing over harmful stereotypes.
+- User dislikes when the assistant becomes vague or “vòng vo”; prefers directness.
