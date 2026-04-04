@@ -27,9 +27,15 @@ PDF_MAX_PAGES = int(os.getenv("PDF_MAX_PAGES", "20"))
 # Memory
 MEMORY_DIR = "memory"
 MEMORY_BASE_PATH = os.getenv("MEMORY_BASE_PATH", "./memory")
+
+# Legacy config (kept for backward compatibility)
 SUMMARIZE_THRESHOLD = int(os.getenv("SUMMARIZE_THRESHOLD", "50"))
 MEMORY_FLUSH_THRESHOLD = int(os.getenv("MEMORY_FLUSH_THRESHOLD", "20"))
 MEMORY_SEARCH_TOP_K = int(os.getenv("MEMORY_SEARCH_TOP_K", "5"))
+
+# New unified log-based memory config
+LOG_COMPRESSION_THRESHOLD = int(os.getenv("LOG_COMPRESSION_THRESHOLD", "100"))
+LOG_CONTEXT_MAX_LINES = int(os.getenv("LOG_CONTEXT_MAX_LINES", "500"))
 
 # Search index
 INDEX_PATH = os.getenv("INDEX_PATH", "./index/memory.sqlite")

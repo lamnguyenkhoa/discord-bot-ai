@@ -206,24 +206,8 @@ async def on_message(message: discord.Message):
                 user_message=user_text,
                 bot_reply="",
             )
-            facts_context = facts_manager.load_facts(user_id, guild_id)
-            extracted = await llm_client.extract_facts(
-                str(message.author.display_name), user_text, "", existing_facts=facts_context
-            )
-            author_name = str(message.author.display_name)
-            for correction in extracted.get("corrections", []):
-                if correction.get("user", "") != author_name:
-                    logger.warning(f"Ignoring cross-user correction from {author_name} targeting {correction.get('user')}")
-                    continue
-                await facts_manager.upsert_user_fact(
-                    user_id, author_name, correction["new_fact"],
-                    msg_id=message.id, old_fact=correction.get("old_fact"),
-                )
-            for fact in extracted["user_facts"]:
-                await facts_manager.upsert_user_fact(user_id, author_name, fact, msg_id=message.id)
-            for fact in extracted["server_facts"]:
-                await facts_manager.upsert_server_fact(guild_id, fact, msg_id=message.id)
-            asyncio.create_task(indexer.index_user(user_id))
+            # Note: In silent observation, we don't extract facts to avoid noise
+            return  # Exit early - don't process further
         return
 
     # Aura query commands — work without @mention
@@ -271,8 +255,12 @@ async def on_message(message: discord.Message):
         user_text += "\n\n" + "\n\n".join(extra_text)
 
     # RAG: retrieve relevant memory chunks for context
-    search_results = await memory_search.search(user_id, guild_id, user_text)
-    memory_context = "\n\n---\n\n".join(search_results) if search_results else ""
+    # Use new unified memory system - load context from guild log
+    if guild_id:
+        memory_context = memory_manager.format_context_for_prompt(guild_id)
+    else:
+        # DM - no guild memory
+        memory_context = ""
 
     facts_context = facts_manager.load_facts(user_id, guild_id)
 
@@ -348,24 +336,21 @@ async def on_message(message: discord.Message):
             author_name, user_text, reply, existing_facts=facts_context
         )
         for correction in extracted.get("corrections", []):
-            if correction.get("user", "") != author_name:
-                logger.warning(f"Ignoring cross-user correction from {author_name} targeting {correction.get('user')}")
-                continue
+            # Allow cross-user corrections in the new unified system
             await facts_manager.upsert_user_fact(
                 user_id, author_name, correction["new_fact"],
                 msg_id=message.id, old_fact=correction.get("old_fact"),
+                guild_id=guild_id,
             )
         for fact in extracted["user_facts"]:
-            await facts_manager.upsert_user_fact(user_id, author_name, fact, msg_id=message.id)
+            # User facts now go to guild memory with user context
+            await facts_manager.upsert_user_fact(user_id, author_name, fact, msg_id=message.id, guild_id=guild_id)
         for fact in extracted["server_facts"]:
             await facts_manager.upsert_server_fact(guild_id, fact, msg_id=message.id)
 
-        today = datetime.date.today()
-        await memory_manager.flush_memory_if_needed(user_id, today)
-        await memory_manager.summarize_if_needed(user_id, today)
-
-        # Re-index memory files async (non-blocking)
-        asyncio.create_task(indexer.index_user(user_id))
+        # Compress log if needed (new unified system)
+        if guild_id:
+            await memory_manager.compress_log_if_needed(guild_id)
         if guild_id:
             asyncio.create_task(indexer.index_guild(guild_id))
 

@@ -4,7 +4,7 @@ import os
 import re
 
 import config
-from memory_manager import get_user_memory_path, get_guild_memory_path
+from memory_manager import get_guild_memory_path, load_manual_memory, save_manual_memory
 
 logger = logging.getLogger(__name__)
 
@@ -70,30 +70,16 @@ def _write_memory_file(path: str, facts: list[dict], header: str = "# Memory") -
 
 
 def load_facts(user_id: str, guild_id: str | None = None) -> str:
-    """Load user and guild memory as a combined string for prompt injection."""
-    parts = []
-    user_path = get_user_memory_path(user_id)
-    if os.path.exists(user_path):
-        try:
-            with open(user_path, "r", encoding="utf-8") as f:
-                content = f.read().strip()
-            if content:
-                parts.append(f"## User Memory\n{content}")
-        except Exception as e:
-            logger.error(f"Error reading user memory {user_path}: {e}")
-
+    """
+    Load guild memory as a combined string for prompt injection.
+    
+    Now uses unified per-guild memory - no user-specific memory.
+    """
     if guild_id:
-        guild_path = get_guild_memory_path(guild_id)
-        if os.path.exists(guild_path):
-            try:
-                with open(guild_path, "r", encoding="utf-8") as f:
-                    content = f.read().strip()
-                if content:
-                    parts.append(f"## Server Memory\n{content}")
-            except Exception as e:
-                logger.error(f"Error reading guild memory {guild_path}: {e}")
-
-    return "\n\n".join(parts)
+        manual_memory = load_manual_memory(guild_id)
+        if manual_memory:
+            return f"## Server Memory\n{manual_memory}"
+    return ""
 
 
 async def upsert_user_fact(
@@ -102,45 +88,23 @@ async def upsert_user_fact(
     new_fact: str,
     msg_id=None,
     old_fact: str | None = None,
+    guild_id: str | None = None,
 ) -> None:
+    """
+    Add a fact to the guild's shared memory.
+    
+    Since memory is now unified per-guild, user-specific facts are
+    stored in the guild's MEMORY.md with user context in the fact text.
+    """
     if not new_fact or not new_fact.strip():
         return
-    path = get_user_memory_path(user_id)
-    async with _facts_lock:
-        facts = _read_memory_file(path)
-        replaced = False
-
-        # Correction path: old_fact must be a substring of stored text
-        if old_fact:
-            for f in facts:
-                if old_fact in f["text"]:
-                    logger.info(f"Corrected fact for {user_name}: '{f['text']}' -> '{new_fact}'")
-                    f["text"] = new_fact
-                    f["msg_id"] = msg_id
-                    replaced = True
-                    break
-
-        # Keyword overlap path (>= 2 shared non-stop tokens)
-        if not replaced:
-            new_tokens = _tokenize(new_fact)
-            best_match = None
-            best_score = 0
-            for f in facts:
-                overlap = len(new_tokens & _tokenize(f["text"]))
-                if overlap >= 2 and overlap > best_score:
-                    best_score = overlap
-                    best_match = f
-            if best_match:
-                logger.info(f"Replaced fact for {user_name}: '{best_match['text']}' -> '{new_fact}' (overlap={best_score})")
-                best_match["text"] = new_fact
-                best_match["msg_id"] = msg_id
-                replaced = True
-
-        if not replaced:
-            logger.info(f"Appended new fact for {user_name}: '{new_fact}'")
-            facts.append({"text": new_fact, "msg_id": msg_id})
-
-        _write_memory_file(path, facts, header="# User Memory")
+    
+    # If guild_id provided, store in guild memory
+    if guild_id:
+        await upsert_server_fact(guild_id, f"[{user_name}] {new_fact}", msg_id)
+        return
+    
+    logger.warning(f"upsert_user_fact called without guild_id - fact not saved: {new_fact}")
 
 
 async def upsert_server_fact(
@@ -148,21 +112,35 @@ async def upsert_server_fact(
     new_fact: str,
     msg_id=None,
 ) -> None:
+    """Add/update a fact in the guild's shared manual memory."""
     if not guild_id or not new_fact or not new_fact.strip():
         return
-    path = get_guild_memory_path(guild_id)
+    
+    # Load existing memory
+    existing = load_manual_memory(guild_id)
+    
+    # Parse existing facts
+    facts = _read_memory_file(get_guild_memory_path(guild_id)) if existing else []
+    
+    # If no existing file with proper format, create new facts list
+    if not facts and existing:
+        # Try to parse as bullet points
+        for line in existing.split('\n'):
+            line = line.strip()
+            if line.startswith('- '):
+                facts.append({"text": line[2:], "msg_id": msg_id})
+    
+    new_tokens = _tokenize(new_fact)
+    best_match = None
+    best_score = 0
+
+    for f in facts:
+        overlap = len(new_tokens & _tokenize(f["text"]))
+        if overlap >= 2 and overlap > best_score:
+            best_score = overlap
+            best_match = f
+
     async with _facts_lock:
-        facts = _read_memory_file(path)
-        new_tokens = _tokenize(new_fact)
-        best_match = None
-        best_score = 0
-
-        for f in facts:
-            overlap = len(new_tokens & _tokenize(f["text"]))
-            if overlap >= 2 and overlap > best_score:
-                best_score = overlap
-                best_match = f
-
         if best_match:
             logger.info(f"Replaced server fact: '{best_match['text']}' -> '{new_fact}' (overlap={best_score})")
             best_match["text"] = new_fact
@@ -171,7 +149,8 @@ async def upsert_server_fact(
             logger.info(f"Appended new server fact: '{new_fact}'")
             facts.append({"text": new_fact, "msg_id": msg_id})
 
-        _write_memory_file(path, facts, header="# Server Memory")
+        # Write back using memory_manager's save function
+        _write_memory_file(get_guild_memory_path(guild_id), facts, header="# Server Memory")
 
 
 async def remove_facts_by_msg_id(
@@ -179,22 +158,26 @@ async def remove_facts_by_msg_id(
     user_id: str | None = None,
     guild_id: str | None = None,
 ) -> int:
-    """Remove facts tagged with msg_id from user and/or guild memory files."""
+    """
+    Remove facts tagged with msg_id from guild memory.
+    
+    Note: user_id is ignored in the new unified system - facts are stored
+    per-guild, not per-user.
+    """
     removed = 0
+    
+    if not guild_id:
+        return 0
+    
     async with _facts_lock:
-        paths = []
-        if user_id:
-            paths.append((get_user_memory_path(user_id), "# User Memory"))
-        if guild_id:
-            paths.append((get_guild_memory_path(guild_id), "# Server Memory"))
-
-        for path, header in paths:
-            facts = _read_memory_file(path)
-            to_keep = [f for f in facts if f.get("msg_id") != msg_id]
-            delta = len(facts) - len(to_keep)
-            if delta > 0:
-                _write_memory_file(path, to_keep, header=header)
-                logger.info(f"Removed {delta} fact(s) tagged with msg_id={msg_id} from {path}")
-                removed += delta
+        path = get_guild_memory_path(guild_id)
+        facts = _read_memory_file(path)
+        to_keep = [f for f in facts if f.get("msg_id") != msg_id]
+        delta = len(facts) - len(to_keep)
+        
+        if delta > 0:
+            _write_memory_file(path, to_keep, header="# Server Memory")
+            logger.info(f"Removed {delta} fact(s) tagged with msg_id={msg_id} from {path}")
+            removed += delta
 
     return removed
