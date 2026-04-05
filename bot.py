@@ -9,11 +9,9 @@ import memory_manager
 import facts_manager
 import llm_client
 import indexer
-import search as memory_search
 import aura_manager
 import logging
 import re
-import datetime
 from difflib import SequenceMatcher
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -262,7 +260,7 @@ async def on_message(message: discord.Message):
         # DM - no guild memory
         memory_context = ""
 
-    facts_context = facts_manager.load_facts(user_id, guild_id)
+    facts_context = facts_manager.load_facts(guild_id)
 
     # User-initiated aura award
     if guild_id:
@@ -282,16 +280,6 @@ async def on_message(message: discord.Message):
             )
             logger.info(f"User aura: {message.author.display_name} → {aura_target.display_name} {aura_delta:+d}")
 
-    # Inject aura context so the LLM knows current standings
-    if guild_id:
-        user_pts = aura_manager.get_aura(guild_id, user_id)
-        bot_pts = aura_manager.get_aura(guild_id, str(client.user.id))
-        facts_context += (
-            f"\n\n## Aura\n"
-            f"{message.author.display_name} has {user_pts} aura points.\n"
-            f"You (Mal) have {bot_pts} aura points."
-        )
-
     async with message.channel.typing():
         reply = await llm_client.generate_reply(
             user_message=user_text,
@@ -300,22 +288,6 @@ async def on_message(message: discord.Message):
             facts_context=facts_context,
             image_urls=image_urls,
         )
-
-    # Parse and strip [AURA:@name +/-N] markers from the LLM reply
-    if guild_id:
-        reply, aura_changes = llm_client.parse_aura_markers(reply)
-        for change in aura_changes:
-            target_member = resolve_member_by_name(message.guild, change["username"])
-            if target_member is None:
-                logger.warning(f"LLM aura: could not resolve '{change['username']}', skipping")
-                continue
-            aura_manager.change_aura(
-                guild_id, str(target_member.id), change["delta"],
-                reason=f"LLM award in reply to {message.author.display_name}",
-                source="llm",
-                source_msg_id=str(message.id),
-            )
-            logger.info(f"LLM aura: {target_member.display_name} {change['delta']:+d}")
 
     if len(reply) > 2000:
         reply = reply[:1997] + "..."

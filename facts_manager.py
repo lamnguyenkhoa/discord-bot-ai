@@ -69,7 +69,7 @@ def _write_memory_file(path: str, facts: list[dict], header: str = "# Memory") -
         logger.error(f"Error writing memory file {path}: {e}")
 
 
-def load_facts(user_id: str, guild_id: str | None = None) -> str:
+def load_facts(guild_id: str | None = None) -> str:
     """
     Load guild memory as a combined string for prompt injection.
     

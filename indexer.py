@@ -145,13 +145,6 @@ async def index_file(file_path: str, db_path: str | None = None) -> None:
         conn.close()
 
 
-async def index_user(user_id: str, db_path: str | None = None) -> None:
-    """Re-index all memory files for a user."""
-    from memory_manager import get_all_user_files
-    for file_path in get_all_user_files(user_id):
-        await index_file(file_path, db_path)
-
-
 async def index_guild(guild_id: str, db_path: str | None = None) -> None:
     """Re-index guild memory file."""
     from memory_manager import get_guild_memory_path

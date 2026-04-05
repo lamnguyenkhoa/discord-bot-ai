@@ -12,14 +12,16 @@ All users in a guild share the same log file - no per-user separation.
 """
 
 import datetime
-import logging
 import os
+import logging
 import re
 import shutil
 
 import config
 
 logger = logging.getLogger(__name__)
+
+# Global flag to disable all log writes; now controlled via environment variable
 
 
 # --- Legacy compatibility functions ---
@@ -55,75 +57,6 @@ def append_exchange(
     )
 
 
-async def summarize_if_needed(user_id: str, date: datetime.date) -> None:
-    """
-    Legacy function for backward compatibility.
-    
-    Now operates on guild log instead of user log.
-    Note: user_id is ignored - we need guild_id for the new system.
-    This will need bot.py to pass guild_id instead.
-    """
-    # This function requires guild_id which wasn't passed in the old signature
-    # Log a warning - bot.py should be updated to use compress_log_if_needed(guild_id)
-    logger.warning("summarize_if_needed called with user_id - this is deprecated. Use compress_log_if_needed(guild_id) instead")
-
-
-async def flush_memory_if_needed(user_id: str, date: datetime.date) -> None:
-    """
-    Legacy function for backward compatibility.
-    
-    In the new system, we don't flush to separate memory files anymore.
-    The daily log IS the memory. This function is a no-op now.
-    """
-    # No-op in new system - daily log is the memory
-    pass
-
-
-# --- Legacy path helpers for search.py compatibility ---
-
-def _user_dir(user_id: str) -> str:
-    """
-    Legacy function for backward compatibility with search.py.
-    
-    Returns a path that won't match new guild-based files.
-    """
-    return os.path.join(config.MEMORY_BASE_PATH, "users", str(user_id))
-
-
-def _guild_dir(guild_id: str) -> str:
-    """Legacy alias - returns the guild directory path."""
-    return os.path.join(config.MEMORY_BASE_PATH, "guilds", str(guild_id))
-
-
-def get_user_log_path(user_id: str, date: datetime.date) -> str:
-    """
-    Legacy function for backward compatibility.
-    
-    Returns a path that won't be used in the new system.
-    """
-    return os.path.join(_user_dir(user_id), "logs", date.strftime("%Y-%m-%d") + ".md")
-
-
-def get_all_user_files(user_id: str) -> list[str]:
-    """
-    Legacy function for backward compatibility.
-    
-    Returns empty list - no more per-user files.
-    """
-    return []
-
-
-def load_user_log(user_id: str, date: datetime.date) -> str:
-    """
-    Legacy function for backward compatibility.
-    
-    Returns empty string - no more per-user logs.
-    """
-    return ""
-
-logger = logging.getLogger(__name__)
-
-
 # --- Path helpers ---
 
 def _guild_dir(guild_id: str) -> str:
@@ -149,6 +82,8 @@ def get_guild_memory_path(guild_id: str) -> str:
 # --- Log operations ---
 
 def load_guild_log(guild_id: str, date: datetime.date) -> str:
+    if config.LOGGING_DISABLED:
+        return ""
     """Load a specific day's log content."""
     path = get_guild_log_path(guild_id, date)
     try:
@@ -162,6 +97,8 @@ def load_guild_log(guild_id: str, date: datetime.date) -> str:
 
 
 def get_recent_log(guild_id: str, max_lines: int | None = None) -> str:
+    if config.LOGGING_DISABLED:
+        return ""
     """
     Get the most recent log for context.
     
@@ -203,6 +140,8 @@ def append_to_log(
     message: str,
     is_bot: bool = False,
 ) -> None:
+    if config.LOGGING_DISABLED:
+        return
     """
     Append a message to today's log.
     
@@ -244,6 +183,8 @@ def count_exchanges(guild_id: str, date: datetime.date) -> int:
 # --- Compression ---
 
 async def compress_log_if_needed(guild_id: str) -> None:
+    if config.LOGGING_DISABLED:
+        return
     """
     Compress today's log if it exceeds the threshold.
     
@@ -395,26 +336,3 @@ def format_context_for_prompt(guild_id: str) -> str:
     return "\n\n".join(parts)
 
 
-# --- Legacy compatibility functions ---
-
-def get_user_memory_path(user_id: str) -> str:
-    """Legacy function - returns guild memory path (for compatibility)."""
-    # This won't work correctly for old code - returns a path that doesn't exist
-    # Kept for import compatibility only
-    return os.path.join(config.MEMORY_BASE_PATH, "users", str(user_id), "MEMORY.md")
-
-
-def get_guild_memory_path_legacy(guild_id: str) -> str:
-    """Legacy alias for get_guild_memory_path."""
-    return get_guild_memory_path(guild_id)
-
-
-def load_facts_legacy(user_id: str, guild_id: str | None = None) -> str:
-    """
-    Legacy function for backward compatibility.
-    
-    Loads manual memory for the guild (not user-specific).
-    """
-    if guild_id:
-        return load_manual_memory(guild_id)
-    return ""
