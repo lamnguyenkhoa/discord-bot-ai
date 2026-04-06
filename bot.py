@@ -9,7 +9,6 @@ import memory_manager
 import facts_manager
 import llm_client
 import indexer
-import aura_manager
 import logging
 import re
 from difflib import SequenceMatcher
@@ -26,11 +25,6 @@ intents.members = True  # needed for member name resolution; enable "Server Memb
 
 client = discord.Client(intents=intents)
 
-# --- Aura helpers ---
-
-_AURA_RE = re.compile(r'([+-]?\d+)\s*(?:aura|point[s]?)', re.IGNORECASE)
-_FILLER = {"to", "give", "for", "from", "the", "some", "get", "has", "have", "a", "an", "and", "is", "of", "with", "award", "me", "myself", "him", "her", "them"}
-_SELF_REF = {"me", "myself", "i", "my", "mình", "minh", "tôi", "toi", "mk", "ta", "tao", "tui", "mik"}
 
 
 def resolve_member_by_name(guild: discord.Guild, name_query: str) -> discord.Member | None:
@@ -59,26 +53,12 @@ def resolve_member_by_name(guild: discord.Guild, name_query: str) -> discord.Mem
     return best if best_score >= 0.6 else None
 
 
-def parse_user_aura_intent(text: str) -> tuple[int, str | None, bool]:
-    """Return (delta, name_query, is_self) from a user message.
-    is_self=True means the sender wants the points for themselves.
-    name_query is the resolved target name (or None). Falls back to bot if neither."""
-    match = _AURA_RE.search(text)
-    if not match:
-        return 0, None, False
-    delta = int(match.group(1))
-    raw_words = [w.lower() for w in re.sub(r"<@!?\d+>", "", text).split() if w.isalpha()]
-    is_self = any(w in _SELF_REF for w in raw_words)
-    name_words = [w for w in raw_words if w not in _FILLER and w not in _SELF_REF]
-    name_query = " ".join(name_words).strip() or None
-    return delta, name_query, is_self
 
 
 @client.event
 async def on_ready():
     logger.info(f"Logged in as {client.user} (ID: {client.user.id})")
     indexer.init_db()
-    aura_manager.init_aura_db()
 
     if config.ONLINE_MESSAGE and config.STATUS_CHANNEL:
         for guild in client.guilds:
@@ -208,30 +188,6 @@ async def on_message(message: discord.Message):
             return  # Exit early - don't process further
         return
 
-    # Aura query commands — work without @mention
-    if guild_id:
-        cmd = message.content.strip().lower()
-        if cmd == "!aura":
-            pts = aura_manager.get_aura(guild_id, user_id)
-            await message.reply(f"You have **{pts}** aura points.")
-            return
-        if cmd.startswith("!aura ") and message.mentions:
-            target = message.mentions[0]
-            pts = aura_manager.get_aura(guild_id, str(target.id))
-            await message.reply(f"{target.display_name} has **{pts}** aura points.")
-            return
-        if cmd == "!leaderboard":
-            board = aura_manager.get_leaderboard(guild_id, limit=10)
-            if not board:
-                await message.reply("No aura points tracked yet.")
-                return
-            lines = []
-            for rank, (uid, pts) in enumerate(board, 1):
-                member = message.guild.get_member(int(uid))
-                name = member.display_name if member else f"User {uid}"
-                lines.append(f"**{rank}.** {name} — {pts} aura")
-            await message.reply("\n".join(lines))
-            return
 
     if client.user not in message.mentions:
         return
@@ -262,23 +218,6 @@ async def on_message(message: discord.Message):
 
     facts_context = facts_manager.load_facts(guild_id)
 
-    # User-initiated aura award
-    if guild_id:
-        aura_delta, name_query, is_self = parse_user_aura_intent(user_text)
-        if aura_delta != 0:
-            if is_self:
-                aura_target = message.author
-            elif name_query:
-                aura_target = resolve_member_by_name(message.guild, name_query) or client.user
-            else:
-                aura_target = client.user
-            aura_manager.change_aura(
-                guild_id, str(aura_target.id), aura_delta,
-                reason=f"user award from {message.author.display_name}: {user_text[:80]}",
-                source="user",
-                source_msg_id=str(message.id),
-            )
-            logger.info(f"User aura: {message.author.display_name} → {aura_target.display_name} {aura_delta:+d}")
 
     async with message.channel.typing():
         reply = await llm_client.generate_reply(

@@ -130,24 +130,9 @@ async def upsert_server_fact(
             if line.startswith('- '):
                 facts.append({"text": line[2:], "msg_id": msg_id})
     
-    new_tokens = _tokenize(new_fact)
-    best_match = None
-    best_score = 0
-
-    for f in facts:
-        overlap = len(new_tokens & _tokenize(f["text"]))
-        if overlap >= 2 and overlap > best_score:
-            best_score = overlap
-            best_match = f
-
     async with _facts_lock:
-        if best_match:
-            logger.info(f"Replaced server fact: '{best_match['text']}' -> '{new_fact}' (overlap={best_score})")
-            best_match["text"] = new_fact
-            best_match["msg_id"] = msg_id
-        else:
-            logger.info(f"Appended new server fact: '{new_fact}'")
-            facts.append({"text": new_fact, "msg_id": msg_id})
+        logger.info(f"Appended new server fact: '{new_fact}'")
+        facts.append({"text": new_fact, "msg_id": msg_id})
 
         # Write back using memory_manager's save function
         _write_memory_file(get_guild_memory_path(guild_id), facts, header="# Server Memory")

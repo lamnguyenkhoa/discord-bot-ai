@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775182873954,
+  "lastScanned": 1775449574619,
   "projectRoot": "d:\\discord-bot-ai",
   "techStack": {
     "languages": [
@@ -41,20 +41,11 @@
   },
   "customNotes": [],
   "directoryMap": {
-    "archived": {
-      "path": "archived",
-      "purpose": null,
-      "fileCount": 1,
-      "lastAccessed": 1775182873945,
-      "keyFiles": [
-        "discord_bot_memory_spec.md"
-      ]
-    },
     "index": {
       "path": "index",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1775182873948,
+      "lastAccessed": 1775449574610,
       "keyFiles": [
         "memory.sqlite"
       ]
@@ -63,20 +54,20 @@
       "path": "memory",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775182873948,
+      "lastAccessed": 1775449574610,
       "keyFiles": []
     },
     "__pycache__": {
       "path": "__pycache__",
       "purpose": null,
-      "fileCount": 9,
-      "lastAccessed": 1775182873949,
+      "fileCount": 11,
+      "lastAccessed": 1775449574611,
       "keyFiles": [
+        "aura_manager.cpython-312.pyc",
+        "aura_manager.cpython-313.pyc",
         "bot.cpython-313.pyc",
         "config.cpython-312.pyc",
-        "facts_manager.cpython-312.pyc",
-        "facts_manager.cpython-313.pyc",
-        "indexer.cpython-312.pyc"
+        "facts_manager.cpython-312.pyc"
       ]
     }
   },
