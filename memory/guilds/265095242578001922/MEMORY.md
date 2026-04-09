@@ -4,10 +4,27 @@
 - The conversation included a large list of board games grouped by category: 'drama/đấu trí/toxic nhẹ', 'map control + chiến nhau căng', 'kinh tế / tối ưu / não cháy', 'đấu trí nhưng đỡ quái vật hơn', 'càng đông càng lầy', and 'lúc muốn cười mà vẫn có mùi chiến thuật'. <!-- msg:1490570588811690044 -->
 - The games mentioned as recommendations included Twilight Imperium, Cosmic Encounter, Diplomacy, Dead of Winter, Root, Inis, El Grande, Shogun / Samurai Swords, Pax Pamir 2e, Brass: Birmingham, Power Grid, Food Chain Magnate, Age of Steam, The Estates, Container, Imperial / Imperial 2030, Concordia, Terra Mystica, Gaia Project, Tigris & Euphrates, Hansa Teutonica, Yokohama, Chinatown, Bohnanza, The Resistance: Avalon, Secret Hitler, Mafia / Werewolf, Feed the Kraken, Skull, Cockroach Poker, Snake Oil, For Sale, No Thanks!, and 6 nimmt!. <!-- msg:1490570588811690044 -->
 - [HK] The user prefers game recommendations with lots of drama. <!-- msg:1490571948516835518 -->
-- [HK] The user wants all current Rainbow Six Siege operators listed, organized by attack and defend. <!-- msg:1490628594446237806 -->
-- [HK] The user prefers game recommendations with lots of drama. <!-- msg:1490628594446237806 -->
-- [HK] The user wants Độ Mixi to be on the Tày side and have a skill for avoiding obligations. <!-- msg:1490628594446237806 -->
-- [Tempetus] The user is interested in Rainbow Six Siege operators that can place traps to kill enemies. <!-- msg:1490648724165230602 -->
 - The conversation included an explanation of Rainbow Six Siege operators with trap/gadget abilities that can potentially kill enemies. <!-- msg:1490648724165230602 -->
-- The operators mentioned included Flores, Kapkan, Frost, Lesion, Ela, Melusi, Thorn, Fenrir, Grim, Finka, Kali, Deimos, and Azami. <!-- msg:1490648724165230602 -->
-- The response categorized operators into attack and defend. <!-- msg:1490648724165230602 -->
+- The conversation included a discussion about which card is strongest in Moon Colony Bloodbath, with the response saying the strongest card is usually "The Last Human" or other cards that can win immediately if their conditions are met. <!-- msg:1490905609091158149 -->
+- [Catatouille] The user is interested in board game designers with many highly rated games on BGG. <!-- msg:1490910046404612228 -->
+- [Catatouille] The user is interested in board game designers with many highly rated games on BGG. <!-- msg:1490910217167306894 -->
+- [Catatouille] The user is interested in board game designers with many highly rated games on BGG. <!-- msg:1490910323996233890 -->
+- The conversation included a question about the top 3 designers with the most games in the BGG Top 100, and the response named Reiner Knizia, Wolfgang Kramer, and a tie among several designers at 4 games each. <!-- msg:1490910323996233890 -->
+- [HK] The user is interested in board game designers with many highly rated games on BGG. <!-- msg:1490912650870132746 -->
+- [HK] The user wants game recommendations with lots of drama. <!-- msg:1490912650870132746 -->
+- The conversation included a question about the top 3 designers with the most games in the BGG Top 100, and the response named Reiner Knizia, Wolfgang Kramer, and a tie among several designers at 4 games each. <!-- msg:1490912650870132746 -->
+- The conversation included a large list of board games grouped by category: 'drama/đấu trí/toxic nhẹ', 'map control + chiến nhau căng', 'kinh tế / tối ưu / não cháy', 'đấu trí nhưng đỡ quái vật hơn', 'càng đông càng lầy', and 'lúc muốn cười mà vẫn có mùi chiến thuật'. <!-- msg:1490912650870132746 -->
+- The games mentioned as recommendations included Twilight Imperium, Cosmic Encounter, Diplomacy, Dead of Winter, Root, Inis, El Grande, Shogun / Samurai Swords, Pax Pamir 2e, Brass: Birmingham, Power Grid, Food Chain Magnate, Age of Steam, The Estates, Container, Imperial / Imperial 2030, Concordia, Terra Mystica, Gaia Project, Tigris & Euphrates, Hansa Teutonica, Yokohama, Chinatown, Bohnanza, The Resistance: Avalon, Secret Hitler, Mafia / Werewolf, Feed the Kraken, Skull, Cockroach Poker, Snake Oil, For Sale, No Thanks!, and 6 nimmt!. <!-- msg:1490912650870132746 -->
+- The conversation included an explanation of Rainbow Six Siege operators with trap/gadget abilities that can potentially kill enemies. <!-- msg:1490912650870132746 -->
+- The conversation included a discussion about which card is strongest in Moon Colony Bloodbath, with the response saying the strongest card is usually "The Last Human" or other cards that can win immediately if their conditions are met. <!-- msg:1490912650870132746 -->
+- [Tempetus] The user asked: "từ 1 tới 100, qq đáng giá bao nhiêu aura". <!-- msg:1490940194638139483 -->
+- [Tempetus] The user referred to their own "qq" and asked how much aura it is worth. <!-- msg:1490940194638139483 -->
+- [Catatouille] The user asked: "người đặt robot bằng bunker trong moon colony bloodbath nên bị trừ bao nhiêu aura". <!-- msg:1490940762890829954 -->
+- [Catatouille] The user asked how many players can play Mega Empires, including all expansions combined. <!-- msg:1491260451584086147 -->
+- The user asked which board game can be played by the most people at once. <!-- msg:1491279703653482618 -->
+- The response said Mega Empires can support up to 18 players in a large combined setup. <!-- msg:1491279703653482618 -->
+- The response said Mafia / Werewolf / Secret Hitler / Avalon can support around 10–20+ players depending on variant. <!-- msg:1491279703653482618 -->
+- The response said Feed the Kraken supports about 5–11 players. <!-- msg:1491279703653482618 -->
+- The response said Twilight Imperium 4 supports 3–6 players. <!-- msg:1491279703653482618 -->
+- The response said The Resistance: Avalon supports 5–10 players. <!-- msg:1491279703653482618 -->
+- The response said Mega Empires is the closest to winning for the most players in a true board game, while Werewolf/Mafia is the easiest to gather the most players for. <!-- msg:1491279703653482618 -->
