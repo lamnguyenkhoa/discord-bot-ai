@@ -56,3 +56,9 @@ AUTO_POST_TRIGGER_MIN = int(os.getenv("AUTO_POST_TRIGGER_MIN", "3"))
 AUTO_POST_TRIGGER_MAX = int(os.getenv("AUTO_POST_TRIGGER_MAX", "10"))
 AUTO_POST_COOLDOWN_SECONDS = int(os.getenv("AUTO_POST_COOLDOWN_SECONDS", "60"))
 AUTO_POST_MAX_LENGTH = int(os.getenv("AUTO_POST_MAX_LENGTH", "500"))
+
+# Meme reaction feature
+MEME_TRIGGER_CHANCE = int(os.getenv("MEME_TRIGGER_CHANCE", "5"))
+MEME_API = os.getenv("MEME_API", "giphy").lower()
+MEME_API_KEY = os.getenv("MEME_API_KEY", "")
+MEME_COOLDOWN_SECONDS = int(os.getenv("MEME_COOLDOWN_SECONDS", "10"))
