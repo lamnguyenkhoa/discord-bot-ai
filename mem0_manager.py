@@ -192,7 +192,7 @@ def format_context_for_prompt(guild_id: str, user_id: Optional[str] = None, quer
 
     try:
         guild_memories = _get_client().search(
-            query=query or "server knowledge and preferences",
+            query=query or "what was recently discussed or talked about",
             user_id=_guild_id_only(guild_id),
             limit=5,
             threshold=GUILD_MEMORY_THRESHOLD,
