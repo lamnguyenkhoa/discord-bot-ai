@@ -174,3 +174,12 @@ async def format_rag_context(query: str) -> str:
         return "No RAG context available."
     
     return "\n\n".join(parts)
+
+
+__all__ = [
+    "initialize",
+    "retrieve_guild_docs",
+    "search_web",
+    "fetch_url",
+    "format_rag_context",
+]

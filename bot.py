@@ -9,8 +9,9 @@ import config
 import mem0_manager
 import llm_client
 import indexer
-import rag_manager
+from module.rag import initialize as rag_initialize, format_rag_context
 from module.meme_reaction import get_meme_manager, get_trigger_decider
+from module.auto_post import get_auto_post_manager
 import logging
 import re
 from difflib import SequenceMatcher
@@ -33,7 +34,7 @@ client = discord.Client(intents=intents)
 async def on_ready():
     logger.info(f"Logged in as {client.user} (ID: {client.user.id})")
     indexer.init_db()
-    rag_manager.initialize()
+    rag_initialize()
     await mem0_manager.initialize()
 
     if config.ONLINE_MESSAGE and config.STATUS_CHANNEL:
@@ -66,13 +67,7 @@ _IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
 _PDF_EXTENSIONS = {".pdf"}
 
 
-class AutoPostState:
-    def __init__(self):
-        self.message_count: dict[str, int] = {}
-        self.last_post_time: dict[str, float] = {}
-
-
-auto_post_state = AutoPostState()
+auto_post_manager = get_auto_post_manager()
 meme_cooldown = {}
 
 
@@ -132,41 +127,6 @@ async def process_attachments(attachments):
     return extra_text, image_urls
 
 
-async def try_auto_post(message: discord.Message, guild, channel_key: str, guild_id: str):
-    if config.AUTO_POST_ENABLED and guild_id:
-        last_post = auto_post_state.last_post_time.get(channel_key, 0)
-        if time.time() - last_post < config.AUTO_POST_COOLDOWN_SECONDS:
-            auto_post_state.message_count[channel_key] = 0
-            return
-
-        channel_context = mem0_manager.format_context_for_prompt(guild_id, None, "")
-
-        prompt = f"""In 1-2 sentences, write a standalone statement related to recent conversation in #{channel_key}.
-It can comment on something discussed or share an interesting memory.
-Keep it short (under {config.AUTO_POST_MAX_LENGTH} chars), conversational, no questions.
-
-Recent context:
-{channel_context}"""
-
-        try:
-            async with message.channel.typing():
-                post = await llm_client.generate_reply(prompt, "", channel_key)
-
-            if post and len(post) <= config.AUTO_POST_MAX_LENGTH:
-                await message.channel.send(post)
-                logger.info(f"Auto-posted in #{channel_key}")
-                auto_post_state.last_post_time[channel_key] = time.time()
-            elif post and len(post) > config.AUTO_POST_MAX_LENGTH:
-                truncated = post[:497] + "..."
-                await message.channel.send(truncated)
-                logger.info(f"Auto-posted (truncated) in #{channel_key}")
-                auto_post_state.last_post_time[channel_key] = time.time()
-        except Exception as e:
-            logger.warning(f"Auto-post failed: {e}")
-
-    auto_post_state.message_count[channel_key] = 0
-
-
 @client.event
 async def on_message(message: discord.Message):
     if message.author == client.user:
@@ -208,11 +168,9 @@ async def on_message(message: discord.Message):
                 msg_id=message.id,
             )
             # Track for auto-post
-            if config.AUTO_POST_ENABLED:
-                auto_post_state.message_count[channel_key] = auto_post_state.message_count.get(channel_key, 0) + 1
-                trigger_threshold = random.randint(config.AUTO_POST_TRIGGER_MIN, config.AUTO_POST_TRIGGER_MAX)
-                if auto_post_state.message_count[channel_key] >= trigger_threshold:
-                    await try_auto_post(message, message.guild, channel_key, guild_id)
+            auto_post_manager.message_count[channel_key] = auto_post_manager.message_count.get(channel_key, 0) + 1
+            if await auto_post_manager.should_post(channel_key):
+                await auto_post_manager.post(message, message.guild, channel_key)
             
             # Meme reaction feature
             if config.MEME_TRIGGER_CHANCE > 0:
@@ -254,7 +212,7 @@ async def on_message(message: discord.Message):
     rag_context = ""
     if guild_id:
         try:
-            rag_context = await rag_manager.format_rag_context(user_text)
+            rag_context = await format_rag_context(user_text)
         except Exception as e:
             logger.warning(f"RAG failed, falling back to mem0: {e}")
 
