@@ -266,7 +266,10 @@ async def on_message(message: discord.Message):
     # RAG: retrieve relevant context (guild docs + web) first
     rag_context = ""
     if guild_id:
-        rag_context = await rag_manager.format_rag_context(user_text)
+        try:
+            rag_context = await rag_manager.format_rag_context(user_text)
+        except Exception as e:
+            logger.warning(f"RAG failed, falling back to mem0: {e}")
 
     # Mem0: fallback if RAG is empty
     if rag_context.strip() in ("", "No RAG context available."):
