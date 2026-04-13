@@ -179,8 +179,7 @@ async def index_file(file_path: str, db_path: str | None = None) -> None:
 
 async def index_guild(guild_id: str, db_path: str | None = None) -> None:
     """Re-index guild memory file."""
-    from memory_manager import get_guild_memory_path
-    guild_memory = get_guild_memory_path(guild_id)
+    guild_memory = f"{config.MEMORY_BASE_PATH}/guild_{guild_id}.md"
     if os.path.exists(guild_memory):
         await index_file(guild_memory, db_path)
 

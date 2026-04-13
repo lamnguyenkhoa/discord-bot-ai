@@ -1,7 +1,6 @@
 import os
 os.environ.pop("SSL_CERT_FILE", None)
 
-import asyncio
 import aiohttp
 import time
 import random
@@ -26,34 +25,6 @@ intents.reactions = True
 intents.members = True  # needed for member name resolution; enable "Server Members Intent" in Discord Developer Portal
 
 client = discord.Client(intents=intents)
-
-
-
-def resolve_member_by_name(guild: discord.Guild, name_query: str) -> discord.Member | None:
-    """Fuzzy-resolve a name string to a guild member. Returns None if no confident match."""
-    if not name_query or not guild:
-        return None
-    q = name_query.lower()
-    members = guild.members
-    for m in members:
-        if m.display_name.lower() == q or m.name.lower() == q:
-            return m
-    for m in members:
-        if m.display_name.lower().startswith(q) or m.name.lower().startswith(q):
-            return m
-    for m in members:
-        if q in m.display_name.lower() or q in m.name.lower():
-            return m
-    best, best_score = None, 0.0
-    for m in members:
-        score = max(
-            SequenceMatcher(None, q, m.display_name.lower()).ratio(),
-            SequenceMatcher(None, q, m.name.lower()).ratio(),
-        )
-        if score > best_score:
-            best, best_score = m, score
-    return best if best_score >= 0.6 else None
-
 
 
 
@@ -340,15 +311,7 @@ async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
     original_user_id = str(original.author.id)
     guild_id = str(payload.guild_id) if payload.guild_id else None
 
-    count = await facts_manager.remove_facts_by_msg_id(message.id, original_user_id, guild_id)
-    if count > 0:
-        logger.info(f"Removed {count} fact(s) via reaction on msg {message.id}")
-        try:
-            await message.add_reaction("\u2705")
-        except Exception:
-            pass
-    else:
-        logger.info(f"No facts matched msg_id={message.id} for reaction removal")
+    logger.info(f"Reaction removal not implemented - using mem0 memory system")
 
 
 if __name__ == "__main__":
