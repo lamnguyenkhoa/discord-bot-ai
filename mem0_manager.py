@@ -2,8 +2,7 @@
 Mem0 Memory Manager - Semantic memory using mem0 with ChromaDB backend.
 
 Memory organization:
-- Guild memories: user_id = "guild:{guild_id}"
-- User memories: user_id = "{guild_id}:{user_id}"
+- Unified guild memories: user_id = guild_id
 """
 
 import asyncio
@@ -84,16 +83,6 @@ def _get_client() -> Memory:
     return _memory_client
 
 
-def _guild_user_id(guild_id: str, user_id: str) -> str:
-    """Format user_id for per-user memories."""
-    return f"{guild_id}:{user_id}"
-
-
-def _guild_id_only(guild_id: str) -> str:
-    """Format user_id for guild-level memories."""
-    return f"guild:{guild_id}"
-
-
 async def capture_exchange(
     user_id: str,
     guild_id: str,
@@ -131,33 +120,23 @@ async def capture_exchange(
 
     try:
         with _buffer_lock:
-            buffer_key = guild_id
-            self_id = _guild_user_id(guild_id, user_id)
-            
-            _recent_buffer[buffer_key].append({
+            _recent_buffer[guild_id].append({
                 "role": "user",
                 "content": f"{username}: {user_message}",
             })
-            _recent_buffer[buffer_key].append({
+            _recent_buffer[guild_id].append({
                 "role": "assistant", 
                 "content": f"Bot: {bot_reply}",
             })
-            if len(_recent_buffer[buffer_key]) > MAX_RECENT_MESSAGES * 2:
-                _recent_buffer[buffer_key] = _recent_buffer[buffer_key][-MAX_RECENT_MESSAGES * 2:]
+            if len(_recent_buffer[guild_id]) > MAX_RECENT_MESSAGES * 2:
+                _recent_buffer[guild_id] = _recent_buffer[guild_id][-MAX_RECENT_MESSAGES * 2:]
 
-        user_result = _get_client().add(
+        result = _get_client().add(
             messages=messages,
-            user_id=self_id,
+            user_id=guild_id,
             metadata=metadata,
         )
-        logger.info(f"Captured user memory for {self_id}: {user_result.get('memories', [])}")
-
-        guild_result = _get_client().add(
-            messages=messages,
-            user_id=_guild_id_only(guild_id),
-            metadata=metadata,
-        )
-        logger.info(f"Captured guild memory for {guild_id}: {guild_result.get('memories', [])}")
+        logger.info(f"Captured memory for guild {guild_id}: {result.get('memories', [])}")
 
     except Exception as e:
         logger.error(f"Error capturing exchange to mem0: {e}")
@@ -169,7 +148,7 @@ def format_context_for_prompt(guild_id: str, user_id: Optional[str] = None, quer
     
     Args:
         guild_id: Discord guild/server ID
-        user_id: Optional Discord user ID for per-user context
+        user_id: Optional Discord user ID (kept for signature compatibility, ignored)
         query: Current user message for semantic search
     
     Returns:
@@ -191,26 +170,15 @@ def format_context_for_prompt(guild_id: str, user_id: Optional[str] = None, quer
         return "\n\n".join(parts) if parts else "No memory available."
 
     try:
-        guild_memories = _get_client().search(
+        memories = _get_client().search(
             query=query or "what was recently discussed or talked about",
-            user_id=_guild_id_only(guild_id),
+            user_id=guild_id,
             limit=5,
             threshold=GUILD_MEMORY_THRESHOLD,
         )
-        if guild_memories.get("results"):
-            guild_text = "\n".join(f"- {m['memory']}" for m in guild_memories["results"])
-            parts.append(f"## Guild Memory\n{guild_text}")
-
-        if user_id:
-            user_memories = _get_client().search(
-                query=query or "user preferences and important facts",
-                user_id=_guild_user_id(guild_id, user_id),
-                limit=3,
-                threshold=USER_MEMORY_THRESHOLD,
-            )
-            if user_memories.get("results"):
-                user_text = "\n".join(f"- {m['memory']}" for m in user_memories["results"])
-                parts.append(f"## User Memory\n{user_text}")
+        if memories.get("results"):
+            memory_text = "\n".join(f"- {m['memory']}" for m in memories["results"])
+            parts.append(f"## Memory\n{memory_text}")
 
     except Exception as e:
         logger.error(f"Error searching memories: {e}")
@@ -229,7 +197,7 @@ async def delete_by_msg_id(msg_id: int, guild_id: str) -> None:
         return
     
     try:
-        all_memories = _get_client().get_all(user_id=_guild_id_only(guild_id))
+        all_memories = _get_client().get_all(user_id=guild_id)
         for memory in all_memories.get("results", []):
             if memory.get("metadata", {}).get("msg_id") == str(msg_id):
                 _get_client().delete(memory_id=memory["id"])
@@ -238,26 +206,13 @@ async def delete_by_msg_id(msg_id: int, guild_id: str) -> None:
         logger.error(f"Error deleting memories for msg_id={msg_id}: {e}")
 
 
-def get_user_memories(guild_id: str, user_id: str) -> list[str]:
-    """Get all memories for a specific user in a guild."""
-    if _memory_client is None:
-        return []
-    
-    try:
-        result = _get_client().get_all(user_id=_guild_user_id(guild_id, user_id))
-        return [m["memory"] for m in result.get("results", [])]
-    except Exception as e:
-        logger.error(f"Error getting user memories: {e}")
-        return []
-
-
 def get_guild_memories(guild_id: str) -> list[str]:
     """Get all memories for a guild."""
     if _memory_client is None:
         return []
     
     try:
-        result = _get_client().get_all(user_id=_guild_id_only(guild_id))
+        result = _get_client().get_all(user_id=guild_id)
         return [m["memory"] for m in result.get("results", [])]
     except Exception as e:
         logger.error(f"Error getting guild memories: {e}")
