@@ -10,6 +10,7 @@ import mem0_manager
 import llm_client
 import indexer
 import rag_manager
+from module.meme_reaction import get_meme_manager, get_trigger_decider
 import logging
 import re
 from difflib import SequenceMatcher
@@ -72,6 +73,7 @@ class AutoPostState:
 
 
 auto_post_state = AutoPostState()
+meme_cooldown = {}
 
 
 async def _extract_pdf_text(session: aiohttp.ClientSession, att) -> str:
@@ -211,6 +213,20 @@ async def on_message(message: discord.Message):
                 trigger_threshold = random.randint(config.AUTO_POST_TRIGGER_MIN, config.AUTO_POST_TRIGGER_MAX)
                 if auto_post_state.message_count[channel_key] >= trigger_threshold:
                     await try_auto_post(message, message.guild, channel_key, guild_id)
+            
+            # Meme reaction feature
+            if config.MEME_TRIGGER_CHANCE > 0:
+                last_meme = meme_cooldown.get(channel_key, 0)
+                if time.time() - last_meme >= config.MEME_COOLDOWN_SECONDS:
+                    if random.randint(1, 100) <= config.MEME_TRIGGER_CHANCE:
+                        meme_manager = get_meme_manager()
+                        trigger_decider = get_trigger_decider()
+                        if await trigger_decider.should_trigger_meme(user_text):
+                            gif_url = await meme_manager.search_gif(user_text)
+                            if gif_url:
+                                await message.reply(gif_url)
+                                meme_cooldown[channel_key] = time.time()
+                                logger.info(f"Sent meme in #{channel_key}")
             return
         return
 
