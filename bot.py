@@ -169,7 +169,7 @@ async def on_message(message: discord.Message):
             )
             # Track for auto-post
             auto_post_manager.message_count[channel_key] = auto_post_manager.message_count.get(channel_key, 0) + 1
-            if await auto_post_manager.should_post(channel_key):
+            if auto_post_manager.should_post(channel_key):
                 await auto_post_manager.post(message, message.guild, channel_key)
             
             # Meme reaction feature

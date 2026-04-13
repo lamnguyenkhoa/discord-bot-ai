@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 KEYWORDS = [
     "lol", "haha", "lmao", "omg", "wow", "bro", "that's funny",
-    "kekw", "lul", "pog", "lulw", "hah", "hahaha", "hahaa",
+    "kekw", "lul", "pog", "lulw", "hah", "hahaha", "hahaa", "yay",
     "🤣", "😂", "😭", "😆", "🤪"
 ]
 

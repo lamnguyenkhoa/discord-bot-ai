@@ -14,8 +14,8 @@ class MemeManager:
 
     async def search_gif(self, query: str) -> str | None:
         """Search for GIF and return URL or None."""
-        if not config.MEME_API_KEY:
-            logger.warning("MEME_API_KEY not configured")
+        if not config.MEME_API_KEY and config.MEME_API != "tenor":
+            logger.warning("MEME_API_KEY not configured and not using Tenor (which supports keyless API)")
             return None
 
         # Truncate query
@@ -58,6 +58,7 @@ class MemeManager:
 
     async def _search_tenor(self, query: str) -> str | None:
         api_url = "https://tenor.googleapis.com/v2/search"
+        print("queryquery ", query)
         params = {
             "q": query,
             "limit": 1,
