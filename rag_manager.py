@@ -11,12 +11,32 @@ import logging
 import re
 from typing import Optional
 
+import aiohttp
+from openai import AsyncOpenAI
+
 import config
 import indexer
 
 logger = logging.getLogger(__name__)
 
 _MAX_URL_LENGTH = 2000
+
+_openai_client: Optional[AsyncOpenAI] = None
+_aiohttp_session: Optional[aiohttp.ClientSession] = None
+
+
+def _get_openai_client() -> AsyncOpenAI:
+    global _openai_client
+    if _openai_client is None:
+        _openai_client = AsyncOpenAI(api_key=config.LLM_API_KEY, base_url=config.LLM_BASE_URL)
+    return _openai_client
+
+
+async def _get_aiohttp_session() -> aiohttp.ClientSession:
+    global _aiohttp_session
+    if _aiohttp_session is None or _aiohttp_session.closed:
+        _aiohttp_session = aiohttp.ClientSession()
+    return _aiohttp_session
 
 
 async def initialize() -> None:
@@ -46,15 +66,11 @@ async def search_web(query: str, limit_tokens: int = 400) -> list[dict]:
         return []
     
     try:
-        from openai import AsyncOpenAI
-        client = AsyncOpenAI(
-            api_key=config.LLM_API_KEY,
-            base_url=config.LLM_BASE_URL,
-        )
+        client = _get_openai_client()
         response = await client.chat.completions.create(
             model=config.MODEL_NAME,
             messages=[
-                {"role": "system", "content": "Search the web for information and provide a concise summary. Return the results in this format:\n\nTitle: <title>\nURL: <url>\nSummary: <brief summary>\n\nSearch query: " + query}
+                {"role": "system", "content": "Use the web_search tool to find current information about: " + query}
             ],
             tools=[{"type": "openrouter:web_search"}],
             tool_choice={"type": "web_search"},
@@ -99,32 +115,29 @@ async def fetch_url(url: str, max_chars: int = 2000) -> str:
     """
     Fetch and extract text content from a URL.
     """
-    import aiohttp
-    
     if len(url) > _MAX_URL_LENGTH:
         logger.warning(f"URL too long: {url[:50]}...")
         return ""
     
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
-                if resp.status != 200:
-                    logger.warning(f"URL fetch failed: {resp.status}")
-                    return ""
-                
-                text = await resp.text()
-                
-                # Basic HTML strip
-                text = re.sub(r'<script[^>]*>.*?</script>', '', text, flags=re.DOTALL | re.IGNORECASE)
-                text = re.sub(r'<style[^>]*>.*?</style>', '', text, flags=re.DOTALL | re.IGNORECASE)
-                text = re.sub(r'<[^>]+>', '', text)
-                text = re.sub(r'\s+', ' ', text)
-                text = text.strip()
-                
-                if len(text) > max_chars:
-                    text = text[:max_chars] + "..."
-                
-                return text
+        session = await _get_aiohttp_session()
+        async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
+            if resp.status != 200:
+                logger.warning(f"URL fetch failed: {resp.status}")
+                return ""
+            
+            text = await resp.text()
+            
+            text = re.sub(r'<script[^>]*>.*?</script>', '', text, flags=re.DOTALL | re.IGNORECASE)
+            text = re.sub(r'<style[^>]*>.*?</style>', '', text, flags=re.DOTALL | re.IGNORECASE)
+            text = re.sub(r'<[^>]+>', '', text)
+            text = re.sub(r'\s+', ' ', text)
+            text = text.strip()
+            
+            if len(text) > max_chars:
+                text = text[:max_chars] + "..."
+            
+            return text
     except Exception as e:
         logger.error(f"URL fetch error: {e}")
         return ""
