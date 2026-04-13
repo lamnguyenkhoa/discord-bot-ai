@@ -10,6 +10,26 @@ logger = logging.getLogger(__name__)
 
 _CHUNK_SIZE = 20
 _CHUNK_OVERLAP = 4
+_embed_client: "AsyncOpenAI | None" = None
+
+
+def _get_embed_client() -> "AsyncOpenAI | None":
+    global _embed_client
+    if _embed_client is None:
+        from openai import AsyncOpenAI
+        _embed_client = AsyncOpenAI(
+            api_key=config.EMBEDDING_API_KEY,
+            base_url=config.EMBEDDING_BASE_URL,
+        )
+    return _embed_client
+
+
+def _sanitize_fts_query(query: str) -> str:
+    """Escape FTS5 special characters."""
+    special_chars = ['*', '"', '(', ')', ':', '^', '-', '+']
+    for char in special_chars:
+        query = query.replace(char, ' ')
+    return query.strip()
 
 
 def _get_db(db_path: str) -> sqlite3.Connection:
@@ -73,11 +93,7 @@ async def _embed_texts(texts: list[str]) -> list[list[float]] | None:
     if not config.EMBEDDING_API_KEY:
         return None
     try:
-        from openai import AsyncOpenAI
-        embed_client = AsyncOpenAI(
-            api_key=config.EMBEDDING_API_KEY,
-            base_url=config.EMBEDDING_BASE_URL,
-        )
+        embed_client = _get_embed_client()
         response = await embed_client.embeddings.create(
             model=config.EMBEDDING_MODEL,
             input=texts,
@@ -93,11 +109,7 @@ async def _embed_query(query: str) -> list[float] | None:
     if not config.EMBEDDING_API_KEY:
         return None
     try:
-        from openai import AsyncOpenAI
-        embed_client = AsyncOpenAI(
-            api_key=config.EMBEDDING_API_KEY,
-            base_url=config.EMBEDDING_BASE_URL,
-        )
+        embed_client = _get_embed_client()
         response = await embed_client.embeddings.create(
             model=config.EMBEDDING_MODEL,
             input=[query],
@@ -224,6 +236,7 @@ async def retrieve(query: str, limit_tokens: int = 600, db_path: str | None = No
                 return results
         
         # Fallback: FTS5 search
+        sanitized_query = _sanitize_fts_query(query)
         rows = conn.execute("""
             SELECT c.text, f.path, c.line_start, c.line_end,
                    bm25(chunks_fts) AS rank
@@ -233,7 +246,7 @@ async def retrieve(query: str, limit_tokens: int = 600, db_path: str | None = No
             WHERE chunks_fts MATCH ?
             ORDER BY rank
             LIMIT 20
-        """, (query,)).fetchall()
+        """, (sanitized_query,)).fetchall()
         
         if not rows:
             return []
