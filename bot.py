@@ -5,8 +5,7 @@ import asyncio
 import aiohttp
 import discord
 import config
-import memory_manager
-import facts_manager
+import mem0_manager
 import llm_client
 import indexer
 import logging
@@ -59,6 +58,7 @@ def resolve_member_by_name(guild: discord.Guild, name_query: str) -> discord.Mem
 async def on_ready():
     logger.info(f"Logged in as {client.user} (ID: {client.user.id})")
     indexer.init_db()
+    await mem0_manager.initialize()
 
     if config.ONLINE_MESSAGE and config.STATUS_CHANNEL:
         for guild in client.guilds:
@@ -176,13 +176,14 @@ async def on_message(message: discord.Message):
         user_text = message.content.strip()
         if user_text:
             logger.debug(f"Observing #{message.channel}: {user_text[:80]}")
-            memory_manager.append_exchange(
+            await mem0_manager.capture_exchange(
                 user_id=user_id,
                 guild_id=guild_id,
                 channel_name=str(message.channel),
-                author_name=str(message.author.display_name),
+                username=str(message.author.display_name),
                 user_message=user_text,
                 bot_reply="",
+                msg_id=message.id,
             )
             # Note: In silent observation, we don't extract facts to avoid noise
             return  # Exit early - don't process further
@@ -211,12 +212,10 @@ async def on_message(message: discord.Message):
     # RAG: retrieve relevant memory chunks for context
     # Use new unified memory system - load context from guild log
     if guild_id:
-        memory_context = memory_manager.format_context_for_prompt(guild_id)
+        memory_context = mem0_manager.format_context_for_prompt(guild_id, user_id, user_text)
     else:
         # DM - no guild memory
         memory_context = ""
-
-    facts_context = facts_manager.load_facts(guild_id)
 
 
     async with message.channel.typing():
@@ -224,7 +223,6 @@ async def on_message(message: discord.Message):
             user_message=user_text,
             memory_context=memory_context,
             channel_name=str(message.channel),
-            facts_context=facts_context,
             image_urls=image_urls,
         )
 
@@ -233,35 +231,17 @@ async def on_message(message: discord.Message):
     await message.reply(reply)
 
     # Skip logging if reply was the fallback error string
-    if reply != FALLBACK:
+    if reply != FALLBACK and guild_id:
         author_name = str(message.author.display_name)
-        memory_manager.append_exchange(
+        await mem0_manager.capture_exchange(
             user_id=user_id,
             guild_id=guild_id,
             channel_name=str(message.channel),
-            author_name=author_name,
+            username=author_name,
             user_message=user_text,
             bot_reply=reply,
+            msg_id=message.id,
         )
-        extracted = await llm_client.extract_facts(
-            author_name, user_text, reply, existing_facts=facts_context
-        )
-        for correction in extracted.get("corrections", []):
-            # Allow cross-user corrections in the new unified system
-            await facts_manager.upsert_user_fact(
-                user_id, author_name, correction["new_fact"],
-                msg_id=message.id, old_fact=correction.get("old_fact"),
-                guild_id=guild_id,
-            )
-        for fact in extracted["user_facts"]:
-            # User facts now go to guild memory with user context
-            await facts_manager.upsert_user_fact(user_id, author_name, fact, msg_id=message.id, guild_id=guild_id)
-        for fact in extracted["server_facts"]:
-            await facts_manager.upsert_server_fact(guild_id, fact, msg_id=message.id)
-
-        # Compress log if needed (new unified system)
-        if guild_id:
-            await memory_manager.compress_log_if_needed(guild_id)
         if guild_id:
             asyncio.create_task(indexer.index_guild(guild_id))
 
