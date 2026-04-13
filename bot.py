@@ -242,8 +242,6 @@ async def on_message(message: discord.Message):
             bot_reply=reply,
             msg_id=message.id,
         )
-        if guild_id:
-            asyncio.create_task(indexer.index_guild(guild_id))
 
 
 @client.event
