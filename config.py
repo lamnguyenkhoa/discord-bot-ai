@@ -53,3 +53,10 @@ KILL_WORD_ALLOWED_USER_ID = os.getenv("KILL_WORD_ALLOWED_USER_ID", "")
 ONLINE_MESSAGE = os.getenv("ONLINE_MESSAGE", "I'm back online!")
 OFFLINE_MESSAGE = os.getenv("OFFLINE_MESSAGE", "Going offline now. Goodbye!")
 STATUS_CHANNEL = os.getenv("STATUS_CHANNEL", "")
+
+# Auto-post feature
+AUTO_POST_ENABLED = os.getenv("AUTO_POST_ENABLED", "false").lower() in ("1", "true", "yes")
+AUTO_POST_TRIGGER_MIN = int(os.getenv("AUTO_POST_TRIGGER_MIN", "3"))
+AUTO_POST_TRIGGER_MAX = int(os.getenv("AUTO_POST_TRIGGER_MAX", "10"))
+AUTO_POST_COOLDOWN_SECONDS = int(os.getenv("AUTO_POST_COOLDOWN_SECONDS", "60"))
+AUTO_POST_MAX_LENGTH = int(os.getenv("AUTO_POST_MAX_LENGTH", "500"))
