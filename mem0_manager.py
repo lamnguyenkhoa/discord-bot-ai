@@ -60,7 +60,7 @@ def _build_mem0_config() -> dict:
             "config": {
                 "model": config.EMBEDDING_MODEL,
                 "api_key": config.EMBEDDING_API_KEY,
-                "api_base": config.EMBEDDING_BASE_URL,
+                "base_url": config.EMBEDDING_BASE_URL,
             }
         }
     }
