@@ -10,6 +10,7 @@ import config
 import mem0_manager
 import llm_client
 import indexer
+import rag_manager
 import logging
 import re
 from difflib import SequenceMatcher
@@ -60,6 +61,7 @@ def resolve_member_by_name(guild: discord.Guild, name_query: str) -> discord.Mem
 async def on_ready():
     logger.info(f"Logged in as {client.user} (ID: {client.user.id})")
     indexer.init_db()
+    await rag_manager.initialize()
     await mem0_manager.initialize()
 
     if config.ONLINE_MESSAGE and config.STATUS_CHANNEL:
@@ -261,13 +263,16 @@ async def on_message(message: discord.Message):
     if extra_text:
         user_text += "\n\n" + "\n\n".join(extra_text)
 
-    # RAG: retrieve relevant memory chunks for context
-    # Use new unified memory system - load context from guild log
+    # RAG: retrieve relevant context (guild docs + web) first
+    rag_context = ""
     if guild_id:
+        rag_context = await rag_manager.format_rag_context(user_text)
+
+    # Mem0: fallback if RAG is empty
+    if rag_context.strip() in ("", "No RAG context available."):
         memory_context = mem0_manager.format_context_for_prompt(guild_id, user_id, user_text)
     else:
-        # DM - no guild memory
-        memory_context = ""
+        memory_context = rag_context
 
 
     async with message.channel.typing():
