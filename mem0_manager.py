@@ -148,7 +148,6 @@ async def capture_exchange(
         user_result = _get_client().add(
             messages=messages,
             user_id=self_id,
-            session_id=guild_id,
             metadata=metadata,
         )
         logger.info(f"Captured user memory for {self_id}: {user_result.get('memories', [])}")
@@ -156,7 +155,6 @@ async def capture_exchange(
         guild_result = _get_client().add(
             messages=messages,
             user_id=_guild_id_only(guild_id),
-            session_id=guild_id,
             metadata=metadata,
         )
         logger.info(f"Captured guild memory for {guild_id}: {guild_result.get('memories', [])}")
