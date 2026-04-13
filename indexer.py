@@ -88,6 +88,26 @@ async def _embed_texts(texts: list[str]) -> list[list[float]] | None:
         return None
 
 
+async def _embed_query(query: str) -> list[float] | None:
+    """Embed a single query. Returns None if unavailable."""
+    if not config.EMBEDDING_API_KEY:
+        return None
+    try:
+        from openai import AsyncOpenAI
+        embed_client = AsyncOpenAI(
+            api_key=config.EMBEDDING_API_KEY,
+            base_url=config.EMBEDDING_BASE_URL,
+        )
+        response = await embed_client.embeddings.create(
+            model=config.EMBEDDING_MODEL,
+            input=[query],
+        )
+        return response.data[0].embedding
+    except Exception as e:
+        logger.warning(f"Query embedding failed: {e}")
+        return None
+
+
 async def index_file(file_path: str, db_path: str | None = None) -> None:
     """Index a single markdown file. Skips if content unchanged."""
     if db_path is None:
@@ -151,3 +171,88 @@ async def index_guild(guild_id: str, db_path: str | None = None) -> None:
     guild_memory = get_guild_memory_path(guild_id)
     if os.path.exists(guild_memory):
         await index_file(guild_memory, db_path)
+
+
+async def retrieve(query: str, limit_tokens: int = 600, db_path: str | None = None) -> list[dict]:
+    """
+    Search indexed chunks by semantic similarity or FTS5.
+    
+    Args:
+        query: Search query
+        limit_tokens: Max tokens for returned text (default 600)
+        db_path: Optional path to index DB
+    
+    Returns:
+        List of {"text": str, "file": str, "line_start": int, "line_end": int, "score": float}
+    """
+    if db_path is None:
+        db_path = config.INDEX_PATH
+    
+    conn = _get_db(db_path)
+    try:
+        # Try semantic search with embeddings
+        query_embedding = await _embed_query(query)
+        if query_embedding:
+            # Cosine similarity search
+            emb_json = json.dumps(query_embedding)
+            rows = conn.execute("""
+                SELECT c.text, f.path, c.line_start, c.line_end,
+                       (c.embedding <-> ?) AS similarity
+                FROM chunks c
+                JOIN files f ON c.file_id = f.id
+                WHERE c.embedding IS NOT NULL
+                ORDER BY similarity ASC
+                LIMIT 20
+            """, (emb_json,)).fetchall()
+            
+            if rows:
+                results = []
+                total_chars = 0
+                char_budget = limit_tokens * 4  # rough: 4 chars per token
+                for row in rows:
+                    text = row[0]
+                    if total_chars + len(text) > char_budget:
+                        continue
+                    results.append({
+                        "text": text,
+                        "file": row[1],
+                        "line_start": row[2],
+                        "line_end": row[3],
+                        "score": 1.0 - row[4],  # convert distance to similarity
+                    })
+                    total_chars += len(text)
+                return results
+        
+        # Fallback: FTS5 search
+        rows = conn.execute("""
+            SELECT c.text, f.path, c.line_start, c.line_end,
+                   bm25(chunks_fts) AS rank
+            FROM chunks_fts
+            JOIN chunks c ON chunks_fts.rowid = c.id
+            JOIN files f ON c.file_id = f.id
+            WHERE chunks_fts MATCH ?
+            ORDER BY rank
+            LIMIT 20
+        """, (query,)).fetchall()
+        
+        if not rows:
+            return []
+        
+        results = []
+        total_chars = 0
+        char_budget = limit_tokens * 4
+        for row in rows:
+            text = row[0]
+            if total_chars + len(text) > char_budget:
+                continue
+            results.append({
+                "text": text,
+                "file": row[1],
+                "line_start": row[2],
+                "line_end": row[3],
+                "score": 1.0 / (1.0 + abs(row[4])),  # convert BM25 to similarity-like score
+            })
+            total_chars += len(text)
+        return results
+    finally:
+        conn.close()
