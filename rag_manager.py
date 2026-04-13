@@ -39,9 +39,9 @@ async def _get_aiohttp_session() -> aiohttp.ClientSession:
     return _aiohttp_session
 
 
-async def initialize() -> None:
+def initialize() -> None:
     """Initialize RAG system."""
-    await indexer.init_db()
+    indexer.init_db()
     logger.info("RAG system initialized")
 
 

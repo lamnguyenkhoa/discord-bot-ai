@@ -61,7 +61,7 @@ def resolve_member_by_name(guild: discord.Guild, name_query: str) -> discord.Mem
 async def on_ready():
     logger.info(f"Logged in as {client.user} (ID: {client.user.id})")
     indexer.init_db()
-    await rag_manager.initialize()
+    rag_manager.initialize()
     await mem0_manager.initialize()
 
     if config.ONLINE_MESSAGE and config.STATUS_CHANNEL:
