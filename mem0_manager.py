@@ -45,7 +45,7 @@ def _build_mem0_config() -> dict:
             "config": {
                 "model": config.MODEL_NAME,
                 "api_key": config.LLM_API_KEY,
-                "api_base": config.LLM_BASE_URL,
+                "openai_base_url": config.LLM_BASE_URL,
             }
         },
         "vector_store": {
