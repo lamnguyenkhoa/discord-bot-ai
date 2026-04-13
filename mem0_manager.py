@@ -8,6 +8,7 @@ Memory organization:
 
 import asyncio
 import logging
+import threading
 from collections import defaultdict
 from typing import Optional
 
@@ -23,7 +24,7 @@ GUILD_MEMORY_THRESHOLD = 0.6
 
 _memory_client: Optional[Memory] = None
 _recent_buffer: dict[str, list[dict]] = defaultdict(list)
-_buffer_lock = asyncio.Lock()
+_buffer_lock = threading.Lock()
 
 
 def _build_mem0_config() -> dict:
@@ -129,7 +130,7 @@ async def capture_exchange(
     }
 
     try:
-        async with _buffer_lock:
+        with _buffer_lock:
             buffer_key = guild_id
             self_id = _guild_user_id(guild_id, user_id)
             
@@ -178,7 +179,7 @@ def format_context_for_prompt(guild_id: str, user_id: Optional[str] = None, quer
     """
     parts = []
 
-    async with _buffer_lock:
+    with _buffer_lock:
         recent = _recent_buffer.get(guild_id, [])[-MAX_RECENT_MESSAGES * 2:]
 
     if recent:
