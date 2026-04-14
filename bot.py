@@ -7,6 +7,7 @@ import glob
 import time
 import random
 import discord
+from discord import app_commands
 import config
 import mem0_manager
 import llm_client
@@ -29,6 +30,7 @@ intents.reactions = True
 intents.members = True  # needed for member name resolution; enable "Server Members Intent" in Discord Developer Portal
 
 client = discord.Client(intents=intents)
+tree = app_commands.CommandTree(client)
 
 
 async def _file_watcher():
@@ -61,6 +63,56 @@ async def _file_watcher():
         await asyncio.sleep(config.INDEX_WATCH_INTERVAL)
 
 
+@tree.command(name="index", description="Re-index all memory files")
+async def index_command(interaction: discord.Interaction):
+    if not interaction.user.guild_permissions.administrator:
+        await interaction.response.send_message("Only admins can use this command.")
+        return
+
+    await interaction.response.defer()
+    try:
+        stats = await indexer.index_all()
+        await interaction.followup.send(
+            f"Indexed {stats['files']} files, {stats['chunks']} chunks"
+        )
+    except Exception as e:
+        logger.error(f"Index command error: {e}")
+        await interaction.followup.send(f"Error: {e}")
+
+
+@tree.command(name="memory", description="List indexed memory files")
+@app_commands.describe(action="Action to perform")
+@app_commands.choices(action=[
+    app_commands.Choice(name="list", value="list"),
+])
+async def memory_command(interaction: discord.Interaction, action: str = "list"):
+    if action != "list":
+        await interaction.response.send_message("Unknown action. Use 'list'.")
+        return
+
+    try:
+        stats = indexer.get_stats()
+        files = indexer.get_indexed_files()
+
+        if not files:
+            await interaction.response.send_message("No files indexed yet.")
+            return
+
+        lines = ["**Indexed files:**"]
+        for f in files:
+            name = os.path.basename(f["path"])
+            chunks = f["chunks"]
+            lines.append(f"- {name} ({chunks} chunks)")
+
+        size_kb = stats["size_bytes"] / 1024
+        lines.append(f"\nTotal: {stats['files']} files, {stats['chunks']} chunks, ~{size_kb:.1f} KB")
+
+        await interaction.response.send_message("\n".join(lines))
+    except Exception as e:
+        logger.error(f"Memory list command error: {e}")
+        await interaction.response.send_message(f"Error: {e}")
+
+
 @client.event
 async def on_ready():
     logger.info(f"Logged in as {client.user} (ID: {client.user.id})")
@@ -88,6 +140,9 @@ async def on_ready():
                 except Exception as e:
                     logger.error(f"Failed to send online message: {e}")
                 break
+
+    await tree.sync()
+    logger.info("Commands synced")
 
 
 @client.event
