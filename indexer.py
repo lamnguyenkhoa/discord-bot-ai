@@ -1,3 +1,4 @@
+import glob
 import hashlib
 import json
 import logging
@@ -182,6 +183,87 @@ async def index_guild(guild_id: str, db_path: str | None = None) -> None:
     guild_memory = f"{config.MEMORY_BASE_PATH}/guild_{guild_id}.md"
     if os.path.exists(guild_memory):
         await index_file(guild_memory, db_path)
+
+
+async def index_all() -> dict:
+    """Index all .md files in MEMORY_BASE_PATH. Returns stats dict."""
+    memory_path = config.MEMORY_BASE_PATH
+    if not os.path.exists(memory_path):
+        os.makedirs(memory_path, exist_ok=True)
+        logger.info(f"Created memory directory: {memory_path}")
+        return {"files": 0, "chunks": 0}
+
+    files = glob.glob(os.path.join(memory_path, "*.md"))
+    total_files = 0
+    total_chunks = 0
+
+    for file_path in files:
+        before_chunks = _count_chunks(file_path)
+        await index_file(file_path)
+        after_chunks = _count_chunks(file_path)
+        if after_chunks > 0 or before_chunks > 0:
+            total_files += 1
+            total_chunks += after_chunks
+
+    logger.info(f"Indexed {total_files} files, {total_chunks} chunks")
+    return {"files": total_files, "chunks": total_chunks}
+
+
+def _count_chunks(file_path: str, db_path: str | None = None) -> int:
+    """Count chunks for a file."""
+    if db_path is None:
+        db_path = config.INDEX_PATH
+    if not os.path.exists(db_path):
+        return 0
+    conn = _get_db(db_path)
+    try:
+        row = conn.execute(
+            "SELECT COUNT(*) FROM chunks c JOIN files f ON c.file_id = f.id WHERE f.path = ?",
+            (file_path,)
+        ).fetchone()
+        return row[0] if row else 0
+    finally:
+        conn.close()
+
+
+def get_stats() -> dict:
+    """Get indexing statistics."""
+    db_path = config.INDEX_PATH
+    if not os.path.exists(db_path):
+        return {"files": 0, "chunks": 0, "size_bytes": 0}
+
+    conn = _get_db(db_path)
+    try:
+        file_count = conn.execute("SELECT COUNT(*) FROM files").fetchone()[0]
+        chunk_count = conn.execute("SELECT COUNT(*) FROM chunks").fetchone()[0]
+        size_bytes = os.path.getsize(db_path)
+        return {
+            "files": file_count,
+            "chunks": chunk_count,
+            "size_bytes": size_bytes,
+        }
+    finally:
+        conn.close()
+
+
+async def get_indexed_files() -> list[dict]:
+    """Get list of indexed files with chunk counts."""
+    db_path = config.INDEX_PATH
+    if not os.path.exists(db_path):
+        return []
+
+    conn = _get_db(db_path)
+    try:
+        rows = conn.execute("""
+            SELECT f.path, COUNT(c.id) as chunk_count
+            FROM files f
+            LEFT JOIN chunks c ON c.file_id = f.id
+            GROUP BY f.id
+            ORDER BY f.path
+        """).fetchall()
+        return [{"path": r[0], "chunks": r[1]} for r in rows]
+    finally:
+        conn.close()
 
 
 async def retrieve(query: str, limit_tokens: int = 600, db_path: str | None = None) -> list[dict]:
