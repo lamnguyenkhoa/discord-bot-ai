@@ -2,6 +2,8 @@ import os
 os.environ.pop("SSL_CERT_FILE", None)
 
 import aiohttp
+import asyncio
+import glob
 import time
 import random
 import discord
@@ -29,6 +31,35 @@ intents.members = True  # needed for member name resolution; enable "Server Memb
 client = discord.Client(intents=intents)
 
 
+async def _file_watcher():
+    """Background task that checks for file changes."""
+    import time
+    last_checked = {}
+
+    while True:
+        try:
+            memory_path = config.MEMORY_BASE_PATH
+            if os.path.exists(memory_path):
+                files = glob.glob(os.path.join(memory_path, "*.md"))
+                changed = False
+
+                for file_path in files:
+                    stat = os.stat(file_path)
+                    mtime = stat.st_mtime
+                    if file_path not in last_checked or last_checked[file_path] != mtime:
+                        last_checked[file_path] = mtime
+                        changed = True
+
+                if changed:
+                    logger.info("File changes detected, re-indexing...")
+                    stats = await indexer.index_all()
+                    logger.info(f"Re-indexed: {stats['files']} files, {stats['chunks']} chunks")
+
+        except Exception as e:
+            logger.warning(f"File watcher error: {e}")
+
+        await asyncio.sleep(config.INDEX_WATCH_INTERVAL)
+
 
 @client.event
 async def on_ready():
@@ -36,6 +67,15 @@ async def on_ready():
     indexer.init_db()
     rag_initialize()
     await mem0_manager.initialize()
+
+    if config.INDEX_AUTO_ON_START:
+        logger.info("Auto-indexing memory files on startup...")
+        stats = await indexer.index_all()
+        logger.info(f"Startup indexing complete: {stats['files']} files, {stats['chunks']} chunks")
+
+        if config.INDEX_WATCH_INTERVAL > 0:
+            asyncio.create_task(_file_watcher())
+            logger.info(f"File watcher started (interval: {config.INDEX_WATCH_INTERVAL}s)")
 
     if config.ONLINE_MESSAGE and config.STATUS_CHANNEL:
         for guild in client.guilds:
