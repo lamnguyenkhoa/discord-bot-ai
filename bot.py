@@ -17,7 +17,6 @@ from module.meme_reaction import get_meme_manager, get_trigger_decider
 from module.auto_post import get_auto_post_manager
 import logging
 import re
-from difflib import SequenceMatcher
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)

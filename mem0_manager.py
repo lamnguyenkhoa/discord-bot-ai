@@ -5,7 +5,6 @@ Memory organization:
 - Unified guild memories: user_id = guild_id
 """
 
-import asyncio
 import logging
 import threading
 from collections import defaultdict
@@ -18,7 +17,6 @@ import config
 logger = logging.getLogger(__name__)
 
 MAX_RECENT_MESSAGES = 20
-USER_MEMORY_THRESHOLD = 0.7
 GUILD_MEMORY_THRESHOLD = 0.6
 
 _memory_client: Optional[Memory] = None

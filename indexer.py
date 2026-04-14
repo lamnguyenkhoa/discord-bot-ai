@@ -111,22 +111,6 @@ async def _embed_texts(texts: list[str]) -> list[list[float]] | None:
         return None
 
 
-async def _embed_query(query: str) -> list[float] | None:
-    """Embed a single query. Returns None if unavailable."""
-    if not config.EMBEDDING_API_KEY:
-        return None
-    try:
-        embed_client = _get_embed_client()
-        response = await embed_client.embeddings.create(
-            model=config.EMBEDDING_MODEL,
-            input=[query],
-        )
-        return response.data[0].embedding
-    except Exception as e:
-        logger.warning(f"Query embedding failed: {e}")
-        return None
-
-
 async def index_file(file_path: str, db_path: str | None = None) -> None:
     """Index a single markdown file. Skips if content unchanged."""
     if db_path is None:
@@ -319,14 +303,6 @@ async def retrieve(query: str, limit_tokens: int = 600, db_path: str | None = No
             total_chars += text_len
             if total_chars >= char_budget:
                 break
-            results.append({
-                "text": text,
-                "file": row[1],
-                "line_start": row[2],
-                "line_end": row[3],
-                "score": 1.0 / (1.0 + abs(row[4])),  # convert BM25 to similarity-like score
-            })
-            total_chars += len(text)
         return results
     finally:
         conn.close()

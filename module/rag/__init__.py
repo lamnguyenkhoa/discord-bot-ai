@@ -6,7 +6,6 @@ Retrieves context from:
 - Web content (OpenRouter web search + URL scraping)
 """
 
-import asyncio
 import logging
 import re
 from typing import Optional
