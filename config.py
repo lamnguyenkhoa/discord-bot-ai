@@ -24,8 +24,8 @@ ATTACHMENT_MAX_CHARS = int(os.getenv("ATTACHMENT_MAX_CHARS", "8000"))
 PDF_MAX_BYTES = int(os.getenv("PDF_MAX_BYTES", str(5 * 1024 * 1024)))  # 5 MB
 PDF_MAX_PAGES = int(os.getenv("PDF_MAX_PAGES", "20"))
 
-# Memory
-MEMORY_BASE_PATH = os.getenv("MEMORY_BASE_PATH", "./memory")
+# RAG Knowledge
+KNOWLEDGE_PATH = os.getenv("KNOWLEDGE_PATH", "./knowledge")
 
 # Search index
 INDEX_PATH = os.getenv("INDEX_PATH", "./db/memory.sqlite")

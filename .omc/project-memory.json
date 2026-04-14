@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775449574619,
+  "lastScanned": 1776156633381,
   "projectRoot": "d:\\discord-bot-ai",
   "techStack": {
     "languages": [
@@ -33,7 +33,10 @@
   "structure": {
     "isMonorepo": false,
     "workspaces": [],
-    "mainDirectories": [],
+    "mainDirectories": [
+      "docs",
+      "tests"
+    ],
     "gitBranches": {
       "defaultBranch": "main",
       "branchingStrategy": null
@@ -41,139 +44,72 @@
   },
   "customNotes": [],
   "directoryMap": {
-    "index": {
-      "path": "index",
+    "db": {
+      "path": "db",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1775449574610,
+      "lastAccessed": 1776156633373,
       "keyFiles": [
         "memory.sqlite"
       ]
     },
-    "memory": {
-      "path": "memory",
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 0,
+      "lastAccessed": 1776156633373,
+      "keyFiles": []
+    },
+    "index": {
+      "path": "index",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775449574610,
+      "lastAccessed": 1776156633373,
       "keyFiles": []
+    },
+    "knowledge": {
+      "path": "knowledge",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1776156633373,
+      "keyFiles": [
+        "do-mixi.md",
+        "flip-7-rules.md"
+      ]
+    },
+    "module": {
+      "path": "module",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1776156633374,
+      "keyFiles": [
+        "PATTERN.md",
+        "__init__.py"
+      ]
+    },
+    "tests": {
+      "path": "tests",
+      "purpose": "Test files",
+      "fileCount": 1,
+      "lastAccessed": 1776156633374,
+      "keyFiles": [
+        "test_indexer.py"
+      ]
     },
     "__pycache__": {
       "path": "__pycache__",
       "purpose": null,
-      "fileCount": 11,
-      "lastAccessed": 1775449574611,
+      "fileCount": 21,
+      "lastAccessed": 1776156633374,
       "keyFiles": [
         "aura_manager.cpython-312.pyc",
         "aura_manager.cpython-313.pyc",
         "bot.cpython-313.pyc",
-        "config.cpython-312.pyc",
-        "facts_manager.cpython-312.pyc"
+        "bot.cpython-314.pyc",
+        "config.cpython-312.pyc"
       ]
     }
   },
-  "hotPaths": [
-    {
-      "path": "bot.py",
-      "accessCount": 66,
-      "lastAccessed": 1775187849622,
-      "type": "file"
-    },
-    {
-      "path": "llm_client.py",
-      "accessCount": 39,
-      "lastAccessed": 1775187107081,
-      "type": "file"
-    },
-    {
-      "path": "config.py",
-      "accessCount": 26,
-      "lastAccessed": 1775187040982,
-      "type": "file"
-    },
-    {
-      "path": "facts_manager.py",
-      "accessCount": 25,
-      "lastAccessed": 1775185800750,
-      "type": "file"
-    },
-    {
-      "path": "system_prompt.txt",
-      "accessCount": 18,
-      "lastAccessed": 1775187113117,
-      "type": "file"
-    },
-    {
-      "path": "",
-      "accessCount": 16,
-      "lastAccessed": 1775112960720,
-      "type": "directory"
-    },
-    {
-      "path": "memory_manager.py",
-      "accessCount": 10,
-      "lastAccessed": 1775185479377,
-      "type": "file"
-    },
-    {
-      "path": "requirements.txt",
-      "accessCount": 8,
-      "lastAccessed": 1775185140043,
-      "type": "file"
-    },
-    {
-      "path": ".env.example",
-      "accessCount": 6,
-      "lastAccessed": 1775185440175,
-      "type": "file"
-    },
-    {
-      "path": "CLAUDE.md",
-      "accessCount": 6,
-      "lastAccessed": 1775185575255,
-      "type": "file"
-    },
-    {
-      "path": "memory\\facts.md",
-      "accessCount": 3,
-      "lastAccessed": 1775115923672,
-      "type": "file"
-    },
-    {
-      "path": "INSTRUCTIONS.txt",
-      "accessCount": 2,
-      "lastAccessed": 1775054517397,
-      "type": "file"
-    },
-    {
-      "path": "search.py",
-      "accessCount": 2,
-      "lastAccessed": 1775185795616,
-      "type": "file"
-    },
-    {
-      "path": "indexer.py",
-      "accessCount": 2,
-      "lastAccessed": 1775185801090,
-      "type": "file"
-    },
-    {
-      "path": "memory\\2026-04-02.md",
-      "accessCount": 1,
-      "lastAccessed": 1775115924270,
-      "type": "file"
-    },
-    {
-      "path": "C:\\Users\\Hi\\.claude\\plans\\reactive-bubbling-rivest.md",
-      "accessCount": 1,
-      "lastAccessed": 1775184396827,
-      "type": "file"
-    },
-    {
-      "path": "aura_manager.py",
-      "accessCount": 1,
-      "lastAccessed": 1775187098418,
-      "type": "file"
-    }
-  ],
+  "hotPaths": [],
   "userDirectives": []
 }

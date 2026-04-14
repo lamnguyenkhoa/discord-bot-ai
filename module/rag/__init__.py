@@ -16,6 +16,7 @@ from openai import AsyncOpenAI
 
 import config
 import indexer
+import mem0_manager
 
 logger = logging.getLogger(__name__)
 
@@ -45,11 +46,48 @@ def initialize() -> None:
     logger.info("RAG system initialized")
 
 
+async def _ensure_mem0_initialized() -> None:
+    """Ensure mem0 is initialized before use."""
+    if mem0_manager._memory_client is None:
+        try:
+            await mem0_manager.initialize()
+        except Exception as e:
+            logger.warning(f"mem0 initialization skipped: {e}")
+            raise
+
+
 async def retrieve_guild_docs(query: str, limit_tokens: int = 600) -> list[dict]:
     """
     Retrieve relevant chunks from indexed guild documents.
+    Uses mem0 for semantic search, falls back to FTS5 from indexer.
     """
     try:
+        try:
+            await _ensure_mem0_initialized()
+            memory = mem0_manager._get_client()
+            search_result = memory.search(query, limit=10)
+            results_list = search_result.get("results", []) if isinstance(search_result, dict) else []
+            if results_list:
+                results = []
+                total_chars = 0
+                char_budget = limit_tokens * 4
+                for mem in results_list:
+                    text = mem.get("memory", "")
+                    if total_chars + len(text) > char_budget:
+                        continue
+                    results.append({
+                        "text": text,
+                        "file": "mem0",
+                        "line_start": 0,
+                        "line_end": 0,
+                        "score": mem.get("score", 0.0),
+                    })
+                    total_chars += len(text)
+                if results:
+                    return results
+        except Exception as e:
+            logger.warning(f"Mem0 search failed, falling back to indexer: {e}")
+
         results = await indexer.retrieve(query, limit_tokens)
         return results
     except Exception as e:

@@ -17,11 +17,17 @@ _embed_client: "AsyncOpenAI | None" = None
 def _get_embed_client() -> "AsyncOpenAI | None":
     global _embed_client
     if _embed_client is None:
-        from openai import AsyncOpenAI
-        _embed_client = AsyncOpenAI(
-            api_key=config.EMBEDDING_API_KEY,
-            base_url=config.EMBEDDING_BASE_URL,
-        )
+        if not config.EMBEDDING_API_KEY:
+            return None
+        try:
+            from openai import AsyncOpenAI
+            _embed_client = AsyncOpenAI(
+                api_key=config.EMBEDDING_API_KEY,
+                base_url=config.EMBEDDING_BASE_URL,
+            )
+        except Exception as e:
+            logger.warning(f"Failed to create embedding client: {e}")
+            return None
     return _embed_client
 
 
@@ -178,16 +184,9 @@ async def index_file(file_path: str, db_path: str | None = None) -> None:
         conn.close()
 
 
-async def index_guild(guild_id: str, db_path: str | None = None) -> None:
-    """Re-index guild memory file."""
-    guild_memory = f"{config.MEMORY_BASE_PATH}/guild_{guild_id}.md"
-    if os.path.exists(guild_memory):
-        await index_file(guild_memory, db_path)
-
-
 async def index_all() -> dict:
-    """Index all .md files in MEMORY_BASE_PATH. Returns stats dict."""
-    memory_path = config.MEMORY_BASE_PATH
+    """Index all .md files in KNOWLEDGE_PATH. Returns stats dict."""
+    memory_path = config.KNOWLEDGE_PATH
     if not os.path.exists(memory_path):
         os.makedirs(memory_path, exist_ok=True)
         logger.info(f"Created memory directory: {memory_path}")
@@ -283,41 +282,9 @@ async def retrieve(query: str, limit_tokens: int = 600, db_path: str | None = No
     
     conn = _get_db(db_path)
     try:
-        # Try semantic search with embeddings
-        query_embedding = await _embed_query(query)
-        if query_embedding:
-            # Cosine similarity search
-            emb_json = json.dumps(query_embedding)
-            rows = conn.execute("""
-                SELECT c.text, f.path, c.line_start, c.line_end,
-                       (c.embedding <-> ?) AS similarity
-                FROM chunks c
-                JOIN files f ON c.file_id = f.id
-                WHERE c.embedding IS NOT NULL
-                ORDER BY similarity ASC
-                LIMIT 20
-            """, (emb_json,)).fetchall()
-            
-            if rows:
-                results = []
-                total_chars = 0
-                char_budget = limit_tokens * 4  # rough: 4 chars per token
-                for row in rows:
-                    text = row[0]
-                    if total_chars + len(text) > char_budget:
-                        continue
-                    results.append({
-                        "text": text,
-                        "file": row[1],
-                        "line_start": row[2],
-                        "line_end": row[3],
-                        "score": 1.0 - row[4],  # convert distance to similarity
-                    })
-                    total_chars += len(text)
-                return results
-        
-        # Fallback: FTS5 search
         sanitized_query = _sanitize_fts_query(query)
+        logger.debug(f"FTS5 query: {sanitized_query!r}")
+        
         rows = conn.execute("""
             SELECT c.text, f.path, c.line_start, c.line_end,
                    bm25(chunks_fts) AS rank
@@ -329,6 +296,8 @@ async def retrieve(query: str, limit_tokens: int = 600, db_path: str | None = No
             LIMIT 20
         """, (sanitized_query,)).fetchall()
         
+        logger.debug(f"FTS5 found {len(rows)} rows")
+        
         if not rows:
             return []
         
@@ -337,8 +306,19 @@ async def retrieve(query: str, limit_tokens: int = 600, db_path: str | None = No
         char_budget = limit_tokens * 4
         for row in rows:
             text = row[0]
-            if total_chars + len(text) > char_budget:
+            text_len = len(text)
+            if total_chars > 0 and total_chars + text_len > char_budget:
                 continue
+            results.append({
+                "text": text,
+                "file": row[1],
+                "line_start": row[2],
+                "line_end": row[3],
+                "score": 1.0 / (1.0 + abs(row[4])),
+            })
+            total_chars += text_len
+            if total_chars >= char_budget:
+                break
             results.append({
                 "text": text,
                 "file": row[1],

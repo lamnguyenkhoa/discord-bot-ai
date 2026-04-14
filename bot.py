@@ -40,7 +40,7 @@ async def _file_watcher():
 
     while True:
         try:
-            memory_path = config.MEMORY_BASE_PATH
+            memory_path = config.KNOWLEDGE_PATH
             if os.path.exists(memory_path):
                 files = glob.glob(os.path.join(memory_path, "*.md"))
                 changed = False
@@ -392,5 +392,5 @@ if __name__ == "__main__":
         logger.error("LLM_API_KEY (or OPENROUTER_API_KEY) not set in .env")
         exit(1)
 
-    os.makedirs(config.MEMORY_BASE_PATH, exist_ok=True)
+    os.makedirs(config.KNOWLEDGE_PATH, exist_ok=True)
     client.run(config.DISCORD_TOKEN, log_handler=None)

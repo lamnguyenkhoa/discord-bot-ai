@@ -68,7 +68,7 @@ async def test_index_all(temp_memory, temp_db):
     with open(os.path.join(temp_memory, "file2.md"), "w") as f:
         f.write("# File 2\nContent")
 
-    with patch.object(config, 'MEMORY_BASE_PATH', temp_memory):
+    with patch.object(config, 'KNOWLEDGE_PATH', temp_memory):
         with patch.object(config, 'INDEX_PATH', temp_db):
             indexer.init_db(temp_db)
             stats = await indexer.index_all()
