@@ -28,7 +28,9 @@ PDF_MAX_PAGES = int(os.getenv("PDF_MAX_PAGES", "20"))
 MEMORY_BASE_PATH = os.getenv("MEMORY_BASE_PATH", "./memory")
 
 # Search index
-INDEX_PATH = os.getenv("INDEX_PATH", "./index/memory.sqlite")
+INDEX_PATH = os.getenv("INDEX_PATH", "./db/memory.sqlite")
+INDEX_AUTO_ON_START = os.getenv("INDEX_AUTO_ON_START", "true").lower() == "true"
+INDEX_WATCH_INTERVAL = int(os.getenv("INDEX_WATCH_INTERVAL", "30"))
 
 # Embeddings (optional — falls back to FTS5-only if unavailable)
 EMBEDDING_API_KEY = os.getenv("EMBEDDING_API_KEY") or LLM_API_KEY
