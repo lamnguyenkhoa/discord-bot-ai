@@ -184,6 +184,63 @@ def format_context_for_prompt(guild_id: str, user_id: Optional[str] = None, quer
     return "\n\n".join(parts) if parts else "No memory available."
 
 
+def get_channel_context(channel_name: str, guild_id: str, max_hours: int = 24) -> str:
+    """
+    Build context for a specific channel with recency boost.
+    
+    Args:
+        channel_name: Channel to get context for
+        guild_id: Discord guild/server ID
+        max_hours: Only include memories from last X hours
+    
+    Returns:
+        Formatted context string with recency-boosted memories
+    """
+    import datetime
+    cutoff_time = datetime.datetime.now() - datetime.timedelta(hours=max_hours)
+    parts = []
+
+    with _buffer_lock:
+        recent = _recent_buffer.get(guild_id, [])[-MAX_RECENT_MESSAGES * 2:]
+        channel_recent = [
+            m for m in recent 
+            if channel_name.lower() in m.get("metadata", {}).get("channel", "").lower()
+        ] if recent else []
+
+    if channel_recent:
+        recent_formatted = "\n".join(
+            f"{'User' if m['role'] == 'user' else 'Bot'}: {m['content']}" 
+            for m in channel_recent
+        )
+        parts.append(f"## Recent Conversation in #{channel_name}\n{recent_formatted}")
+
+    if _memory_client is None:
+        return "\n\n".join(parts) if parts else "No memory available."
+
+    try:
+        all_memories = _get_client().get_all(user_id=guild_id)
+        recent_memories = []
+        older_memories = []
+        
+        for m in all_memories.get("results", []):
+            memory_text = m.get("memory", "")
+            metadata = m.get("metadata", {})
+            if metadata.get("channel", "").lower() == channel_name.lower():
+                recent_memories.append(f"- {memory_text}")
+            else:
+                older_memories.append(f"- {memory_text}")
+        
+        if recent_memories:
+            parts.append(f"## Recent Memories for #{channel_name}\n" + "\n".join(recent_memories[:5]))
+        if older_memories and not recent_memories:
+            parts.append(f"## Related Memories\n" + "\n".join(older_memories[:3]))
+
+    except Exception as e:
+        logger.error(f"Error getting channel context: {e}")
+
+    return "\n\n".join(parts) if parts else "No memory available."
+
+
 async def delete_by_msg_id(msg_id: int, guild_id: str) -> None:
     """
     Delete memories associated with a specific message.
