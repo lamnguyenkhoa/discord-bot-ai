@@ -15,6 +15,7 @@ import indexer
 from module.rag import initialize as rag_initialize, format_rag_context
 from module.meme_reaction import get_meme_manager, get_trigger_decider
 from module.auto_post import get_auto_post_manager, get_scheduled_poster
+from module.follow_up_chat import get_follow_up_manager
 import logging
 import re
 
@@ -374,6 +375,15 @@ async def on_message(message: discord.Message):
             bot_reply=reply,
             msg_id=message.id,
         )
+
+        # Follow-up chat feature
+        follow_up_manager = get_follow_up_manager()
+        if follow_up_manager.should_trigger(str(message.channel)):
+            follow_up = await follow_up_manager.generate_follow_up(user_text, reply, str(message.channel))
+            if follow_up:
+                await message.channel.send(follow_up)
+                follow_up_manager.record_follow_up(str(message.channel))
+                logger.info(f"Follow-up sent in #{message.channel}")
 
 
 @client.event
