@@ -188,16 +188,17 @@ def get_channel_context(channel_name: str, guild_id: str, max_hours: int = 24) -
     """
     Build context for a specific channel with recency boost.
     
+    Note: mem0 does not store timestamps in metadata, so temporal filtering
+    by max_hours is not implemented. The parameter is kept for API compatibility.
+    
     Args:
         channel_name: Channel to get context for
         guild_id: Discord guild/server ID
-        max_hours: Only include memories from last X hours
+        max_hours: Unused (kept for API compatibility)
     
     Returns:
         Formatted context string with recency-boosted memories
     """
-    import datetime
-    cutoff_time = datetime.datetime.now() - datetime.timedelta(hours=max_hours)
     parts = []
 
     with _buffer_lock:
