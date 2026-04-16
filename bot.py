@@ -14,7 +14,7 @@ import llm_client
 import indexer
 from module.rag import initialize as rag_initialize, format_rag_context
 from module.meme_reaction import get_meme_manager, get_trigger_decider
-from module.auto_post import get_auto_post_manager
+from module.auto_post import get_auto_post_manager, get_scheduled_poster
 import logging
 import re
 
@@ -60,6 +60,32 @@ async def _file_watcher():
             logger.warning(f"File watcher error: {e}")
 
         await asyncio.sleep(config.INDEX_WATCH_INTERVAL)
+
+
+async def _scheduled_poster_task():
+    """Background task that runs scheduled auto-posts in round-robin."""
+    from module.auto_post import get_scheduled_poster
+    
+    poster = get_scheduled_poster()
+    poster.set_channels(config.AUTO_POST_SCHEDULED_CHANNELS)
+    
+    if not poster.scheduled_channels:
+        logger.info("No scheduled channels configured for auto-post")
+        return
+    
+    logger.info(f"Scheduled poster started for channels: {poster.scheduled_channels}")
+    
+    while True:
+        try:
+            if config.AUTO_POST_SCHEDULED_ENABLED and poster.scheduled_channels:
+                for guild in client.guilds:
+                    guild_id = str(guild.id)
+                    await poster.post_scheduled(client, guild_id)
+                    break
+        except Exception as e:
+            logger.warning(f"Scheduled poster error: {e}")
+        
+        await asyncio.sleep(config.AUTO_POST_SCHEDULED_INTERVAL_MINUTES * 60)
 
 
 @tree.command(name="index", description="Re-index all memory files")
@@ -127,6 +153,10 @@ async def on_ready():
         if config.INDEX_WATCH_INTERVAL > 0:
             asyncio.create_task(_file_watcher())
             logger.info(f"File watcher started (interval: {config.INDEX_WATCH_INTERVAL}s)")
+
+    if config.AUTO_POST_SCHEDULED_ENABLED:
+        asyncio.create_task(_scheduled_poster_task())
+        logger.info(f"Scheduled poster task started (interval: {config.AUTO_POST_SCHEDULED_INTERVAL_MINUTES}min)")
 
     if config.ONLINE_MESSAGE and config.STATUS_CHANNEL:
         for guild in client.guilds:
@@ -225,6 +255,9 @@ async def process_attachments(attachments):
 async def on_message(message: discord.Message):
     if message.author == client.user:
         return
+
+    scheduled_poster = get_scheduled_poster()
+    scheduled_poster.record_message(str(message.channel))
 
     user_id = str(message.author.id)
     guild_id = str(message.guild.id) if message.guild else None
