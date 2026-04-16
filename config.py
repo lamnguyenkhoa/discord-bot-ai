@@ -71,3 +71,7 @@ MEME_TRIGGER_CHANCE = int(os.getenv("MEME_TRIGGER_CHANCE", "5"))
 MEME_API = os.getenv("MEME_API", "giphy").lower()
 MEME_API_KEY = os.getenv("MEME_API_KEY", "")
 MEME_COOLDOWN_SECONDS = int(os.getenv("MEME_COOLDOWN_SECONDS", "10"))
+
+# Follow-up chat feature
+FOLLOW_UP_CHANCE = int(os.getenv("FOLLOW_UP_CHANCE", "33"))
+FOLLOW_UP_COOLDOWN_SECONDS = int(os.getenv("FOLLOW_UP_COOLDOWN_SECONDS", "30"))
