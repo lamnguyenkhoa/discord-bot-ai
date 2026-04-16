@@ -32,6 +32,28 @@ if manager.should_post(channel_key):
 | `AUTO_POST_COOLDOWN_SECONDS` | `60` | Seconds between posts |
 | `AUTO_POST_MAX_LENGTH` | `500` | Max characters per post |
 
+### Scheduled Auto-Post
+
+Periodically posts AI-generated messages in a round-robin fashion across configured channels.
+
+**Configuration:**
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `AUTO_POST_SCHEDULED_ENABLED` | `false` | Enable/disable scheduled posting |
+| `AUTO_POST_SCHEDULED_CHANNELS` | (empty) | Comma-separated channels for scheduled posts |
+| `AUTO_POST_SCHEDULED_INTERVAL_MINUTES` | `60` | Minutes between channel rotations |
+| `AUTO_POST_SCHEDULED_ACTIVE_SKIP_MINUTES` | `5` | Skip if messages in last X minutes |
+| `AUTO_POST_CONTEXT_HOURS` | `24` | Only use memories from last X hours |
+
+**How It Works:**
+
+1. Background task runs every interval (default 60 min)
+2. Selects next channel in round-robin order
+3. Checks if channel was quiet (no messages in last 5 min)
+4. If quiet: generates and posts AI message using recency-boosted context
+5. If active: skips and moves to next channel
+
 ## How It Works
 
 1. `should_post(channel_key)` - Returns True when message count hits random threshold
