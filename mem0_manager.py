@@ -203,17 +203,13 @@ def get_channel_context(channel_name: str, guild_id: str, max_hours: int = 24) -
 
     with _buffer_lock:
         recent = _recent_buffer.get(guild_id, [])[-MAX_RECENT_MESSAGES * 2:]
-        channel_recent = [
-            m for m in recent 
-            if channel_name.lower() in m.get("metadata", {}).get("channel", "").lower()
-        ] if recent else []
 
-    if channel_recent:
+    if recent:
         recent_formatted = "\n".join(
             f"{'User' if m['role'] == 'user' else 'Bot'}: {m['content']}" 
-            for m in channel_recent
+            for m in recent
         )
-        parts.append(f"## Recent Conversation in #{channel_name}\n{recent_formatted}")
+        parts.append(f"## Recent Conversation\n{recent_formatted}")
 
     if _memory_client is None:
         return "\n\n".join(parts) if parts else "No memory available."
