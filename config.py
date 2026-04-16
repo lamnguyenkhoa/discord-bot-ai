@@ -38,7 +38,9 @@ EMBEDDING_BASE_URL = os.getenv("EMBEDDING_BASE_URL", "https://api.openai.com/v1"
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 
 # Channels to silently observe (comma-separated names, e.g. "general,announcements")
-WATCH_CHANNELS = [c.strip() for c in os.getenv("WATCH_CHANNELS", "").split(",") if c.strip()]
+WATCH_CHANNELS = [
+    c.strip() for c in os.getenv("WATCH_CHANNELS", "").split(",") if c.strip()
+]
 
 # System prompt
 SYSTEM_PROMPT_FILE = "system_prompt.txt"
@@ -53,18 +55,44 @@ OFFLINE_MESSAGE = os.getenv("OFFLINE_MESSAGE", "Going offline now. Goodbye!")
 STATUS_CHANNEL = os.getenv("STATUS_CHANNEL", "")
 
 # Auto-post feature
-AUTO_POST_ENABLED = os.getenv("AUTO_POST_ENABLED", "false").lower() in ("1", "true", "yes")
+AUTO_POST_ENABLED = os.getenv("AUTO_POST_ENABLED", "false").lower() in (
+    "1",
+    "true",
+    "yes",
+)
 AUTO_POST_TRIGGER_MIN = int(os.getenv("AUTO_POST_TRIGGER_MIN", "3"))
 AUTO_POST_TRIGGER_MAX = int(os.getenv("AUTO_POST_TRIGGER_MAX", "10"))
 AUTO_POST_COOLDOWN_SECONDS = int(os.getenv("AUTO_POST_COOLDOWN_SECONDS", "60"))
 AUTO_POST_MAX_LENGTH = int(os.getenv("AUTO_POST_MAX_LENGTH", "500"))
 
 # Scheduled auto-post feature
-AUTO_POST_SCHEDULED_ENABLED = os.getenv("AUTO_POST_SCHEDULED_ENABLED", "false").lower() in ("1", "true", "yes")
-AUTO_POST_SCHEDULED_CHANNELS = [c.strip() for c in os.getenv("AUTO_POST_SCHEDULED_CHANNELS", "").split(",") if c.strip()]
-AUTO_POST_SCHEDULED_INTERVAL_MINUTES = int(os.getenv("AUTO_POST_SCHEDULED_INTERVAL_MINUTES", "60"))
-AUTO_POST_SCHEDULED_ACTIVE_SKIP_MINUTES = int(os.getenv("AUTO_POST_SCHEDULED_ACTIVE_SKIP_MINUTES", "5"))
+AUTO_POST_SCHEDULED_ENABLED = os.getenv(
+    "AUTO_POST_SCHEDULED_ENABLED", "false"
+).lower() in ("1", "true", "yes")
+AUTO_POST_SCHEDULED_CHANNELS = [
+    c.strip()
+    for c in os.getenv("AUTO_POST_SCHEDULED_CHANNELS", "").split(",")
+    if c.strip()
+]
+AUTO_POST_SCHEDULED_INTERVAL_MINUTES = int(
+    os.getenv("AUTO_POST_SCHEDULED_INTERVAL_MINUTES", "60")
+)
+AUTO_POST_SCHEDULED_ACTIVE_SKIP_MINUTES = int(
+    os.getenv("AUTO_POST_SCHEDULED_ACTIVE_SKIP_MINUTES", "5")
+)
 AUTO_POST_CONTEXT_HOURS = int(os.getenv("AUTO_POST_CONTEXT_HOURS", "24"))
+
+# Quiet hours - skip scheduled auto-post during these hours (UTC)
+AUTO_POST_QUIET_HOURS_START = (
+    int(os.getenv("AUTO_POST_QUIET_HOURS_START"))
+    if os.getenv("AUTO_POST_QUIET_HOURS_START")
+    else None
+)
+AUTO_POST_QUIET_HOURS_END = (
+    int(os.getenv("AUTO_POST_QUIET_HOURS_END"))
+    if os.getenv("AUTO_POST_QUIET_HOURS_END")
+    else None
+)
 
 # Meme reaction feature
 MEME_TRIGGER_CHANCE = int(os.getenv("MEME_TRIGGER_CHANCE", "5"))
