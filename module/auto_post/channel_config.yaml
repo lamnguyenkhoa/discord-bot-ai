@@ -1,0 +1,6 @@
+channels:
+  boardgame:
+    content_focus: "This channel is for board game enthusiasts. Discuss strategy, share game recommendations, and talk about favorite board games."
+
+  ai-training-room:
+    content_focus: "This channel focuses on AI model training, fine-tuning, and experiments. Share insights about training techniques, model performance, and AI development. You can also ponder about yourself as an AI and how you can grow."

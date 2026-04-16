@@ -6,6 +6,7 @@ import config
 import mem0_manager
 import llm_client
 import discord
+from . import personalities
 
 logger = logging.getLogger(__name__)
 
@@ -125,6 +126,7 @@ class ScheduledPoster:
             return False
 
         context = mem0_manager.get_channel_context(channel_key, guild_id, config.AUTO_POST_CONTEXT_HOURS)
+        channel_focus = personalities.get_channel_focus(channel_key)
         
         prompt = f"""In 1-2 sentences, write a standalone statement related to recent conversation in #{channel_key}.
 It can comment on something discussed or share an interesting memory.
@@ -132,6 +134,9 @@ Keep it short (under {config.AUTO_POST_MAX_LENGTH} chars), conversational, no qu
 
 Recent context:
 {context}"""
+
+        if channel_focus:
+            prompt += f"\n\nChannel purpose: {channel_focus}"
 
         try:
             async with target_channel.typing():

@@ -58,3 +58,43 @@ Periodically posts AI-generated messages in a round-robin fashion across configu
 
 1. `should_post(channel_key)` - Returns True when message count hits random threshold
 2. `post(message, guild, channel_key)` - Generates and sends AI message with channel context
+
+## Channel Personalities (Scheduled Posts)
+
+You can configure custom content focus per channel for scheduled auto-posts via `channel_personalities.yaml`.
+
+### Configuration File
+
+Edit `module/auto_post/channel_config.yaml`:
+
+```yaml
+channels:
+  general:
+    content_focus: "This channel is for casual conversation and community bonding."
+
+  python-help:
+    content_focus: "This channel discusses Python programming, debugging, and best practices."
+
+  ai-ml:
+    content_focus: "This channel covers AI/ML topics, model comparisons, and emerging technologies."
+```
+
+### How It Works
+
+- The `content_focus` description is appended to the prompt when generating scheduled posts
+- Channels not listed in the YAML use the default prompt (no change)
+- Graceful fallback: missing config or file errors are logged but don't break functionality
+
+### Loading Functions
+
+```python
+from module.auto_post.personalities import get_channel_focus, get_all_channels
+
+# Get focus for specific channel
+focus = get_channel_focus("general")
+# Returns: "This channel is for casual conversation..." or "" if not configured
+
+# List all configured channels
+channels = get_all_channels()
+# Returns: ["general", "python-help", "ai-ml"]
+```
