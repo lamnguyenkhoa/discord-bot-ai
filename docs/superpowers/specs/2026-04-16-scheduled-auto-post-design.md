@@ -14,6 +14,7 @@ New environment variables in `.env`:
 | `AUTO_POST_SCHEDULED_CHANNELS` | (empty) | Comma-separated channels allowed for scheduled posts |
 | `AUTO_POST_SCHEDULED_INTERVAL_MINUTES` | `60` | Minutes between channel rotations |
 | `AUTO_POST_SCHEDULED_ACTIVE_SKIP_MINUTES` | `5` | Skip if messages in last X minutes |
+| `AUTO_POST_CONTEXT_HOURS` | `24` | Only use memories from last X hours for relevance |
 
 ## Architecture
 
@@ -58,6 +59,13 @@ on_ready()
 - Reuses existing `llm_client.generate_reply()` 
 - Uses same prompt template as reactive auto-post
 - Same truncation and cooldown logic applies
+
+### Context Retrieval with Recency Boost
+- Uses existing `_recent_buffer` (last 20 messages) for immediate recency
+- For semantic memory search, uses `mem0.search()` with the channel as filter
+- Applies recency boost: memories from recent hours are weighted higher
+- If mem0 metadata includes timestamps, filter to last 24 hours by default
+- Final context combines: immediate recent buffer + recency-boosted semantic memories
 
 ### Integration with Existing Code
 - No changes to existing reactive auto-post (`should_post`, `post`)
