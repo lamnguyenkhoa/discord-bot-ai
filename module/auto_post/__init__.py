@@ -1,6 +1,7 @@
 import random
 import time
 import logging
+from datetime import datetime
 from typing import Optional
 import config
 import mem0_manager
@@ -9,6 +10,17 @@ import discord
 from . import channel_config_loader
 
 logger = logging.getLogger(__name__)
+
+
+def is_quiet_hours() -> bool:
+    start = config.AUTO_POST_QUIET_HOURS_START
+    end = config.AUTO_POST_QUIET_HOURS_END
+    if start is None or end is None or start == end:
+        return False
+    current_hour = datetime.utcnow().hour
+    if start < end:
+        return start <= current_hour < end
+    return current_hour >= start or current_hour < end
 
 
 class AutoPostManager:
@@ -23,7 +35,9 @@ class AutoPostManager:
         if channel_key not in self.message_count:
             return False
 
-        trigger_threshold = random.randint(config.AUTO_POST_TRIGGER_MIN, config.AUTO_POST_TRIGGER_MAX)
+        trigger_threshold = random.randint(
+            config.AUTO_POST_TRIGGER_MIN, config.AUTO_POST_TRIGGER_MAX
+        )
         return self.message_count[channel_key] >= trigger_threshold
 
     async def post(self, message: discord.Message, guild, channel_key: str):
@@ -83,7 +97,7 @@ class ScheduledPoster:
     def get_next_channel(self) -> Optional[str]:
         if not self.scheduled_channels:
             return None
-        
+
         attempts = 0
         while attempts < len(self.scheduled_channels):
             channel = self.scheduled_channels[self.channel_index]
@@ -112,7 +126,9 @@ class ScheduledPoster:
         if not channel_key:
             return False
 
-        if not self.is_channel_quiet(channel_key, config.AUTO_POST_SCHEDULED_ACTIVE_SKIP_MINUTES):
+        if not self.is_channel_quiet(
+            channel_key, config.AUTO_POST_SCHEDULED_ACTIVE_SKIP_MINUTES
+        ):
             logger.debug(f"Skipping scheduled post for #{channel_key} - too active")
             return False
 
@@ -122,10 +138,10 @@ class ScheduledPoster:
             if str(g.id) == guild_id:
                 guild = g
                 break
-        
+
         if guild:
             target_channel = discord.utils.get(guild.text_channels, name=channel_key)
-        
+
         if not target_channel:
             logger.warning(f"Could not find channel #{channel_key} for scheduled post")
             return False
@@ -135,8 +151,10 @@ class ScheduledPoster:
             return False
 
         cfg = channel_config_loader.get_channel_config(channel_key)
-        context = mem0_manager.get_channel_context(channel_key, guild_id, config.AUTO_POST_CONTEXT_HOURS)
-        
+        context = mem0_manager.get_channel_context(
+            channel_key, guild_id, config.AUTO_POST_CONTEXT_HOURS
+        )
+
         prompt = f"""In 1-2 sentences, write a standalone statement related to recent conversation in #{channel_key}.
 It can comment on something discussed or share an interesting memory.
 Keep it short (under {config.AUTO_POST_MAX_LENGTH} chars), conversational, no questions.
@@ -153,7 +171,10 @@ Recent context:
 
         recent = self.recent_posts.get(channel_key, [])
         if recent:
-            prompt += f"\n\nPrevious posts (do not repeat similar ideas): " + " | ".join(recent)
+            prompt += (
+                f"\n\nPrevious posts (do not repeat similar ideas): "
+                + " | ".join(recent)
+            )
 
         try:
             async with target_channel.typing():
@@ -175,7 +196,7 @@ Recent context:
                     )
                 return True
             elif post and len(post) > config.AUTO_POST_MAX_LENGTH:
-                truncated = post[:config.AUTO_POST_MAX_LENGTH - 3] + "..."
+                truncated = post[: config.AUTO_POST_MAX_LENGTH - 3] + "..."
                 await target_channel.send(truncated)
                 logger.info(f"Scheduled auto-post (truncated) in #{channel_key}")
                 self.last_successful_post[channel_key] = time.time()
@@ -192,7 +213,7 @@ Recent context:
                 return True
         except Exception as e:
             logger.warning(f"Scheduled auto-post failed: {e}")
-        
+
         return False
 
     def set_channels(self, channels: list[str]):
