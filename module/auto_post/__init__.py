@@ -6,7 +6,7 @@ import config
 import mem0_manager
 import llm_client
 import discord
-from . import personalities
+from . import channel_config_loader
 
 logger = logging.getLogger(__name__)
 
@@ -77,6 +77,8 @@ class ScheduledPoster:
         self.channel_last_message_time: dict[str, float] = {}
         self.scheduled_channels: list[str] = []
         self.last_successful_post: dict[str, float] = {}
+        self.recent_posts: dict[str, list[str]] = {}
+        self.max_recent_posts = 5
 
     def get_next_channel(self) -> Optional[str]:
         if not self.scheduled_channels:
@@ -97,6 +99,13 @@ class ScheduledPoster:
 
     def record_message(self, channel_key: str):
         self.channel_last_message_time[channel_key] = time.time()
+
+    def _track_post(self, channel_key: str, post: str):
+        if channel_key not in self.recent_posts:
+            self.recent_posts[channel_key] = []
+        self.recent_posts[channel_key].append(post)
+        if len(self.recent_posts[channel_key]) > self.max_recent_posts:
+            self.recent_posts[channel_key].pop(0)
 
     async def post_scheduled(self, client, guild_id: Optional[str] = None):
         channel_key = self.get_next_channel()
@@ -125,8 +134,8 @@ class ScheduledPoster:
         if time.time() - last_post < config.AUTO_POST_COOLDOWN_SECONDS:
             return False
 
+        cfg = channel_config_loader.get_channel_config(channel_key)
         context = mem0_manager.get_channel_context(channel_key, guild_id, config.AUTO_POST_CONTEXT_HOURS)
-        channel_focus = personalities.get_channel_focus(channel_key)
         
         prompt = f"""In 1-2 sentences, write a standalone statement related to recent conversation in #{channel_key}.
 It can comment on something discussed or share an interesting memory.
@@ -135,8 +144,16 @@ Keep it short (under {config.AUTO_POST_MAX_LENGTH} chars), conversational, no qu
 Recent context:
 {context}"""
 
-        if channel_focus:
-            prompt += f"\n\nChannel purpose: {channel_focus}"
+        if cfg["prompt_directives"]:
+            directive = random.choice(cfg["prompt_directives"])
+            prompt += f"\n\nChannel purpose: {directive}"
+
+        if cfg["context_addition"]:
+            prompt += f"\n\n{cfg['context_addition']}"
+
+        recent = self.recent_posts.get(channel_key, [])
+        if recent:
+            prompt += f"\n\nPrevious posts (do not repeat similar ideas): " + " | ".join(recent)
 
         try:
             async with target_channel.typing():
@@ -146,12 +163,32 @@ Recent context:
                 await target_channel.send(post)
                 logger.info(f"Scheduled auto-post in #{channel_key}")
                 self.last_successful_post[channel_key] = time.time()
+                self._track_post(channel_key, post)
+                if cfg["capture_to_mem0"]:
+                    await mem0_manager.capture_exchange(
+                        user_id="auto_post",
+                        guild_id=guild_id or "",
+                        channel_name=channel_key,
+                        username="AutoPost",
+                        user_message="",
+                        bot_reply=post,
+                    )
                 return True
             elif post and len(post) > config.AUTO_POST_MAX_LENGTH:
                 truncated = post[:config.AUTO_POST_MAX_LENGTH - 3] + "..."
                 await target_channel.send(truncated)
                 logger.info(f"Scheduled auto-post (truncated) in #{channel_key}")
                 self.last_successful_post[channel_key] = time.time()
+                self._track_post(channel_key, truncated)
+                if cfg["capture_to_mem0"]:
+                    await mem0_manager.capture_exchange(
+                        user_id="auto_post",
+                        guild_id=guild_id or "",
+                        channel_name=channel_key,
+                        username="AutoPost",
+                        user_message="",
+                        bot_reply=truncated,
+                    )
                 return True
         except Exception as e:
             logger.warning(f"Scheduled auto-post failed: {e}")

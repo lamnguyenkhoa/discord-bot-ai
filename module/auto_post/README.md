@@ -61,7 +61,7 @@ Periodically posts AI-generated messages in a round-robin fashion across configu
 
 ## Channel Personalities (Scheduled Posts)
 
-You can configure custom content focus per channel for scheduled auto-posts via `channel_personalities.yaml`.
+You can configure custom content focus per channel for scheduled auto-posts via `channel_config.yaml`.
 
 ### Configuration File
 
@@ -70,31 +70,68 @@ Edit `module/auto_post/channel_config.yaml`:
 ```yaml
 channels:
   general:
-    content_focus: "This channel is for casual conversation and community bonding."
+    prompt_directives:
+      - "This channel is for casual conversation."
+      - "Share interesting thoughts about the community."
+    context_addition: ""
+    capture_to_mem0: false
 
   python-help:
-    content_focus: "This channel discusses Python programming, debugging, and best practices."
-
-  ai-ml:
-    content_focus: "This channel covers AI/ML topics, model comparisons, and emerging technologies."
+    prompt_directives:
+      - "You are a Python expert."
+      - "Provide concise, practical help."
+    context_addition: "Recent Python discussions about async/await"
+    capture_to_mem0: false
 ```
+
+### Attributes
+
+| Attribute | Default | Description |
+|-----------|---------|-------------|
+| `prompt_directives` | `[]` | List of directives; one randomly selected each post |
+| `context_addition` | (empty) | Additional context; appended to mem0 context |
+| `capture_to_mem0` | `false` | Whether to add auto-posts to mem0 memory |
 
 ### How It Works
 
-- The `content_focus` description is appended to the prompt when generating scheduled posts
-- Channels not listed in the YAML use the default prompt (no change)
-- Graceful fallback: missing config or file errors are logged but don't break functionality
+- `prompt_directives` → one randomly selected, appended as "Channel purpose:"
+- `context_addition` → appended to mem0 context
+- `capture_to_mem0` → if true, the auto-post content is stored in mem0
 
 ### Loading Functions
 
 ```python
-from module.auto_post.personalities import get_channel_focus, get_all_channels
+from module.auto_post.channel_config_loader import get_channel_config, get_all_channels
 
-# Get focus for specific channel
-focus = get_channel_focus("general")
-# Returns: "This channel is for casual conversation..." or "" if not configured
+cfg = get_channel_config("general")
+# Returns: {"prompt_directives": [...], "context_addition": "", "capture_to_mem0": false}
 
-# List all configured channels
+channels = get_all_channels()
+# Returns: ["general", "python-help", "ai-ml"]
+```
+
+### Attributes
+
+| Attribute | Default | Description |
+|-----------|---------|-------------|
+| `prompt_directive` | (empty) | Channel purpose/topic; appended to prompt |
+| `context_addition` | (empty) | Additional context; appended to mem0 context |
+| `capture_to_mem0` | `false` | Whether to add auto-posts to mem0 memory |
+
+### How It Works
+
+- `prompt_directive` → appended to prompt as "Channel purpose:"
+- `context_addition` → appended to mem0 context
+- `capture_to_mem0` → if true, the auto-post content is stored in mem0
+
+### Loading Functions
+
+```python
+from module.auto_post.channel_config_loader import get_channel_config, get_all_channels
+
+cfg = get_channel_config("general")
+# Returns: {"prompt_directive": "", "context_addition": "", "capture_to_mem0": true}
+
 channels = get_all_channels()
 # Returns: ["general", "python-help", "ai-ml"]
 ```

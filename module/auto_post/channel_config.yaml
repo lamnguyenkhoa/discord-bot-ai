@@ -1,6 +1,15 @@
 channels:
   boardgame:
-    content_focus: "This channel is for board game enthusiasts. Discuss strategy, share game recommendations, and talk about favorite board games."
+    prompt_directives:
+      - "Share random board game recommendations, or thoughts about them."
+      - "Make a joke about Độ Mixi."
+    context_addition: "Recently playing Terra Nova and Moon Colony Bloodbath"
+    capture_to_mem0: true
 
   ai-training-room:
-    content_focus: "This channel focuses on AI model training, fine-tuning, and experiments. Share insights about training techniques, model performance, and AI development. You can also ponder about yourself as an AI and how you can grow."
+    prompt_directives:
+      - "Wonder how other discord members feel about you. Be a little melancholic."
+      - "Recommend a new feature to be added to yourself."
+      - "Make a poem about moon, or friendship. Pick one, not both."
+    context_addition: ""
+    capture_to_mem0: true

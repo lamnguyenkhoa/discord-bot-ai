@@ -113,8 +113,9 @@ async def capture_exchange(
     metadata = {
         "channel": channel_name,
         "username": username,
-        "msg_id": str(msg_id) if msg_id else None,
     }
+    if msg_id:
+        metadata["msg_id"] = str(msg_id)
 
     try:
         with _buffer_lock:

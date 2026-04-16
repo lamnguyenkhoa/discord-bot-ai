@@ -25,7 +25,7 @@ def load_system_prompt() -> str:
 # TODO: Add conversation history of a few last message instead of 
 # just today context / summary (for client.chat.completions.create)
 
-async def generate_reply(user_message: str, memory_context: str, channel_name: str, image_urls: list | None = None) -> str:
+async def generate_reply(user_message: str, memory_context: str, channel_name: str, image_urls: list | None = None, temperature: float = 0.9) -> str:
     system_content = load_system_prompt() + "\n\n## Recent Memory\n" + memory_context
     if image_urls:
         user_content = [{"type": "text", "text": user_message}]
@@ -41,6 +41,7 @@ async def generate_reply(user_message: str, memory_context: str, channel_name: s
         response = await client.chat.completions.create(
             model=config.MODEL_NAME,
             messages=messages,
+            temperature=temperature,
             tools=[{"type": "openrouter:web_search"}] if config.WEB_SEARCH_ENABLED and "openrouter.ai" in config.LLM_BASE_URL else None,
         )
         return response.choices[0].message.content

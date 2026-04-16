@@ -1,0 +1,2 @@
+- Fix meme_reaction module
+- Split long sentences into multiple post so it feel more humane (but only run 1 LLM API call, dont consume more money)
