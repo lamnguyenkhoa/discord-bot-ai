@@ -122,6 +122,9 @@ class ScheduledPoster:
             self.recent_posts[channel_key].pop(0)
 
     async def post_scheduled(self, client, guild_id: Optional[str] = None):
+        if is_quiet_hours():
+            return False
+
         channel_key = self.get_next_channel()
         if not channel_key:
             return False
