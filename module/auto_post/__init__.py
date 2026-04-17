@@ -171,7 +171,9 @@ class ScheduledPoster:
             channel_key, guild_id, config.AUTO_POST_CONTEXT_HOURS
         )
 
-        recent_messages = await fetch_recent_channel_messages(target_channel, 10)
+        recent_messages = await fetch_recent_channel_messages(
+            target_channel, config.AUTO_POST_CONTEXT_MESSAGE_COUNT
+        )
 
         prompt = f"""In 1-2 sentences, write a standalone statement related to recent conversation in #{channel_key}.
 It can comment on something discussed or share an interesting memory.
