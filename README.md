@@ -69,13 +69,15 @@ A Discord bot with AI-powered conversation using LLM (OpenRouter/Ollama), semant
 
 ### Voice Chat
 
-Two-way voice conversation in Discord voice channels.
+Two-way voice conversation in Discord voice channels. Supports two modes: **pipeline** (Whisper + LLM + ElevenLabs) or **S2S** (GPT-4o audio).
 
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `VOICE_ENABLED` | false | Enable voice chat |
-| `ELEVENLABS_API_KEY` | | ElevenLabs API key |
-| `ELEVENLABS_VOICE_ID` | premade/chat-abcd | Voice preset ID |
+| `VOICE_MODE` | pipeline | Voice mode: `pipeline` or `s2s` |
+| `VOICE_S2S_MODEL` | gpt-audio-mini-2025-12-15 | GPT-4o audio model for S2S mode |
+| `ELEVENLABS_API_KEY` | | ElevenLabs API key (pipeline mode) |
+| `ELEVENLABS_VOICE_ID` | premade/chat-abcd | Voice preset ID (pipeline mode) |
 | `VOICE_WAKE_WORDS` | Hey Bot\|Hey Mal | Wake words (pipe-separated) |
 | `VOICE_SILENCE_TIMEOUT_MS` | 500 | Silence timeout before processing |
 | `VOICE_SESSION_TIMEOUT_SECONDS` | 30 | Session timeout |
