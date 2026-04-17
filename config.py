@@ -75,3 +75,4 @@ MEME_COOLDOWN_SECONDS = int(os.getenv("MEME_COOLDOWN_SECONDS", "10"))
 # Follow-up chat feature
 FOLLOW_UP_CHANCE = int(os.getenv("FOLLOW_UP_CHANCE", "33"))
 FOLLOW_UP_COOLDOWN_SECONDS = int(os.getenv("FOLLOW_UP_COOLDOWN_SECONDS", "30"))
+FOLLOW_UP_DELAY_SECONDS = float(os.getenv("FOLLOW_UP_DELAY_SECONDS", "3.0"))

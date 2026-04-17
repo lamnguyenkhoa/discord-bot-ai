@@ -118,7 +118,7 @@ async def memory_command(interaction: discord.Interaction, action: str = "list")
 
     try:
         stats = indexer.get_stats()
-        files = indexer.get_indexed_files()
+        files = await indexer.get_indexed_files()
 
         if not files:
             await interaction.response.send_message("No files indexed yet.")
@@ -381,6 +381,7 @@ async def on_message(message: discord.Message):
         if follow_up_manager.should_trigger(str(message.channel)):
             follow_up = await follow_up_manager.generate_follow_up(user_text, reply, str(message.channel))
             if follow_up:
+                await asyncio.sleep(config.FOLLOW_UP_DELAY_SECONDS)
                 await message.channel.send(follow_up)
                 follow_up_manager.record_follow_up(str(message.channel))
                 logger.info(f"Follow-up sent in #{message.channel}")
