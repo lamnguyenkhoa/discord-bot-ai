@@ -93,10 +93,22 @@ async def voice_listen_loop(voice_client: discord.VoiceClient, guild_id: int):
 
                 audio_source = await tts.synthesize(response)
                 if audio_source and state.voice_client:
-                    state.voice_client.play(audio_source, after=lambda e: logger.error(f"Playback error: {e}") if e else None)
+                    def stop_callback(e):
+                        if e:
+                            logger.error(f"Playback error: {e}")
+                    
+                    state.voice_client.play(audio_source, after=stop_callback)
                     
                     while state.voice_client and state.voice_client.is_playing():
                         await asyncio.sleep(0.1)
+                        
+                        if not audio_queue.empty():
+                            try:
+                                queue_item = audio_queue.get_nowait()
+                                if state.voice_client.is_playing():
+                                    state.voice_client.stop()
+                            except asyncio.QueueEmpty:
+                                pass
 
         except asyncio.TimeoutError:
             if state.is_session_expired():
