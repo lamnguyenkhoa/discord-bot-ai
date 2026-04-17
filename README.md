@@ -67,10 +67,25 @@ A Discord bot with AI-powered conversation using LLM (OpenRouter/Ollama), semant
 | `FOLLOW_UP_COOLDOWN_SECONDS` | 30 | Cooldown between follow-ups |
 | `FOLLOW_UP_DELAY_SECONDS` | 3.0 | Delay before sending follow-up |
 
+### Voice Chat
+
+Two-way voice conversation in Discord voice channels.
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `VOICE_ENABLED` | false | Enable voice chat |
+| `ELEVENLABS_API_KEY` | | ElevenLabs API key |
+| `ELEVENLABS_VOICE_ID` | premade/chat-abcd | Voice preset ID |
+| `VOICE_WAKE_WORDS` | Hey Bot\|Hey Mal | Wake words (pipe-separated) |
+| `VOICE_SILENCE_TIMEOUT_MS` | 500 | Silence timeout before processing |
+| `VOICE_SESSION_TIMEOUT_SECONDS` | 30 | Session timeout |
+
 ## Commands
 
 - `/index` - Re-index knowledge files (admin)
 - `/memory` - List indexed files
+- `/join` - Join your voice channel
+- `/leave` - Leave the voice channel
 
 ## Architecture
 
