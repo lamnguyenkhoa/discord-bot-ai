@@ -5,8 +5,9 @@
 ```
 module/
   <module_name>/
-    __init__.py        # re-exports
+    __init__.py       # re-exports
     <component>.py    # one class per file
+    README.md
 ```
 
 ## Pattern
@@ -59,3 +60,4 @@ component = get_component_name()
 3. **Re-export in `__init__.py`** - Clean public API
 4. **Use config.py** - Configuration stays in main config
 5. **Logger per module** - `logger = logging.getLogger(__name__)`
+6. **README.md** - Explanationa and guide
