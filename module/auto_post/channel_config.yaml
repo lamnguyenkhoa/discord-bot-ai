@@ -1,9 +1,9 @@
 channels:
   boardgame:
     prompt_directives:
-      - "Share random board game recommendations, or thoughts about them."
+      - "Share random board game with good score. Or share an infamous bad game."
       - "Make a joke about Độ Mixi."
-    context_addition: "Recently playing Terra Nova and Moon Colony Bloodbath"
+    context_addition: ""
     capture_to_mem0: true
 
   ai-training-room:

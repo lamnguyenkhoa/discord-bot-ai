@@ -16,6 +16,7 @@ from module.rag import initialize as rag_initialize, format_rag_context
 from module.meme_reaction import get_meme_manager, get_trigger_decider
 from module.auto_post import get_auto_post_manager, get_scheduled_poster
 from module.follow_up_chat import get_follow_up_manager
+from module.voice_chat.voice_commands import join_command, leave_command
 import logging
 import re
 
@@ -28,9 +29,12 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.reactions = True
 intents.members = True  # needed for member name resolution; enable "Server Members Intent" in Discord Developer Portal
+intents.voice_states = True
 
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
+tree.add_command(join_command)
+tree.add_command(leave_command)
 
 
 async def _file_watcher():
@@ -118,7 +122,7 @@ async def memory_command(interaction: discord.Interaction, action: str = "list")
 
     try:
         stats = indexer.get_stats()
-        files = indexer.get_indexed_files()
+        files = await indexer.get_indexed_files()
 
         if not files:
             await interaction.response.send_message("No files indexed yet.")
@@ -381,6 +385,7 @@ async def on_message(message: discord.Message):
         if follow_up_manager.should_trigger(str(message.channel)):
             follow_up = await follow_up_manager.generate_follow_up(user_text, reply, str(message.channel))
             if follow_up:
+                await asyncio.sleep(config.FOLLOW_UP_DELAY_SECONDS)
                 await message.channel.send(follow_up)
                 follow_up_manager.record_follow_up(str(message.channel))
                 logger.info(f"Follow-up sent in #{message.channel}")

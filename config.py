@@ -103,3 +103,16 @@ MEME_COOLDOWN_SECONDS = int(os.getenv("MEME_COOLDOWN_SECONDS", "10"))
 # Follow-up chat feature
 FOLLOW_UP_CHANCE = int(os.getenv("FOLLOW_UP_CHANCE", "33"))
 FOLLOW_UP_COOLDOWN_SECONDS = int(os.getenv("FOLLOW_UP_COOLDOWN_SECONDS", "30"))
+FOLLOW_UP_DELAY_SECONDS = float(os.getenv("FOLLOW_UP_DELAY_SECONDS", "3.0"))
+
+# Voice Chat
+VOICE_ENABLED = os.getenv("VOICE_ENABLED", "false").lower() in ("1", "true", "yes")
+ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY", "")
+ELEVENLABS_VOICE_ID = os.getenv("ELEVENLABS_VOICE_ID", "premade/chat-abcd")
+VOICE_WAKE_WORDS = os.getenv("VOICE_WAKE_WORDS", "Hey Bot|Hey Mal").split("|")
+VOICE_SILENCE_THRESHOLD = float(os.getenv("VOICE_SILENCE_THRESHOLD", "0.1"))
+VOICE_SILENCE_TIMEOUT_MS = int(os.getenv("VOICE_SILENCE_TIMEOUT_MS", "500"))
+VOICE_SESSION_TIMEOUT_SECONDS = int(os.getenv("VOICE_SESSION_TIMEOUT_SECONDS", "30"))
+# Voice mode: "pipeline" (Whisper + LLM + ElevenLabs) or "s2s" (GPT-4o audio)
+VOICE_MODE = os.getenv("VOICE_MODE", "pipeline").lower()
+VOICE_S2S_MODEL = os.getenv("VOICE_S2S_MODEL", "gpt-audio-mini-2025-12-15")
