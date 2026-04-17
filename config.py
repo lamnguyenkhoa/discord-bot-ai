@@ -81,6 +81,9 @@ AUTO_POST_SCHEDULED_ACTIVE_SKIP_MINUTES = int(
     os.getenv("AUTO_POST_SCHEDULED_ACTIVE_SKIP_MINUTES", "5")
 )
 AUTO_POST_CONTEXT_HOURS = int(os.getenv("AUTO_POST_CONTEXT_HOURS", "24"))
+AUTO_POST_CONTEXT_MESSAGE_COUNT = int(
+    os.getenv("AUTO_POST_CONTEXT_MESSAGE_COUNT", "10")
+)
 
 # Quiet hours - skip scheduled auto-post during these hours (UTC)
 AUTO_POST_QUIET_HOURS_START = (
