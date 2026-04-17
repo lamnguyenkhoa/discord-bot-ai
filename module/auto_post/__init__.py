@@ -1,3 +1,4 @@
+import asyncio
 import random
 import time
 import logging
@@ -10,6 +11,18 @@ import discord
 from . import channel_config_loader
 
 logger = logging.getLogger(__name__)
+
+
+async def fetch_recent_channel_messages(channel, limit: int = 10) -> str:
+    """
+    Fetch recent messages from a channel, excluding bot messages.
+    Returns formatted string: '{username}: {content}' per line, oldest first.
+    """
+    messages = []
+    async for msg in channel.history(limit=limit, before=discord.utils.utcnow()):
+        if not msg.author.bot and msg.content:
+            messages.append(f"{msg.author.name}: {msg.content}")
+    return "\n".join(reversed(messages))
 
 
 def is_quiet_hours() -> bool:
