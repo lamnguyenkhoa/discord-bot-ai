@@ -171,12 +171,17 @@ class ScheduledPoster:
             channel_key, guild_id, config.AUTO_POST_CONTEXT_HOURS
         )
 
+        recent_messages = await fetch_recent_channel_messages(target_channel, 10)
+
         prompt = f"""In 1-2 sentences, write a standalone statement related to recent conversation in #{channel_key}.
 It can comment on something discussed or share an interesting memory.
 Keep it short (under {config.AUTO_POST_MAX_LENGTH} chars), conversational, no questions.
 
 Recent context:
-{context}"""
+{context}
+
+Recent messages from channel:
+{recent_messages}"""
 
         if cfg["prompt_directives"]:
             directive = random.choice(cfg["prompt_directives"])
