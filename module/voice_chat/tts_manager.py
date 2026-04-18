@@ -3,7 +3,7 @@ import logging
 import asyncio
 from typing import Optional
 import discord
-import elevenlabs
+from elevenlabs import ElevenLabs
 import config
 
 logger = logging.getLogger(__name__)
@@ -11,20 +11,27 @@ logger = logging.getLogger(__name__)
 
 class TTSManager:
     def __init__(self):
-        if config.ELEVENLABS_API_KEY:
-            elevenlabs.api_key = config.ELEVENLABS_API_KEY
+        self._client = None
+
+    @property
+    def client(self) -> Optional[ElevenLabs]:
+        if self._client is None and config.ELEVENLABS_API_KEY:
+            self._client = ElevenLabs(api_key=config.ELEVENLABS_API_KEY)
+        return self._client
 
     async def synthesize(self, text: str) -> Optional[discord.FFmpegOpusAudio]:
-        if not text:
+        if not text or not self.client:
             return None
 
         try:
-            audio = await asyncio.to_thread(
-                elevenlabs.text_to_speech.convert,
+            audio = b""
+            for chunk in self.client.text_to_speech.convert(
                 text=text,
-                voice=config.ELEVENLABS_VOICE_ID,
-                model="eleven_multilingual_v2"
-            )
+                voice_id=config.ELEVENLABS_VOICE_ID,
+                model_id="eleven_multilingual_v2",
+                output_format="mp3_44100_128",
+            ):
+                audio += chunk
 
             audio_io = io.BytesIO(audio)
             source = discord.FFmpegOpusAudio(audio_io, pipe=True)
@@ -34,16 +41,21 @@ class TTSManager:
             return None
 
     async def synthesize_to_file(self, text: str, filepath: str) -> bool:
-        if not text:
+        if not text or not self.client:
             return False
 
         try:
-            await asyncio.to_thread(
-                elevenlabs.text_to_speech.save,
+            audio = b""
+            for chunk in self.client.text_to_speech.convert(
                 text=text,
-                voice=config.ELEVENLABS_VOICE_ID,
-                filename=filepath
-            )
+                voice_id=config.ELEVENLABS_VOICE_ID,
+                model_id="eleven_multilingual_v2",
+                output_format="mp3_44100_128",
+            ):
+                audio += chunk
+
+            with open(filepath, "wb") as f:
+                f.write(audio)
             return True
         except Exception as e:
             logger.error(f"TTS file save failed: {e}")

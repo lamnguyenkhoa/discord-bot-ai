@@ -2,5 +2,4 @@
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["superpowers@git+https://github.com/obra/superpowers.git"],
   "instructions": ["./AGENTS.md"],
-  "skills": [".agents/skills/caveman/SKILL.md", ".agents/skills/caveman-commit/SKILL.md", ".agents/skills/caveman-review/SKILL.md", ".agents/skills/caveman-help/SKILL.md"]
 }

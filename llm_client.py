@@ -22,11 +22,24 @@ def load_system_prompt() -> str:
             "Keep responses concise (1-3 paragraphs max)."
         )
 
-# TODO: Add conversation history of a few last message instead of 
+
+# TODO: Add conversation history of a few last message instead of
 # just today context / summary (for client.chat.completions.create)
 
-async def generate_reply(user_message: str, memory_context: str, channel_name: str, image_urls: list | None = None, temperature: float = 0.9) -> str:
-    system_content = load_system_prompt() + "\n\n## Recent Memory\n" + memory_context
+
+async def generate_reply(
+    user_message: str,
+    memory_context: str,
+    channel_name: str,
+    image_urls: list | None = None,
+    temperature: float = 0.9,
+    system_prompt: str | None = None,
+) -> str:
+    base_system_prompt = load_system_prompt()
+    if system_prompt:
+        system_content = system_prompt + "\n\n## Recent Memory\n" + memory_context
+    else:
+        system_content = base_system_prompt + "\n\n## Recent Memory\n" + memory_context
     if image_urls:
         user_content = [{"type": "text", "text": user_message}]
         for url in image_urls:
@@ -42,7 +55,9 @@ async def generate_reply(user_message: str, memory_context: str, channel_name: s
             model=config.MODEL_NAME,
             messages=messages,
             temperature=temperature,
-            tools=[{"type": "openrouter:web_search"}] if config.WEB_SEARCH_ENABLED and "openrouter.ai" in config.LLM_BASE_URL else None,
+            tools=[{"type": "openrouter:web_search"}]
+            if config.WEB_SEARCH_ENABLED and "openrouter.ai" in config.LLM_BASE_URL
+            else None,
         )
         return response.choices[0].message.content
     except Exception as e:

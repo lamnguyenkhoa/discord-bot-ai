@@ -1,3 +1,4 @@
 - Fix meme_reaction module.
-Improve follow_up_chat. The follow up rarely useful.
+- Improve follow_up_chat. The follow up rarely useful.
 - Split long sentences into multiple post so it feel more humane (but only run 1 LLM API call, dont consume more money).
+- Fix scheduled autopost no posting time.
