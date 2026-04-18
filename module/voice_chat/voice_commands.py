@@ -14,6 +14,9 @@ import llm_client
 
 logger = logging.getLogger(__name__)
 
+logging.getLogger("discord.opus").setLevel(logging.ERROR)
+logging.getLogger("discord.ext.voice_recv").setLevel(logging.ERROR)
+
 
 class AudioSinkWrapper(voice_recv.AudioSink):
     def __init__(self, callback):
@@ -97,23 +100,15 @@ async def send_greeting(state):
         logger.warning(f"Failed to send greeting: {e}")
 
 
-async def voice_listen_loop(voice_client: discord.VoiceClient, guild_id: int):
+def create_audio_callback(audio_queue: asyncio.Queue, state, is_s2s_mode: bool):
     stt = get_stt_manager()
-    tts = get_tts_manager()
     s2s = get_s2s_manager()
-    state_manager = get_voice_state_manager()
-    state = state_manager.get_state(guild_id)
-
-    if not state:
-        return
-
-    audio_queue = asyncio.Queue()
     silence_start: Optional[float] = None
     is_speaking = False
-    current_speaker: Optional[int] = None
-    is_s2s_mode = config.VOICE_MODE == "s2s"
 
-    def audio_callback(audio_data: bytes, user_id: int, state, is_s2s_mode: bool):
+    def audio_callback(audio_data: bytes, user_id: int):
+        nonlocal silence_start, is_speaking
+
         if not audio_data:
             return
 
@@ -131,7 +126,6 @@ async def voice_listen_loop(voice_client: discord.VoiceClient, guild_id: int):
                     s2s.start_recording(user_id)
                 else:
                     stt.start_recording(user_id)
-                current_speaker = user_id
             if is_s2s_mode:
                 s2s.append_audio(audio_data)
             else:
@@ -144,6 +138,22 @@ async def voice_listen_loop(voice_client: discord.VoiceClient, guild_id: int):
                     audio_queue.put_nowait(stt.stop_recording())
                 is_speaking = False
                 silence_start = None
+
+    return audio_callback
+
+    return wrapper
+
+
+async def voice_listen_loop(voice_client: discord.VoiceClient, guild_id: int, audio_queue: asyncio.Queue):
+    tts = get_tts_manager()
+    s2s = get_s2s_manager()
+    state_manager = get_voice_state_manager()
+    state = state_manager.get_state(guild_id)
+
+    if not state:
+        return
+
+    is_s2s_mode = config.VOICE_MODE == "s2s"
 
     while state.voice_client and state.voice_client.is_connected():
         try:
@@ -260,15 +270,13 @@ async def join_command(interaction: discord.Interaction):
         state.channel_id = voice_channel.id
         is_new_connection = True
 
-        vc.listen(
-            AudioSinkWrapper(
-                lambda audio, user: audio_callback(
-                    audio, user.id if user else 0, state, is_s2s_mode
-                )
-            )
-        )
+        is_s2s_mode = config.VOICE_MODE == "s2s"
+        audio_queue = asyncio.Queue()
+        audio_callback = create_audio_callback(audio_queue, state, is_s2s_mode)
 
-        asyncio.create_task(voice_listen_loop(vc, guild_id))
+        vc.listen(AudioSinkWrapper(audio_callback))
+
+        asyncio.create_task(voice_listen_loop(vc, guild_id, audio_queue))
 
     mode_note = " (S2S mode)" if config.VOICE_MODE == "s2s" else " (Pipeline mode)"
     await interaction.followup.send(f"Joined {voice_channel.name}{mode_note}")
