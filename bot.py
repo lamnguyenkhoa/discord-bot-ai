@@ -367,6 +367,27 @@ async def on_message(message: discord.Message):
         reply = reply[:1997] + "..."
     await message.reply(reply)
 
+    # Also speak in voice if bot is in a voice channel in this guild
+    if config.VOICE_ENABLED and message.guild:
+        from module.voice_chat import get_voice_state_manager
+        from module.voice_chat.tts_manager import get_tts_manager
+        from module.voice_chat.s2s_manager import get_s2s_manager
+        voice_state_manager = get_voice_state_manager()
+        voice_state = voice_state_manager.get_state(message.guild.id)
+        if voice_state and voice_state.voice_client and voice_state.voice_client.is_connected():
+            try:
+                if config.VOICE_MODE == "s2s":
+                    s2s = get_s2s_manager()
+                    audio_source = await s2s.speech_to_speech(reply, "You are speaking in a Discord voice channel.")
+                else:
+                    tts = get_tts_manager()
+                    audio_source = await tts.synthesize(reply)
+                if audio_source:
+                    voice_state.voice_client.play(audio_source)
+                    logger.info(f"Speaking in voice: {reply[:50]}...")
+            except Exception as e:
+                logger.warning(f"Voice speak failed: {e}")
+
     # Skip logging if reply was the fallback error string
     if reply != FALLBACK and guild_id:
         author_name = str(message.author.display_name)

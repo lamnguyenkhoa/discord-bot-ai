@@ -191,12 +191,12 @@ async def voice_listen_loop(voice_client: discord.VoiceClient, guild_id: int, au
                 if has_wake or state.session_active:
                     if has_wake:
                         state.start_session()
-                        if prompt:
-                            user_text = prompt
-                        else:
-                            continue
-                    else:
+                    if prompt:
+                        user_text = prompt
+                    elif state.session_active:
                         user_text = transcription
+                    else:
+                        continue
 
                     memory_context = ""
                     if state.conversation_history:
