@@ -2,7 +2,7 @@
 
 import argparse
 import sys
-from bot_act_nugger.client import send_trigger_sync
+from module.bot_act_nugger.client import send_trigger_sync
 
 
 def main():
