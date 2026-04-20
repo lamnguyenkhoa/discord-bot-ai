@@ -19,6 +19,7 @@ from module.follow_up_chat import get_follow_up_manager
 from module.voice_chat.voice_commands import join_command, leave_command
 import logging
 import re
+from aiohttp import web
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
@@ -147,6 +148,8 @@ async def memory_command(interaction: discord.Interaction, action: str = "list")
 async def on_ready():
     logger.info(f"Logged in as {client.user} (ID: {client.user.id})")
     indexer.init_db()
+
+    await start_external_trigger_server(client)
     rag_initialize()
     await mem0_manager.initialize()
 
@@ -449,6 +452,96 @@ async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
     guild_id = str(payload.guild_id) if payload.guild_id else None
 
     logger.info(f"Reaction removal not implemented - using mem0 memory system")
+
+
+_external_trigger_app = None
+_external_trigger_runner = None
+
+
+async def _handle_trigger(request):
+    """Handle external trigger requests."""
+    try:
+        data = await request.json()
+    except Exception:
+        return web.json_response({"error": "Invalid JSON"}, status=400)
+
+    message_text = data.get("message", "")
+    channel_name = data.get("channel", "")
+
+    if not message_text:
+        return web.json_response({"error": "message is required"}, status=400)
+    if not channel_name:
+        return web.json_response({"error": "channel is required"}, status=400)
+
+    channel_name = channel_name.lstrip("#")
+
+    guild = None
+    target_channel = None
+
+    for g in request.app["client"].guilds:
+        for ch in g.text_channels:
+            if ch.name == channel_name:
+                target_channel = ch
+                guild = g
+                break
+        if target_channel:
+            break
+
+    if not target_channel:
+        return web.json_response(
+            {"error": f"Channel #{channel_name} not found. Bot must be in the guild."},
+            status=404
+        )
+
+    class FakeMember:
+        def __init__(self, user):
+            self.user = user
+            self.id = user.id
+            self.display_name = user.display_name
+            self.mention = user.mention
+
+    class FakeMessage:
+        def __init__(self, channel, guild, content):
+            self.channel = channel
+            self.guild = guild
+            self.content = f"{request.app['client'].user.mention} {content}"
+            self.author = FakeMember(request.app["client"].user)
+            self.attachments = []
+            self.mentions = [request.app["client"].user]
+            self.id = 0
+
+        async def reply(self, content, **kwargs):
+            await self.channel.send(content, **kwargs)
+
+    fake_message = FakeMessage(target_channel, guild, message_text)
+
+    try:
+        await request.app["client"].dispatch("message", fake_message)
+        return web.json_response({"status": "ok", "message": "Trigger processed"})
+    except Exception as e:
+        logger.error(f"Trigger error: {e}")
+        return web.json_response({"error": str(e)}, status=500)
+
+
+async def start_external_trigger_server(client):
+    """Start the external trigger HTTP server."""
+    global _external_trigger_app, _external_trigger_runner
+
+    app = web.Application()
+    app["client"] = client
+    app.router.add_post("/trigger", _handle_trigger)
+
+    _external_trigger_app = app
+
+    host = "127.0.0.1"
+    port = config.EXTERNAL_TRIGGER_PORT
+
+    _external_trigger_runner = web.AppRunner(app)
+    await _external_trigger_runner.setup()
+    site = web.TCPSite(_external_trigger_runner, host, port)
+    await site.start()
+
+    logger.info(f"External trigger server started at http://{host}:{port}")
 
 
 if __name__ == "__main__":
