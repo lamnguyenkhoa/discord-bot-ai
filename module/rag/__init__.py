@@ -55,7 +55,7 @@ async def _ensure_mem0_initialized() -> None:
             raise
 
 
-async def retrieve_guild_docs(query: str, limit_tokens: int = 600) -> list[dict]:
+async def retrieve_guild_docs(query: str, limit_tokens: int = 600, guild_id: str = "") -> list[dict]:
     """
     Retrieve relevant chunks from indexed guild documents.
     Uses mem0 for semantic search, falls back to FTS5 from indexer.
@@ -64,7 +64,7 @@ async def retrieve_guild_docs(query: str, limit_tokens: int = 600) -> list[dict]
         try:
             await _ensure_mem0_initialized()
             memory = mem0_manager._get_client()
-            search_result = memory.search(query, limit=10)
+            search_result = memory.search(query, limit=10, user_id=guild_id or "guild_docs")
             results_list = search_result.get("results", []) if isinstance(search_result, dict) else []
             if results_list:
                 results = []
@@ -180,7 +180,7 @@ async def fetch_url(url: str, max_chars: int = 2000) -> str:
         return ""
 
 
-async def format_rag_context(query: str) -> str:
+async def format_rag_context(query: str, guild_id: str = "") -> str:
     """
     Build RAG context string combining guild docs + web results.
     Token budget: 1000 tokens (600 guild docs, 400 web)
@@ -188,7 +188,7 @@ async def format_rag_context(query: str) -> str:
     parts = []
     
     # Guild docs (600 tokens)
-    guild_docs = await retrieve_guild_docs(query, limit_tokens=600)
+    guild_docs = await retrieve_guild_docs(query, limit_tokens=600, guild_id=guild_id)
     if guild_docs:
         doc_parts = []
         for doc in guild_docs:

@@ -347,7 +347,7 @@ async def on_message(message: discord.Message):
     rag_context = ""
     if guild_id:
         try:
-            rag_context = await format_rag_context(user_text)
+            rag_context = await format_rag_context(user_text, guild_id)
         except Exception as e:
             logger.warning(f"RAG failed, falling back to mem0: {e}")
 
