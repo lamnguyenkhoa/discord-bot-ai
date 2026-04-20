@@ -127,3 +127,6 @@ VOICE_GREETING_ENABLED = os.getenv("VOICE_GREETING_ENABLED", "true").lower() in 
     "true",
     "yes",
 )
+
+# External trigger
+EXTERNAL_TRIGGER_PORT: int = int(os.getenv("EXTERNAL_TRIGGER_PORT", "8765"))
