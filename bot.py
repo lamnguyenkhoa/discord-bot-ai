@@ -511,12 +511,12 @@ async def _handle_trigger(request):
             self.id = 0
 
         async def reply(self, content, **kwargs):
-            await self.channel.send(content, **kwargs)
+            return await self.channel.send(content, **kwargs)
 
     fake_message = FakeMessage(target_channel, guild, message_text)
 
     try:
-        await request.app["client"].dispatch("message", fake_message)
+        request.app["client"].dispatch("message", fake_message)
         return web.json_response({"status": "ok", "message": "Trigger processed"})
     except Exception as e:
         logger.error(f"Trigger error: {e}")
