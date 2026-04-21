@@ -7,7 +7,7 @@ from discord import app_commands
 logger = logging.getLogger(__name__)
 
 
-@app_commands.command(name="userid", description="Get user ID by name")
+@app_commands.command(name="get_userid_by_name", description="Get user ID by name")
 @app_commands.describe(name="Username to search for")
 async def userid_command(interaction: discord.Interaction, name: str):
     """Look up a user ID by name within the server."""
@@ -18,9 +18,7 @@ async def userid_command(interaction: discord.Interaction, name: str):
 
     await interaction.response.defer()
 
-    members = await guild.fetch_members()
-    name_lower = name.lower()
-    matches = [m for m in members if name_lower in m.display_name.lower() or name_lower in m.name.lower()]
+    matches = await guild.search_members(query=name)
 
     if not matches:
         await interaction.followup.send(f"No user found matching '{name}'", ephemeral=True)

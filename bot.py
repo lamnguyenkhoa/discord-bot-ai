@@ -289,8 +289,13 @@ async def on_message(message: discord.Message):
             await client.close()
             exit(0)
 
-    # Silently observe watched channels
-    channel_key = str(message.channel)
+    # Silently observe watched channels (including threads in those channels)
+    effective_channel = (
+        message.channel.parent
+        if hasattr(message.channel, "parent") and message.channel.parent is not None
+        else message.channel
+    )
+    channel_key = str(effective_channel)
     if channel_key in config.WATCH_CHANNELS and client.user not in message.mentions:
         user_text = message.content.strip()
         if user_text:
