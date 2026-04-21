@@ -53,6 +53,10 @@ from module.<module_name> import get_component_name
 component = get_component_name()
 ```
 
+### 4. README.md file
+
+Explanation how to use it.
+
 ## Key Principles
 
 1. **Singleton pattern** - Use global `get_*` function to return single instance
@@ -60,4 +64,4 @@ component = get_component_name()
 3. **Re-export in `__init__.py`** - Clean public API
 4. **Use config.py** - Configuration stays in main config
 5. **Logger per module** - `logger = logging.getLogger(__name__)`
-6. **README.md** - Explanationa and guide
+6. **README.md** - Explanation and guide

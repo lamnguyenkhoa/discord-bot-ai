@@ -465,18 +465,38 @@ async def _handle_trigger(request):
     except Exception:
         return web.json_response({"error": "Invalid JSON"}, status=400)
 
+    prompt_text = data.get("prompt", "")
     message_text = data.get("message", "")
     channel_name = data.get("channel", "")
 
-    if not message_text:
-        return web.json_response({"error": "message is required"}, status=400)
     if not channel_name:
         return web.json_response({"error": "channel is required"}, status=400)
+    if not prompt_text and not message_text:
+        return web.json_response({"error": "prompt or message is required"}, status=400)
 
     channel_name = channel_name.lstrip("#")
+    mention_input = data.get("mention", "").strip()
 
     guild = None
     target_channel = None
+    mention_text = ""
+
+    if mention_input:
+        username = mention_input.lstrip("@")
+        for g in request.app["client"].guilds:
+            for ch in g.text_channels:
+                if ch.name == channel_name:
+                    for member in g.members:
+                        if member.name == username or member.display_name == username:
+                            mention_text = member.mention
+                            guild = g
+                            break
+                    if mention_text:
+                        break
+            if mention_text:
+                break
+        if not mention_text:
+            logger.warning(f"Could not resolve mention: {mention_input}")
 
     for g in request.app["client"].guilds:
         for ch in g.text_channels:
@@ -501,19 +521,31 @@ async def _handle_trigger(request):
             self.mention = user.mention
 
     class FakeMessage:
-        def __init__(self, channel, guild, content):
+        def __init__(self, channel, guild, content, mention=None):
             self.channel = channel
             self.guild = guild
-            self.content = f"{request.app['client'].user.mention} {content}"
+            self.mention = mention
+            prefix = f"{mention} " if mention else ""
+            self.content = f"{request.app['client'].user.mention} {prefix}{content}"
             self.author = FakeMember(request.app["client"].user)
             self.attachments = []
             self.mentions = [request.app["client"].user]
             self.id = 0
 
         async def reply(self, content, **kwargs):
-            return await self.channel.send(content, **kwargs)
+            mention_prefix = f"{self.mention} " if self.mention else ""
+            return await self.channel.send(f"{mention_prefix}{content}", **kwargs)
 
-    fake_message = FakeMessage(target_channel, guild, message_text)
+    if prompt_text:
+        fake_message = FakeMessage(target_channel, guild, prompt_text, mention_text)
+        try:
+            request.app["client"].dispatch("message", fake_message)
+            return web.json_response({"status": "ok", "message": "Prompt sent"})
+        except Exception as e:
+            logger.error(f"Trigger error: {e}")
+            return web.json_response({"error": str(e)}, status=500)
+
+    fake_message = FakeMessage(target_channel, guild, message_text, mention_text)
 
     try:
         request.app["client"].dispatch("message", fake_message)
