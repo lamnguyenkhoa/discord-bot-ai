@@ -17,6 +17,7 @@ from module.meme_reaction import get_meme_manager, get_trigger_decider
 from module.auto_post import get_auto_post_manager, get_scheduled_poster
 from module.follow_up_chat import get_follow_up_manager
 from module.voice_chat.voice_commands import join_command, leave_command
+from module.utility_command import load as load_utility_commands
 import logging
 import re
 from aiohttp import web
@@ -36,6 +37,7 @@ client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 tree.add_command(join_command)
 tree.add_command(leave_command)
+load_utility_commands(tree)
 
 
 async def _file_watcher():
